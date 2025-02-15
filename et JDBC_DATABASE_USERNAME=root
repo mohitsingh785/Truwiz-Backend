@@ -1,0 +1,53 @@
+[33mcommit d5c06cecb0a4386aab9ec617c336a0bbe5df516b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Your Name <your.email@example.com>
+Date:   Sat Feb 15 14:05:26 2025 +0530
+
+    Initial commit of my Spring Boot project
+
+ .gitignore                                         |  38 [32m++[m
+ .idea/encodings.xml                                |   7 [32m+[m
+ .idea/misc.xml                                     |  14 [32m+[m
+ .idea/uiDesigner.xml                               | 124 [32m+++++[m
+ .idea/vcs.xml                                      |   6 [32m+[m
+ .idea/workspace.xml                                | 100 [32m++++[m
+ pom.xml                                            |  85 [32m++++[m
+ src/main/java/org/Jtech/Constant/Gender.java       |  18 [32m+[m
+ .../Jtech/Controller/HealthCheckController.java    | 539 [32m+++++++++++++++++++++[m
+ src/main/java/org/Jtech/DTO/OpenAIChatRequest.java |  93 [32m++++[m
+ .../org/Jtech/DTO/ProductChemicalResponseDTO.java  |  51 [32m++[m
+ .../java/org/Jtech/DTO/ProductEvaluationDTO.java   | 156 [32m++++++[m
+ src/main/java/org/Jtech/DTO/UsageGuideDTO.java     |  64 [32m+++[m
+ src/main/java/org/Jtech/DTO/UserData.java          |  68 [32m+++[m
+ src/main/java/org/Jtech/DTO/UserDetailsDTO.java    | 110 [32m+++++[m
+ src/main/java/org/Jtech/DTO/UserFullData.java      |  79 [32m+++[m
+ src/main/java/org/Jtech/DTO/UserLoginDTO.java      |  25 [32m+[m
+ src/main/java/org/Jtech/Entity/Category.java       |  53 [32m++[m
+ src/main/java/org/Jtech/Entity/EmailVerify.java    |  51 [32m++[m
+ src/main/java/org/Jtech/Entity/KeyStore.java       |  51 [32m++[m
+ src/main/java/org/Jtech/Entity/OTP.java            |  46 [32m++[m
+ src/main/java/org/Jtech/Entity/User.java           |  49 [32m++[m
+ src/main/java/org/Jtech/Entity/UserDetails.java    |  82 [32m++++[m
+ .../java/org/Jtech/HealthCheckApplication.java     |  21 [32m+[m
+ .../java/org/Jtech/Model/CategoryResponse.java     |  43 [32m++[m
+ .../java/org/Jtech/Model/GetUserIdResponse.java    |  43 [32m++[m
+ src/main/java/org/Jtech/Model/OpenAIResponse.java  |  48 [32m++[m
+ src/main/java/org/Jtech/Model/OtpResponse.java     |  33 [32m++[m
+ .../org/Jtech/Model/ProductEvaluationRequest.java  | 115 [32m+++++[m
+ src/main/java/org/Jtech/Model/UserAndDetails.java  |  28 [32m++[m
+ .../org/Jtech/Repository/CategoryRepository.java   |  14 [32m+[m
+ .../org/Jtech/Repository/EmailOtpRepository.java   |  16 [32m+[m
+ .../java/org/Jtech/Repository/KeyRepository.java   |  24 [32m+[m
+ .../java/org/Jtech/Repository/OtpRepository.java   |  18 [32m+[m
+ .../Jtech/Repository/UserDetailsRepository.java    |  15 [32m+[m
+ .../java/org/Jtech/Repository/UserRepository.java  |  39 [32m++[m
+ src/main/java/org/Jtech/Service/EmailService.java  |  23 [32m+[m
+ .../java/org/Jtech/Service/HealthCheckService.java | 127 [32m+++++[m
+ src/main/java/org/Jtech/Service/OpenAIService.java | 357 [32m++++++++++++++[m
+ src/main/java/org/Jtech/Swagger/SwaggerConfig.java |  28 [32m++[m
+ .../TrainedModel/ProductDescriptionPrompt.java     | 125 [32m+++++[m
+ .../Jtech/TrainedModel/ProductDetailTrainer.java   | 124 [32m+++++[m
+ .../org/Jtech/TrainedModel/ProductusagePrompt.java |  87 [32m++++[m
+ src/main/java/org/Jtech/Util/PasswordUtil.java     |  31 [32m++[m
+ .../org/Jtech/Util/StringListJsonConverter.java    |  38 [32m++[m
+ src/main/resources/application.properties          |  19 [32m+[m
+ 46 files changed, 3325 insertions(+)

@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/HealthCheckApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/HealthCheckApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +64,13 @@
   </component>
   <component name="RunManager">
     <configuration name="HealthCheckApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="JDBC_DATABASE_PASSWORD" value="Rewa1056@" />
+        <env name="JDBC_DATABASE_URL" value="jdbc:mysql://localhost:3306/health_check" />
+        <env name="JDBC_DATABASE_USERNAME" value="root" />
+        <env name="MAIL_PASSWORD" value="tkrp raed essr rfrt" />
+        <env name="MAIL_USERNAME" value="detoxify402@gmail.com" />
+      </envs>
       <option name="MAIN_CLASS_NAME" value="org.Jtech.HealthCheckApplication" />
       <module name="healthcheck-service" />
       <extension name="coverage">
