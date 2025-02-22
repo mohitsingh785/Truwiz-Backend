@@ -60,11 +60,11 @@ public class HealthCheckController {
     @Autowired
     private PasswordUtil passwordUtil;
 
+
+
     @Operation(summary = "Get User Details", description = "Fetch user details by their ID.")
     @GetMapping("userDetail")
     public  ResponseEntity<?> getuser(@RequestParam(value = "id", required = false) Long id){
-
-
 
 
         if (id == null) {
@@ -84,31 +84,62 @@ public class HealthCheckController {
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 
-
-    @Operation(summary = "User Login", description = "Authenticate a user by email and password.")
+    @Operation(
+            summary = "Login using email and password",
+            description = "Login using email and password and get all user details",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Logged in successfully",
+                            content = @Content(schema = @Schema(implementation = CombinedUserDetails.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "User not found",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Invalid request parameters",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDTO userLoginDTO) {
         String email = userLoginDTO.getEmail();
-
         String password = userLoginDTO.getPassword();
-        Optional<UserData> user = healthCheckService.authenticate(email);
+        Optional<UserData> userDataOptional = healthCheckService.authenticate(email);
 
+        if (userDataOptional.isPresent()) {
+            UserData userData = userDataOptional.get();
+            Long userId = userData.getUserID();
+            UserDetailsDTO userDetailsDTO = userDetailsRepository.userdetaildata(userId);
 
-        if (user.isPresent()) {
-            Long userId = user.get().getUserID(); // Assuming `UserData` has a `getUserId()` method
+            String encryptedPassword = userData.getPassword();
+            if (passwordUtil.matchPassword(password, encryptedPassword)) {
+                // Assuming `CombinedUserDetails` constructor takes all required parameters.
+                CombinedUserDetails combinedUserDetails = new CombinedUserDetails(
+                        userId,
+                        userData.getUserName(),
+                        userData.getEmail(),
+                        userData.getPhoneNumber(),
+                        userDetailsDTO.getSkinType(),
+                        userDetailsDTO.getAge(),
+                        userDetailsDTO.getGender(),
+                        userDetailsDTO.getSkinColour(),
+                        userDetailsDTO.getAllergies(),
+                        userDetailsDTO.getBmi(),
+                        userDetailsDTO.getWeight()
+                );
 
-            String encryptpass=user.get().getPassword();
-
-            if(passwordUtil.matchPassword(password,encryptpass)) {
-
-                return ResponseEntity.ok("Login successful for user ID: " + userId);
-            }
-            else{
+                // Returning CombinedUserDetails as JSON response.
+                return ResponseEntity.ok(combinedUserDetails);
+            } else {
                 return ResponseEntity.status(401).body("Invalid email or password!");
-
             }
         } else {
-            return ResponseEntity.status(401).body("User doesn't Exist");
+            return ResponseEntity.status(401).body("User doesn't exist.");
         }
     }
 
@@ -478,7 +509,7 @@ public class HealthCheckController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Product Evaluated Successfully",
-                            content = @Content(schema = @Schema(implementation = ProductEvaluationRequest.class))
+                            content = @Content(schema = @Schema(implementation = ProductEvaluationDTO.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
@@ -487,7 +518,7 @@ public class HealthCheckController {
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(implementation = ProductEvaluationDTO.class))
+                    content = @Content(schema = @Schema(implementation = ProductEvaluationRequest.class))
             )
 
     )
