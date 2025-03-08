@@ -56,6 +56,7 @@ public class ProductEvaluationRequest {
         private String gender;
         private int age;
         private String skinType;
+        private String scalpType;
         private String allergies;
         private double weight;
         private double bmi;
@@ -110,6 +111,13 @@ public class ProductEvaluationRequest {
         }
 
 
+        public String getScalpType() {
+            return scalpType;
+        }
+
+        public void setScalpType(String scalpType) {
+            this.scalpType = scalpType;
+        }
     }
 
 }

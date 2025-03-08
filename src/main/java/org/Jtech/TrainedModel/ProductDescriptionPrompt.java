@@ -22,6 +22,7 @@ public class ProductDescriptionPrompt {
                         "  - Gender: Male\n" +
                         "  - Age: 20\n" +
                         "  - Skin Type: Fair\n" +
+                        "  - Scalp Type: Sensitive\n" +
                         "  - Allergies: None\n" +
                         "  - Weight: 75 kg\n" +
                         "  - BMI: 22.5\n\n" +

@@ -9,6 +9,7 @@ public class UserDetailsDTO {
 
     private Long userId;
     private String skinType;
+    private String hairType;
     private Integer age;
     private Gender gender;
     private String skinColour;
@@ -16,9 +17,10 @@ public class UserDetailsDTO {
     private Float bmi;
     private Float weight;
 
-    public UserDetailsDTO(Long userId, String skinType, Integer age, Gender gender, String skinColour, List<String> allergies, Float bmi, Float weight) {
+    public UserDetailsDTO(Long userId, String skinType,String hairType, Integer age, Gender gender, String skinColour, List<String> allergies, Float bmi, Float weight) {
         this.userId = userId;
         this.skinType = skinType;
+        this.hairType=hairType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
@@ -106,5 +108,13 @@ public class UserDetailsDTO {
                 ", bmi=" + bmi +
                 ", weight=" + weight +
                 '}';
+    }
+
+    public String getHairType() {
+        return hairType;
+    }
+
+    public void setHairType(String hairType) {
+        this.hairType = hairType;
     }
 }

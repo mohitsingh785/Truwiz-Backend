@@ -8,6 +8,9 @@ import org.Jtech.Entity.*;
 import org.Jtech.Model.OtpResponse;
 import org.Jtech.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Random;
 
 
 @Service
-public class HealthCheckService {
+public class HealthCheckService implements UserDetailsService {
 
 
     @Autowired
@@ -123,5 +126,10 @@ public class HealthCheckService {
     }
 
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        User user1=user.findByEmail(username).orElseThrow(()-> new RuntimeException("User Not Found"));
+        return user1;
+    }
 }

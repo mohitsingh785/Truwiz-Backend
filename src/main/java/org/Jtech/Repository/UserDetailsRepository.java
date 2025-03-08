@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserDetailsRepository extends CrudRepository<UserDetails, Long> {
 
 
-    @Query("SELECT new org.Jtech.DTO.UserDetailsDTO(u.user.userId, u.skinType, u.age, u.gender, u.skinColour, u.anyAllergies, u.bmi, u.weight) " +
+    @Query("SELECT new org.Jtech.DTO.UserDetailsDTO(u.user.userId, u.skinType,u.hairType, u.age, u.gender, u.skinColour, u.anyAllergies, u.bmi, u.weight) " +
             "FROM UserDetails u WHERE u.user.userId = :id")
     UserDetailsDTO userdetaildata(@Param("id") Long id);
 }

@@ -8,8 +8,10 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.Jtech.DTO.*;
+import org.Jtech.jwt.JwtHelper;
 import org.Jtech.Model.*;
 import org.Jtech.Repository.EmailOtpRepository;
 import org.Jtech.Service.EmailService;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -42,6 +45,8 @@ public class HealthCheckController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthenticationManager manager;
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
@@ -60,11 +65,13 @@ public class HealthCheckController {
     @Autowired
     private PasswordUtil passwordUtil;
 
+    @Autowired
+    private JwtHelper helper;
 
 
     @Operation(summary = "Get User Details", description = "Fetch user details by their ID.")
     @GetMapping("userDetail")
-    public  ResponseEntity<?> getuser(@RequestParam(value = "id", required = false) Long id){
+    public ResponseEntity<?> getuser(@RequestParam(value = "id", required = false) Long id) {
 
 
         if (id == null) {
@@ -87,6 +94,7 @@ public class HealthCheckController {
     @Operation(
             summary = "Login using email and password",
             description = "Login using email and password and get all user details",
+            security = @SecurityRequirement(name = "bearerAuth"),
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -118,13 +126,17 @@ public class HealthCheckController {
 
             String encryptedPassword = userData.getPassword();
             if (passwordUtil.matchPassword(password, encryptedPassword)) {
+                org.springframework.security.core.userdetails.UserDetails userDetails = healthCheckService.loadUserByUsername(email);
+                String token = this.helper.generateToken(userDetails);
                 // Assuming `CombinedUserDetails` constructor takes all required parameters.
                 CombinedUserDetails combinedUserDetails = new CombinedUserDetails(
+                        token,
                         userId,
                         userData.getUserName(),
                         userData.getEmail(),
                         userData.getPhoneNumber(),
                         userDetailsDTO.getSkinType(),
+                        userDetailsDTO.getHairType(),
                         userDetailsDTO.getAge(),
                         userDetailsDTO.getGender(),
                         userDetailsDTO.getSkinColour(),
@@ -132,6 +144,7 @@ public class HealthCheckController {
                         userDetailsDTO.getBmi(),
                         userDetailsDTO.getWeight()
                 );
+
 
                 // Returning CombinedUserDetails as JSON response.
                 return ResponseEntity.ok(combinedUserDetails);
@@ -175,7 +188,7 @@ public class HealthCheckController {
                 return ResponseEntity.badRequest().body("Invalid request parameters.");
             }
 
-            String encryptpass= passwordUtil.hashPassword(password);
+            String encryptpass = passwordUtil.hashPassword(password);
 
             boolean updated = healthCheckService.changeUserPassword(id, encryptpass);
             if (!updated) {
@@ -186,7 +199,6 @@ public class HealthCheckController {
             return ResponseEntity.internalServerError().body("An error occurred while resetting the password.");
         }
     }
-
 
 
     @Operation(
@@ -207,6 +219,7 @@ public class HealthCheckController {
                                             "    \"phoneNumber\": \"9876543210\"\n" +
                                             "  },\n" +
                                             "  \"userDetails\": {\n" +
+                                            "    \"hairType\": \"Oily\",\n" +
                                             "    \"skinType\": \"Oily\",\n" +
                                             "    \"age\": 25,\n" +
                                             "    \"gender\": \"MALE\",\n" +
@@ -233,7 +246,7 @@ public class HealthCheckController {
     public ResponseEntity<String> addUserAndDetails(@RequestBody UserAndDetails userAndDetails) {
         try {
             User user = userAndDetails.getUser();
-            String encryptpass= passwordUtil.hashPassword(userAndDetails.getUser().getPassword());
+            String encryptpass = passwordUtil.hashPassword(userAndDetails.getUser().getPassword());
             user.setPassword(encryptpass);
             UserDetails userDetails = userAndDetails.getUserDetails();
 
@@ -269,7 +282,6 @@ public class HealthCheckController {
     }
 
 
-
     @Operation(summary = "Generate OTP", description = "Generate an OTP for a user's email.")
     @GetMapping("/Generate_otp")
     public ResponseEntity<GetUserIdResponse> getuserIdbyemail(@RequestParam(value = "email", required = true) String email) {
@@ -301,7 +313,7 @@ public class HealthCheckController {
         healthCheckService.saveOrUpdateOtp(otp);
 
         String subject = "Your OTP Code";
-        String body = "Dear user,\n\nYour OTP code is:" +generatedOtp +  "\n\nRegards,\nToxi Scan Teams";
+        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
 
         try {
             emailService.sendOtpEmail(email, subject, body);
@@ -321,7 +333,6 @@ public class HealthCheckController {
     @GetMapping("/generate-otp-email-verify")
     public ResponseEntity<GetUserIdResponse> verifyEmailbyotp(@RequestParam(value = "email", required = true) String email) {
         Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
 
         logger.info("Received request to generate OTP for email: {}", email);
@@ -345,7 +356,7 @@ public class HealthCheckController {
         emailOtpRepository.save(otp);
 
         String subject = "Your OTP Code";
-        String body = "Dear user,\n\nYour OTP code is:" +generatedOtp +  "\n\nRegards,\nToxi Scan Teams";
+        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
 
         try {
             emailService.sendOtpEmail(email, subject, body);
@@ -355,8 +366,8 @@ public class HealthCheckController {
 
         }
         // If the user ID is found, return a 200 response
-        GetUserIdResponse response = new GetUserIdResponse((long)otp.getId(), "OTP sent successfully", 200);
-        logger.info("Response sent for email: {} with userId: {}", email, (long)otp.getId());
+        GetUserIdResponse response = new GetUserIdResponse((long) otp.getId(), "OTP sent successfully", 200);
+        logger.info("Response sent for email: {} with userId: {}", email, (long) otp.getId());
         return ResponseEntity.ok(response);
     }
 
@@ -446,7 +457,6 @@ public class HealthCheckController {
     }
 
 
-
     @Operation(summary = "Get All Categories", description = "Retrieve all product categories.",
             responses = {
                     @ApiResponse(
@@ -461,19 +471,19 @@ public class HealthCheckController {
                     )
             }
     )
-   @GetMapping("getallcategory")
-    public ResponseEntity<CategoryResponse> getallcategory(){
+    @GetMapping("getallcategory")
+    public ResponseEntity<CategoryResponse> getallcategory() {
 
 
-        List<Category> category= healthCheckService.getallcategory();
+        List<Category> category = healthCheckService.getallcategory();
 
 
-        if(category.isEmpty()){
-            return ResponseEntity.status(204).body(new CategoryResponse(204,"No Category Found",category));
+        if (category.isEmpty()) {
+            return ResponseEntity.status(204).body(new CategoryResponse(204, "No Category Found", category));
         }
 
-        return ResponseEntity.status(200).body(new CategoryResponse(200,"Total Category Found : "+category.size(),category));
-   }
+        return ResponseEntity.status(200).body(new CategoryResponse(200, "Total Category Found : " + category.size(), category));
+    }
 
 
     @Operation(summary = "Analyze Product Chemicals", description = "Analyze the chemicals in a product.",
@@ -532,8 +542,6 @@ public class HealthCheckController {
 
         return ResponseEntity.ok(responseDTO);
     }
-
-
 
 
     @Operation(

@@ -21,6 +21,9 @@ public class UserDetails {
     @Column(name = "skin_type", nullable = false)
     private String skinType;
 
+    @Column(name = "hair_type", nullable = false)
+    private String hairType;
+
     @Column(name = "age", nullable = false)
     private Integer age;
 
@@ -31,6 +34,8 @@ public class UserDetails {
     @Column(name = "skin_color")
     @JsonProperty("skinColour")
     private String skinColour;
+
+
 
     @Column(name = "allergies", columnDefinition = "json")
     @Convert(converter = StringListJsonConverter.class)
@@ -77,6 +82,12 @@ public class UserDetails {
     public void setWeight(Float weight) { this.weight = weight; }
 
 
+    public String getHairType() {
+        return hairType;
+    }
 
+    public void setHairType(String hairType) {
+        this.hairType = hairType;
+    }
 }
 

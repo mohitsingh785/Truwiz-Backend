@@ -12,7 +12,6 @@ public class ProductusagePrompt {
 
         list = new ArrayList<>();
 
-
         list.add(
 
                 "Analyze the following beauty product details and provide a usage guide in the specified format. and  ensuring the usage guide is in based on considers the user's weight, BMI, and individual characteristics.\n\n" +
@@ -25,6 +24,7 @@ public class ProductusagePrompt {
                         "  - Gender: Male\n" +
                         "  - Age: 20\n" +
                         "  - Skin Type: Fair\n" +
+                        "  - Scalp Type: Sensitive\n" +
                         "  - Allergies: None\n" +
                         "  - Weight: 75 kg\n" +
                         "  - BMI: 22.5\n\n" +

@@ -10,9 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class HealthCheckApplication {
     private static final Logger logger = LoggerFactory.getLogger(HealthCheckApplication.class);
     public static void main(String[] args) {
-        logger.info("JDBC URL from Env: {}", System.getenv("JDBC_DATABASE_USERNAME"));
-        logger.info("JDBC URL from Env: {}", System.getenv("JDBC_DATABASE_URL"));
-        logger.info("JDBC URL from Env: {}", System.getenv("JDBC_DATABASE_PASSWORD"));
         SpringApplication.run(HealthCheckApplication.class, args);
     }
 

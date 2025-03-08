@@ -6,11 +6,13 @@ import org.Jtech.Constant.Gender;
 import java.util.List;
 
 public class CombinedUserDetails {
+    private String Token;
     private Long userId;
     private String userName;
     private String email;
     private String phoneNumber;
     private String skinType;
+    private String hairType;
     private Integer age;
     private Gender gender;
     private String skinColour;
@@ -19,13 +21,15 @@ public class CombinedUserDetails {
     private Float weight;
 
     // Constructor
-    public CombinedUserDetails(Long userId, String userName, String email, String phoneNumber,
-                               String skinType, Integer age, Gender gender, String skinColour,
+    public CombinedUserDetails(String Token,Long userId, String userName, String email, String phoneNumber,
+                               String skinType, String hairType,Integer age, Gender gender, String skinColour,
                                List<String> allergies, Float bmi, Float weight) {
+        this.Token=Token;
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.hairType = hairType;
         this.skinType = skinType;
         this.age = age;
         this.gender = gender;
@@ -33,6 +37,15 @@ public class CombinedUserDetails {
         this.allergies = allergies;
         this.bmi = bmi;
         this.weight = weight;
+    }
+
+
+    public String getToken() {
+        return Token;
+    }
+
+    public void setToken(String token) {
+        Token = token;
     }
 
     // Getters and Setters
@@ -139,5 +152,13 @@ public class CombinedUserDetails {
                 ", bmi=" + bmi +
                 ", weight=" + weight +
                 '}';
+    }
+
+    public String getHairType() {
+        return hairType;
+    }
+
+    public void setHairType(String hairType) {
+        this.hairType = hairType;
     }
 }
