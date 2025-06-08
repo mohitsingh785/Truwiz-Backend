@@ -39,19 +39,19 @@ public class ProductusagePrompt {
                         "   - Gently massage in circular motions until fully absorbed.\n" +
                         "   - Avoid applying to broken or irritated skin.\n" +
                         "\n" +
-                        "2. When to Use:\n" +
+                        "When to Use:\n" +
                         "   - Best used during the morning and night skincare routine.\n" +
                         "   - Suitable for all seasons but especially beneficial during dry, cold weather.\n" +
                         "\n" +
-                        "3. Precautions:\n" +
+                        "Precautions:\n" +
                         "   - Contains Alcohol Denat. and Fragrance, which may irritate sensitive skin. Perform a patch test before use.\n" +
                         "   - Avoid direct contact with eyes; rinse thoroughly if contact occurs.\n" +
                         "\n"  +
-                        "4. Storage Instructions:\n" +
+                        "Storage Instructions:\n" +
                         "   - Store in a cool, dry place away from direct sunlight.\n" +
                         "   - Ensure the lid is tightly closed after each use to prevent contamination.\n" +
                         "\n" +
-                        "5. Additional Tips:\n" +
+                        "Additional Tips:\n" +
                         "   - For optimal results, use after applying a toner or serum.\n" +
                         "   - Pair with sunscreen during the daytime to protect skin from UV damage.\n"
 
