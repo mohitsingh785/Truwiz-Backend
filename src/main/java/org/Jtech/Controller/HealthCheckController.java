@@ -486,6 +486,36 @@ public class HealthCheckController {
     }
 
 
+
+    @Operation(summary = "Get All Articles", description = "Retrieve all Articles ",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Total Article Found : 12",
+                            content = @Content(schema = @Schema(implementation = ArticleResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "204",
+                            description = "No Article Found",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+    @GetMapping("getAllArticle")
+    public ResponseEntity<ArticleResponse> getAllArticle() {
+
+
+        List<Article> articles = healthCheckService.getAllArticle();
+
+
+        if (articles.isEmpty()) {
+            return ResponseEntity.status(204).body(new ArticleResponse(204, "No Article Found", articles));
+        }
+
+        return ResponseEntity.status(200).body(new ArticleResponse(200, "Total Article Found : " + articles.size(), articles));
+    }
+
+
     @Operation(summary = "Analyze Product Chemicals", description = "Analyze the chemicals in a product.",
             responses = {
                     @ApiResponse(

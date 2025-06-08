@@ -40,6 +40,9 @@ public class HealthCheckService implements UserDetailsService {
     @Autowired
     private KeyRepository keyRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
 
 
 
@@ -116,6 +119,11 @@ public class HealthCheckService implements UserDetailsService {
     public List<Category> getallcategory(){
 
         return categoryRepository.getAllCategories();
+    }
+
+    public List<Article> getAllArticle(){
+
+        return articleRepository.getAllArticle();
     }
 
 
