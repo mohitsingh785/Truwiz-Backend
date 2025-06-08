@@ -89,38 +89,74 @@ public class ProductDescriptionPrompt {
                         "Why Not Recommended: Contains potential irritants and may not suit sensitive skin or long-term hydration needs.\n"
         );
     }
-
     public String generatePrompt(String inputDetails) {
-        // Combine examples with the new input
-        StringBuilder promptBuilder = new StringBuilder(
-                "Analyze the following beauty product and user details. Provide an evaluation in the specified format, ensuring the rating for Skin Suitability and Overall Rating considers the user's weight, BMI, and individual characteristics.\n\n"
-        );
 
-        // Append examples
-        for (String example : examples) {
-            promptBuilder.append(example).append("\n");
-        }
+        StringBuilder promptBuilder = new StringBuilder();
 
-        // Add the provided input details
-        promptBuilder.append("Input Details:\n").append(inputDetails).append("\n\n")
+        promptBuilder
+                .append("You are a skincare formulation expert.\n")
+                .append("Your job is to evaluate a beauty product based on its chemicals and how it fits a specific user's profile.\n")
+                .append("Ratings should strictly reflect the user's personal characteristics such as age, gender, weight, BMI, skin type, allergies, etc.\n")
+                .append("Do NOT generate generic answers. Base all points only on the actual provided input.\n\n")
+                .append("Input Details:\n")
+                .append(inputDetails)
+                .append("\n\n")
+                .append("Respond only in this format:\n\n")
                 .append("Product Evaluation:\n")
-                .append("Harmful Chemicals Rating: \n")
-                .append("Ingredients: \n")
-                .append("⚫ Concern: \n\n")
-                .append("Good Chemicals Rating: \n")
-                .append("Ingredients: \n")
-                .append("Benefit: \n\n")
-                .append("Skin Suitability Rating: \n")
-                .append("Best For: \n")
-                .append("Note: \n\n")
+                .append("Harmful Chemicals Rating: [1-10]\n")
+                .append("Ingredients: [List of harmful chemicals only from input]\n")
+                .append("⚫ Concern: [e.g., may irritate dry skin, can cause sensitivity, etc.]\n\n")
+
+                .append("Good Chemicals Rating: [1-10]\n")
+                .append("Ingredients: [List of good chemicals only from input]\n")
+                .append("Benefit: [e.g., hydrates, nourishes, exfoliates, etc. based on actual chemicals]\n\n")
+
+                .append("Skin Suitability Rating: [1-10]\n")
+                .append("Best For: [Best suited skin types based on product and user]\n")
+                .append("Note: [Warnings or helpful tips]\n\n")
+
                 .append("Best Age Group:\n")
-                .append("Rating: \n")
-                .append("Ideal For: \n")
-                .append("Reason: \n\n")
+                .append("Rating: [1-10]\n")
+                .append("Ideal For: [User’s age group suitability]\n")
+                .append("Reason: [Why this age group is ideal based on product properties]\n\n")
+
                 .append("Overall Rating:\n")
-                .append("Rating: \n")
-                .append("[Why Buy/Why Not Recommended]: \n");
+                .append("Rating: [1-10]\n")
+                .append("[Why Buy/Why Not Recommended]: [Final recommendation based on product and user compatibility]\n");
 
         return promptBuilder.toString();
     }
+//    public String generatePrompt(String inputDetails) {
+//        // Combine examples with the new input
+//        StringBuilder promptBuilder = new StringBuilder(
+//                "Analyze the following beauty product and user details. Provide an evaluation in the specified format, ensuring the rating for Skin Suitability and Overall Rating considers the user's weight, BMI, and individual characteristics.\n\n"
+//        );
+//
+//        // Append examples
+//        for (String example : examples) {
+//            promptBuilder.append(example).append("\n");
+//        }
+//
+//        // Add the provided input details
+//        promptBuilder.append("Input Details:\n").append(inputDetails).append("\n\n")
+//                .append("Product Evaluation:\n")
+//                .append("Harmful Chemicals Rating: \n")
+//                .append("Ingredients: \n")
+//                .append("⚫ Concern: \n\n")
+//                .append("Good Chemicals Rating: \n")
+//                .append("Ingredients: \n")
+//                .append("Benefit: \n\n")
+//                .append("Skin Suitability Rating: \n")
+//                .append("Best For: \n")
+//                .append("Note: \n\n")
+//                .append("Best Age Group:\n")
+//                .append("Rating: \n")
+//                .append("Ideal For: \n")
+//                .append("Reason: \n\n")
+//                .append("Overall Rating:\n")
+//                .append("Rating: \n")
+//                .append("[Why Buy/Why Not Recommended]: \n");
+//
+//        return promptBuilder.toString();
+//    }
 }
