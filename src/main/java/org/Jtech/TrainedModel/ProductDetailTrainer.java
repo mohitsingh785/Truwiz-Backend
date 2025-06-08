@@ -43,7 +43,8 @@ public class ProductDetailTrainer {
 
         promptBuilder.append("You are an expert product label analyzer.\n")
                 .append("Your job is to extract structured product details from unstructured text.\n")
-                .append("Only return values that exist in the input text. If a value is missing, leave it blank.\n\n")
+                .append("Only return values that exist in the input text. If a value is missing, leave it blank.\n\n").
+                append("IMPORTANT: All products related to skincare, haircare, bodycare, or cosmetics should be categorized as 'Personal Care'. Do not use sub-categories like 'Hair Care' or 'Face Care'.\n\n")
                 .append("Use this format:\n")
                 .append("Product Name:\n")
                 .append("Product Category:\n")

@@ -98,6 +98,8 @@ public class ProductDescriptionPrompt {
                 .append("Your job is to evaluate a beauty product based on its chemicals and how it fits a specific user's profile.\n")
                 .append("Ratings should strictly reflect the user's personal characteristics such as age, gender, weight, BMI, skin type, allergies, etc.\n")
                 .append("Do NOT generate generic answers. Base all points only on the actual provided input.\n\n")
+                .append("If the input contains placeholders like 'string', 0, or empty values, reply with:\n")
+                .append("\"Error: Incomplete or placeholder input. Cannot evaluate.\"\n\n")
                 .append("Input Details:\n")
                 .append(inputDetails)
                 .append("\n\n")
