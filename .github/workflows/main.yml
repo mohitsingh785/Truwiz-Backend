@@ -41,15 +41,18 @@ jobs:
 
       - name: Connect to EC2 and deploy
         run: |
-          ssh -o StrictHostKeyChecking=no -i ec2key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ec2key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
             docker pull ${{ secrets.DOCKER_USERNAME }}/truwiz:latest
             docker stop truwiz || true && docker rm truwiz || true
-            docker run -d --name truwiz -p 80:8080 /
-           -e JDBC_DATABASE_URL="${JDBC_DATABASE_URL}" \
-              -e JDBC_DATABASE_USERNAME="${JDBC_DATABASE_USERNAME}" \
-              -e JDBC_DATABASE_PASSWORD="${JDBC_DATABASE_PASSWORD}" \
-              -e MAIL_USERNAME="${MAIL_USERNAME}" \
-              -e MAIL_PASSWORD="${MAIL_PASSWORD}" \
+            docker run -d \
+              --name truwiz \
+              -p 80:8080 \
+              -e JDBC_DATABASE_URL="${{ secrets.JDBC_DATABASE_URL }}" \
+              -e JDBC_DATABASE_USERNAME="${{ secrets.JDBC_DATABASE_USERNAME }}" \
+              -e JDBC_DATABASE_PASSWORD="${{ secrets.JDBC_DATABASE_PASSWORD }}" \
+              -e MAIL_USERNAME="${{ secrets.MAIL_USERNAME }}" \
+              -e MAIL_PASSWORD="${{ secrets.MAIL_PASSWORD }}" \
               ${{ secrets.DOCKER_USERNAME }}/truwiz:latest
           EOF
+     
 
