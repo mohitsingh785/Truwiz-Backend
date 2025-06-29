@@ -235,8 +235,10 @@ public class ProductDescriptionPrompt {
 
                 .append("Guidelines:\n")
                 .append("1. Harmful Chemicals Rating:\n")
-                .append("   - Rate from 1–10 based on the number and severity of harmful chemicals (e.g., alcohols, fragrances, sulfates).\n")
-                .append("   - A higher number of harsh chemicals = lower rating.\n\n")
+                .append("   - Rate from 1–10 based on the presence and severity of harmful chemicals (e.g., alcohols, fragrances, sulfates).\n")
+                .append("   - More harmful chemicals = lower rating (e.g., 1–3).\n")
+                .append("   - Fewer or no harmful chemicals = higher rating (e.g., 8–10).\n\n")
+
 
                 .append("2. Good Chemicals Rating:\n")
                 .append("   - Rate from 1–10 based on the quality and benefits of nourishing ingredients (e.g., shea butter, aloe vera).\n")
