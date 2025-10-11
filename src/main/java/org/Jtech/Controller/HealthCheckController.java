@@ -620,7 +620,7 @@ public class HealthCheckController {
                     )
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(implementation = ProductEvaluationRequest.class))
+                    content = @Content(schema = @Schema(implementation = GoodChemicalRequestDTO.class))
             )
     )
     @PostMapping("/get-good-chemical-table")
