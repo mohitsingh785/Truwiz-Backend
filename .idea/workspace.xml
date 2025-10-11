@@ -6,6 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/HealthCheckController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/HealthCheckController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/ProductEvaluationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/ProductEvaluationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDescriptionPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDescriptionPrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductusagePrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductusagePrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/HealthCheckController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/HealthCheckController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/CombinedUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/CombinedUserDetails.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/ProductEvaluationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/ProductEvaluationDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UsageGuideDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UsageGuideDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserDetailsDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserDetailsDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/ProductEvaluationRequest$UserDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/ProductEvaluationRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Model/ProductEvaluationRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/HealthCheckService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/HealthCheckService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/OpenAIService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/OpenAIService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDescriptionPrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDescriptionPrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductusagePrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductusagePrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

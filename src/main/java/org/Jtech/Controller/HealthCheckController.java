@@ -595,7 +595,70 @@ public class HealthCheckController {
     )
     @PostMapping("/get-product-guide")
     public ResponseEntity<?> productGuide(@RequestBody ProductEvaluationRequest request) {
-        UsageGuideDTO responseDTO = openAIService.fetchproductusageguide(request);
+        UsageGuideDTO responseDTO = openAIService.fetchProductUsageGuide(request);
+
+        if (responseDTO == null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("No result found");
+        }
+
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    @Operation(
+            summary = "Get Good Chemical Usage Table Data",
+            description = "Provides Good Chemical Usage Table Data  based on good chemical evaluation data.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Good Chemical Usage Table Data provided",
+                            content = @Content(schema = @Schema(implementation = GoodChemicalResponseDTO.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No Good Chemical Usage Table Data found",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = ProductEvaluationRequest.class))
+            )
+    )
+    @PostMapping("/get-good-chemical-table")
+    public ResponseEntity<?> goodChemicalTable(@RequestBody GoodChemicalRequestDTO goodChemicalRequestDTO){
+
+        GoodChemicalResponseDTO responseDTO = openAIService.fetchGoodChemicalTable(goodChemicalRequestDTO);
+
+        if (responseDTO == null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("No result found");
+        }
+
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
+    @Operation(
+            summary = "Get Harmful Chemical Usage Table Data",
+            description = "Provides Harmful Chemical Usage Table Data  based on good chemical evaluation data.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Harmful Chemical Usage Table Data provided",
+                            content = @Content(schema = @Schema(implementation = HarmfulChemicalResponseDTO.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No Harmful Chemical Usage Table Data found",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            },
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = HarmfulChemicalRequestDTO.class))
+            )
+    )
+    @PostMapping("/get-harmful-chemical-table")
+    public ResponseEntity<?> harmfulChemicalTable(@RequestBody HarmfulChemicalRequestDTO harmfulChemicalRequestDTO){
+
+        HarmfulChemicalResponseDTO responseDTO = openAIService.fetchHarmfulChemicalTable(harmfulChemicalRequestDTO);
 
         if (responseDTO == null) {
             return ResponseEntity.status(HttpStatus.CREATED).body("No result found");

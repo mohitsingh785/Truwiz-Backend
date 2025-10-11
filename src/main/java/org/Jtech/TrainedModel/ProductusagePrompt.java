@@ -5,21 +5,19 @@ import java.util.List;
 
 public class ProductusagePrompt {
 
-    private final List<String> list;
-
+    private final List<String> examples;
 
     public ProductusagePrompt() {
+        examples = new ArrayList<>();
 
-        list = new ArrayList<>();
-
-        list.add(
-
-                "Analyze the following beauty product details and provide a usage guide in the specified format. and  ensuring the usage guide is in based on considers the user's weight, BMI, and individual characteristics.\n\n" +
-                        "Input Details:\n" +
-                        "  \"- Product Name: Hydrating Face Cream\\n\" +\n" +
-                        "                        \"- Expiry Date: 12/2025\\n\" +\n" +
-                        "                        \"- Manufacturer: Skincare Inc.\\n\" +\n" +
-                        "                        \"- Chemicals: Shea Butter, Sunflower Oil, Alcohol Denat., Fragrance\\n\" " +
+        // ===== EXAMPLE 1 (REFERENCE ONLY - DO NOT REWRITE) =====
+        examples.add(
+                "EXAMPLE 1 (REFERENCE ONLY - DO NOT REWRITE)\n" +
+                        "INPUT DETAILS (Example):\n" +
+                        "- Product Name: Hydrating Face Cream\n" +
+                        "- Expiry Date: 12/2025\n" +
+                        "- Manufacturer: Skincare Inc.\n" +
+                        "- Chemicals: Shea Butter, Sunflower Oil, Alcohol Denat., Fragrance\n" +
                         "- User Details:\n" +
                         "  - Gender: Male\n" +
                         "  - Age: 20\n" +
@@ -28,60 +26,67 @@ public class ProductusagePrompt {
                         "  - Allergies: None\n" +
                         "  - Weight: 75 kg\n" +
                         "  - BMI: 22.5\n\n" +
-                        " Guidelines:\n" +
-                        "1. Include a detailed usage guide specifying when and how to use the product.\n" +
-                        "2. Provide specific warnings or precautions based on the chemicals in the product.\n" +
-                        "3. Include details on compatibility with skin types or environmental conditions (e.g., day/night use, summer/winter suitability).\n" +
-                        "4. Structure the output in the given format.\n"+
-                "Usage Guide:\n" +
+
+                        "EXPECTED OUTPUT (Example):\n" +
                         "How to Use:\n" +
-                        "   Apply a pea-sized amount of Hydrating Face Cream to clean, dry skin.\n" +
-                        "   Gently massage in circular motions until fully absorbed.\n" +
-                        "   Avoid applying to broken or irritated skin.\n" +
-                        "\n" +
+                        "- Apply a pea-sized amount to clean, dry skin; massage gently until absorbed.\n" +
+                        "- Avoid broken or irritated areas.\n\n" +
+
                         "When to Use:\n" +
-                        "   Best used during the morning and night skincare routine.\n" +
-                        "   Suitable for all seasons but especially beneficial during dry, cold weather.\n" +
-                        "\n" +
+                        "- Morning and night; increase frequency in dry/cold weather.\n\n" +
+
                         "Precautions:\n" +
-                        "   Contains Alcohol Denat. and Fragrance, which may irritate sensitive skin. Perform a patch test before use.\n" +
-                        "   Avoid direct contact with eyes; rinse thoroughly if contact occurs.\n" +
-                        "\n"  +
+                        "- Contains Alcohol Denat. and Fragrance; patch test recommended for sensitive scalp/skin.\n" +
+                        "- Avoid eye area; rinse if contact occurs.\n\n" +
+
                         "Storage Instructions:\n" +
-                        "   Store in a cool, dry place away from direct sunlight.\n" +
-                        "   Ensure the lid is tightly closed after each use to prevent contamination.\n" +
-                        "\n" +
+                        "- Keep in a cool, dry place away from sunlight; close lid tightly after use.\n\n" +
+
                         "Additional Tips:\n" +
-                        "   For optimal results, use after applying a toner or serum.\n" +
-                        "   Pair with sunscreen during the daytime to protect skin from UV damage.\n"
-
+                        "- Layer after toner/serum; use sunscreen in daytime.\n" +
+                        "- Adjust amount based on BMI/weight if experiencing heaviness or residue.\n"
         );
-
     }
 
-
     public String generateprompt(String inputs) {
+        StringBuilder sb = new StringBuilder();
 
-        StringBuilder prompt = new StringBuilder();
+        // 1) Task & Rules
+        sb.append("You are a professional skincare advisor.\n")
+                .append("TASK: Generate a personalized skincare usage guide for the given product and user.\n\n")
 
-        prompt.append("You are a professional skincare advisor.\n")
-                .append("Analyze the following product and user details to generate a personalized skincare usage guide.\n")
-                .append("Only give suggestions that match the user’s characteristics (e.g., weight, BMI, skin type, allergies).\n")
-                .append("Do NOT give generic suggestions or copy any default template.\n\n");
+                .append("RULES:\n")
+                .append("- Use ONLY the provided inputs (product, chemicals, user details).\n")
+                .append("- Personalize recommendations based on skin/scalp type, age, allergies, weight, and BMI.\n")
+                .append("- Do NOT copy or paraphrase the reference example; it is for format only.\n")
+                .append("- Be concise and consumer-friendly; no marketing claims or unsupported benefits.\n")
+                .append("- Output MUST be bounded by BEGIN_OUTPUT and END_OUTPUT markers.\n\n");
 
-        // Insert actual user + product data
-        prompt.append("Input Details:\n")
-                .append(inputs).append("\n\n");
+        // 2) Show example as reference only, then close the section
+        sb.append("=== EXAMPLES (REFERENCE ONLY) START ===\n");
+        for (String ex : examples) {
+            sb.append(ex).append("\n");
+        }
+        sb.append("=== EXAMPLES (REFERENCE ONLY) END ===\n\n");
 
-        prompt.append("Output strictly in the following format:\n")
+        // 3) Real input after examples
+        sb.append("INPUT DETAILS (YOUR CASE):\n")
+                .append(inputs)
+                .append("\n\n")
+
+                // 4) Output structure instructions
+                .append("YOUR TURN: Follow the same section headings as the example, but tailor to the input above.\n")
+                .append("Return ONLY the sections below inside the markers. Bulleted lines are fine.\n\n")
+
+                // 5) Output markers (no filled scaffold to prevent echoing)
+                .append("BEGIN_OUTPUT\n")
                 .append("How to Use:\n")
                 .append("When to Use:\n")
                 .append("Precautions:\n")
                 .append("Storage Instructions:\n")
-                .append("Additional Tips:\n");
+                .append("Additional Tips:\n")
+                .append("END_OUTPUT");
 
-        return prompt.toString();
+        return sb.toString();
     }
-
-
 }

@@ -53,9 +53,9 @@ public class ProductDetailTrainer {
                 .append("Price:\n\n")
                 .append("Examples:\n\n");
 
-        for (String example : examples) {
-            promptBuilder.append(example).append("\n\n");
-        }
+            for (String example : examples) {
+                promptBuilder.append(example).append("\n\n");
+            }
 
         promptBuilder.append("Now analyze the following:\n")
                 .append("Text: \"").append(inputText).append("\"\n")
