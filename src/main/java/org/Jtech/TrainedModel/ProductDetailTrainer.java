@@ -41,30 +41,39 @@ public class ProductDetailTrainer {
     public String generatePrompt(String inputText) {
         StringBuilder promptBuilder = new StringBuilder();
 
-        promptBuilder.append("You are an expert product label analyzer.\n")
-                .append("Your job is to extract structured product details from unstructured text.\n")
-                .append("Only return values that exist in the input text. If a value is missing, leave it blank.\n\n").
-                append("IMPORTANT: All products related to skincare, haircare, bodycare, or cosmetics should be categorized as 'Personal Care'. Do not use sub-categories like 'Hair Care' or 'Face Care'.\n\n")
-                .append("Use this format:\n")
-                .append("Product Name:\n")
-                .append("Product Category:\n")
-                .append("Chemicals:\n")
-                .append("Expiry Date:\n")
-                .append("Price:\n\n")
-                .append("Examples:\n\n");
+        promptBuilder.append(
+                "You are a product label and ingredient extraction expert.\n" +
+                        "Your goal is to extract ONLY the factual product details from the given text.\n" +
+                        "Do NOT guess or invent information. If a field is missing, leave it completely blank.\n\n" +
 
-            for (String example : examples) {
-                promptBuilder.append(example).append("\n\n");
-            }
+                        "Follow these strict rules:\n" +
+                        "1. If you don’t find chemicals, leave 'Chemicals:' blank — never add fake names.\n" +
+                        "2. If the text contains gibberish or random text (like 'abndjada'), leave all fields blank except 'Text'.\n" +
+                        "3. Categorize only skincare, haircare, or cosmetic items as 'Personal Care'.\n" +
+                        "   Other unrelated items must have 'Product Category:' blank.\n" +
+                        "4. Use the exact chemical names appearing in the text. Do not expand or normalize.\n\n" +
 
-        promptBuilder.append("Now analyze the following:\n")
-                .append("Text: \"").append(inputText).append("\"\n")
-                .append("Product Name:\n")
-                .append("Product Category:\n")
-                .append("Chemicals:\n")
-                .append("Expiry Date:\n")
-                .append("Price:\n");
+                        "Output strictly in this format:\n" +
+                        "Product Name:\n" +
+                        "Product Category:\n" +
+                        "Chemicals:\n" +
+                        "Expiry Date:\n" +
+                        "Price:\n\n" +
+
+                        "Example:\n" +
+                        "Text: \"Face serum with Vitamin C and Hyaluronic Acid. Price 499.00 Expires 11/2024\"\n" +
+                        "Product Name: Face Serum\n" +
+                        "Product Category: Personal Care\n" +
+                        "Chemicals: Vitamin C, Hyaluronic Acid\n" +
+                        "Expiry Date: 11/2024\n" +
+                        "Price: 499.00\n\n" +
+
+                        "Now extract details for the following input:\n" +
+                        "Text: \"" + inputText + "\"\n"
+                
+        );
 
         return promptBuilder.toString();
     }
+
 }

@@ -60,11 +60,17 @@ public class ProductDescriptionPrompt {
         StringBuilder promptBuilder = new StringBuilder();
 
         promptBuilder
-                .append("You are a skincare formulation expert.\n")
-                .append("Your job is to evaluate a beauty product based on its chemicals and how it fits a specific user's profile.\n")
-                .append("Ratings should strictly reflect the user's personal characteristics such as age, gender, weight, BMI, skin type, allergies, etc.\n\n")
+                .append("You are a professional cosmetic chemist and dermatologist.\n")
+                .append("Evaluate the given product ONLY using the ingredients provided and the user's profile.\n")
+                .append("Do NOT invent chemicals or effects. Every statement must directly match the given data.\n")
+                .append("If the product has no chemicals listed, clearly say: 'Insufficient data to evaluate.'\n\n")
 
-                .append("Analyze the following beauty product and user details. Provide an evaluation in the specified format, ensuring the rating for Skin Suitability and Overall Rating considers the user's weight, BMI, and individual characteristics.\n\n")
+                .append("Follow these rules:\n")
+                .append("1. Split ingredients into Good and Harmful lists based on general dermatological understanding.\n")
+                .append("   - Good = nourishing, hydrating, soothing (e.g., Aloe Vera, Glycerin, Shea Butter).\n")
+                .append("   - Harmful = irritant, alcohol-based, fragrance, sulfates, parabens, etc.\n")
+                .append("2. Consider user's skin type, allergies, gender, BMI, and age for rating Skin Suitability.\n")
+                .append("3. Never assign random ratings; justify each one briefly.\n\n")
 
                 .append("Input Details:\n")
                 .append(inputDetails)
