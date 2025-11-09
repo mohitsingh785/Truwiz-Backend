@@ -5,38 +5,6 @@ import java.util.List;
 
 public class ProductDetailTrainer {
 
-    private final List<String> examples;
-
-    public ProductDetailTrainer() {
-        this.examples = new ArrayList<>();
-
-        examples.add(
-                "Text: \"Ultra nourishing body moisturizer packed with Salicylic acid, Neem & Turmeric extracts. It contains AQUA, GLYCERIN, SALICYLIC ACID. Manufactured on 07/2024. Price is 349.00.\"\n" +
-                        "Product Name: Ultra Nourishing Body Moisturizer\n" +
-                        "Product Category: Personal Care\n" +
-                        "Chemicals: AQUA, GLYCERIN, SALICYLIC ACID\n" +
-                        "Expiry Date: 07/2026\n" +
-                        "Price: 349.00"
-        );
-
-        examples.add(
-                "Text: \"A face serum with Vitamin C, Hyaluronic Acid. Price 499.00. Expires in 11/2024.\"\n" +
-                        "Product Name: Face Serum\n" +
-                        "Product Category: Personal Care\n" +
-                        "Chemicals: Vitamin C, Hyaluronic Acid\n" +
-                        "Expiry Date: 11/2024\n" +
-                        "Price: 499.00"
-        );
-
-        examples.add(
-                "Text: \"Body moisturizer with Aloe Vera, Cocoa Butter, Salicylic Acid. Best before 24 months from Mfg date: 07/2024. MRP: 349.00\"\n" +
-                        "Product Name: Acne Free Body Moisturizer\n" +
-                        "Product Category: Personal Care\n" +
-                        "Chemicals: Aloe Vera, Cocoa Butter, Salicylic Acid\n" +
-                        "Expiry Date: 07/2026\n" +
-                        "Price: 349.00"
-        );
-    }
     public String generatePrompt(String inputText) {
         StringBuilder promptBuilder = new StringBuilder();
 
@@ -56,7 +24,7 @@ public class ProductDetailTrainer {
 
                         "🔹 Rules:\n" +
                         "1. Identify brand names (e.g., Mamaearth, Nivea, WOW, L’Oreal, etc.) and always start 'Product Name' with the brand.\n" +
-                        "2. Combine brand + descriptive keywords (e.g., 'SPF 50 Sunscreen', 'Hydrating Face Cream') for realistic naming.\n" +
+                        "2. Combine brand descriptive keywords (e.g., 'SPF 50 Sunscreen', 'Hydrating Face Cream') for realistic naming.\n" +
                         "3. If only front text is available and it mentions 'With Vitamin C' or 'Contains Aloe Vera', treat these as *partial known ingredients*, not the full list.\n" +
                         "4. If ingredient list appears (lines starting with or containing 'Ingredients', 'Contains', 'Composition'), extract all chemicals from it — prefer these over partial mentions.\n" +
                         "5. If there are multiple captures, merge logically (brand + name from front, chemicals from ingredient text).\n" +

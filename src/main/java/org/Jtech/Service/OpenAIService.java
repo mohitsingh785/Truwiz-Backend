@@ -40,7 +40,7 @@ public class OpenAIService {
 
         // Prepare the request payload
         OpenAIChatRequest.Message message = new OpenAIChatRequest.Message("user", prompt);
-        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 500, 0.7);
+        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
@@ -106,7 +106,7 @@ public class OpenAIService {
 
 
         // Use low temperature and adjusted top_p for deterministic and accurate results
-        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0.7);
+        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
@@ -151,7 +151,7 @@ public class OpenAIService {
 
 
         // Use low temperature and adjusted top_p for deterministic and accurate results
-        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0.7);
+        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
@@ -195,7 +195,7 @@ public class OpenAIService {
 
 
         // Use low temperature and adjusted top_p for deterministic and accurate results
-        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0.7);
+        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();
@@ -240,7 +240,7 @@ public class OpenAIService {
         OpenAIChatRequest.Message message = new OpenAIChatRequest.Message("user", prompt);
 
         // Use low temperature and adjusted top_p for deterministic and accurate results
-        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0.7);
+        OpenAIChatRequest request = new OpenAIChatRequest(Const.gptModel, Collections.singletonList(message), 1000, 0);
 
         // Set headers
         HttpHeaders headers = new HttpHeaders();

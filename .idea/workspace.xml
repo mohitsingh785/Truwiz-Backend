@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Constant/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Constant/Const.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
