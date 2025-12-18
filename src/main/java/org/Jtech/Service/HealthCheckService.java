@@ -47,26 +47,7 @@ public class HealthCheckService implements UserDetailsService {
 
 
 
-    public UserFullData print(Long id){
 
-      UserData userdata=user.alldata(id);
-      UserDetailsDTO userDetailsDTO=userdetails.userdetaildata(id);
-
-        // Construct and return UserFullData
-        return new UserFullData(
-                userdata.getUserName(),
-                userdata.getEmail(),
-                userdata.getPhoneNumber(),
-                userDetailsDTO.getSkinType(),
-                userDetailsDTO.getAge(),
-                userDetailsDTO.getGender(),
-                userDetailsDTO.getSkinColour(),
-                userDetailsDTO.getAllergies(),
-                userDetailsDTO.getBmi(),
-                userDetailsDTO.getWeight()
-        );
-
-    }
 
     public Optional<UserData> authenticate(String email) {
         return user.findByEmailAndPassword(email);
