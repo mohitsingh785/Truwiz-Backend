@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.Jtech</groupId>
-    <artifactId>healthcheck-service</artifactId>
+    <artifactId>truwiz-backend</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 
@@ -115,6 +115,6 @@
             </plugin>
         </plugins>
 
-        <finalName>healthcheck-backend-app</finalName>
+        <finalName>truwiz-backend</finalName>
     </build>
 </project>

@@ -7,25 +7,25 @@ import java.util.List;
 
 public class ArticleResponse {
 
-    private int statuscode;
+    private int statusCode;
     private String message;
     private List<Article> article;
 
-    public ArticleResponse(int statuscode,String message,List<Article> article){
+    public ArticleResponse(int statusCode,String message,List<Article> article){
 
-        this.statuscode=statuscode;
+        this.statusCode=statusCode;
         this.message=message;
         this.article=article;
 
 
     }
 
-    public int getStatuscode() {
-        return statuscode;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatuscode(int statuscode) {
-        this.statuscode = statuscode;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getMessage() {

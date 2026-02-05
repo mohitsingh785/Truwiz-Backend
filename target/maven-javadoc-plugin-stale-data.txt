@@ -1,0 +1,144 @@
+@options
+@packages
+-classpath
+'C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/3.3.4/spring-boot-starter-data-jpa-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-aop/3.3.4/spring-boot-starter-aop-3.3.4.jar;C:/Users/mohit/.m2/repository/org/aspectj/aspectjweaver/1.9.22.1/aspectjweaver-1.9.22.1.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/3.3.4/spring-boot-starter-jdbc-3.3.4.jar;C:/Users/mohit/.m2/repository/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-jdbc/6.1.13/spring-jdbc-6.1.13.jar;C:/Users/mohit/.m2/repository/org/hibernate/orm/hibernate-core/6.5.3.Final/hibernate-core-6.5.3.Final.jar;C:/Users/mohit/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar;C:/Users/mohit/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar;C:/Users/mohit/.m2/repository/org/antlr/antlr4-runtime/4.13.0/antlr4-runtime-4.13.0.jar;C:/Users/mohit/.m2/repository/org/springframework/data/spring-data-jpa/3.3.4/spring-data-jpa-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/data/spring-data-commons/3.3.4/spring-data-commons-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-orm/6.1.13/spring-orm-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-context/6.1.13/spring-context-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-tx/6.1.13/spring-tx-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-beans/6.1.13/spring-beans-6.1.13.jar;C:/Users/mohit/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar;C:/Users/mohit/.m2/repository/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-aspects/6.1.13/spring-aspects-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-mail/3.3.4/spring-boot-starter-mail-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.4/spring-boot-starter-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot/3.3.4/spring-boot-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.4/spring-boot-autoconfigure-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.4/spring-boot-starter-logging-3.3.4.jar;C:/Users/mohit/.m2/repository/ch/qos/logback/logback-classic/1.5.8/logback-classic-1.5.8.jar;C:/Users/mohit/.m2/repository/ch/qos/logback/logback-core/1.5.8/logback-core-1.5.8.jar;C:/Users/mohit/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar;C:/Users/mohit/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar;C:/Users/mohit/.m2/repository/org/slf4j/jul-to-slf4j/2.0.16/jul-to-slf4j-2.0.16.jar;C:/Users/mohit/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-context-support/6.1.13/spring-context-support-6.1.13.jar;C:/Users/mohit/.m2/repository/org/eclipse/angus/jakarta.mail/2.0.3/jakarta.mail-2.0.3.jar;C:/Users/mohit/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.jar;C:/Users/mohit/.m2/repository/org/springdoc/springdoc-openapi-starter-webmvc-ui/2.2.0/springdoc-openapi-starter-webmvc-ui-2.2.0.jar;C:/Users/mohit/.m2/repository/org/springdoc/springdoc-openapi-starter-webmvc-api/2.2.0/springdoc-openapi-starter-webmvc-api-2.2.0.jar;C:/Users/mohit/.m2/repository/org/springdoc/springdoc-openapi-starter-common/2.2.0/springdoc-openapi-starter-common-2.2.0.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-core-jakarta/2.2.15/swagger-core-jakarta-2.2.15.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-annotations-jakarta/2.2.15/swagger-annotations-jakarta-2.2.15.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-models-jakarta/2.2.15/swagger-models-jakarta-2.2.15.jar;C:/Users/mohit/.m2/repository/org/webjars/swagger-ui/5.2.0/swagger-ui-5.2.0.jar;C:/Users/mohit/.m2/repository/org/springframework/security/spring-security-crypto/6.3.3/spring-security-crypto-6.3.3.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-actuator/3.3.4/spring-boot-starter-actuator-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-actuator-autoconfigure/3.3.4/spring-boot-actuator-autoconfigure-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-actuator/3.3.4/spring-boot-actuator-3.3.4.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.2/jackson-datatype-jsr310-2.17.2.jar;C:/Users/mohit/.m2/repository/io/micrometer/micrometer-observation/1.13.4/micrometer-observation-1.13.4.jar;C:/Users/mohit/.m2/repository/io/micrometer/micrometer-commons/1.13.4/micrometer-commons-1.13.4.jar;C:/Users/mohit/.m2/repository/io/micrometer/micrometer-jakarta9/1.13.4/micrometer-jakarta9-1.13.4.jar;C:/Users/mohit/.m2/repository/io/micrometer/micrometer-core/1.13.4/micrometer-core-1.13.4.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.2/jackson-databind-2.17.2.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.2/jackson-annotations-2.17.2.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.2/jackson-core-2.17.2.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.4/spring-boot-starter-web-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.4/spring-boot-starter-json-3.3.4.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.2/jackson-datatype-jdk8-2.17.2.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.2/jackson-module-parameter-names-2.17.2.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.4/spring-boot-starter-tomcat-3.3.4.jar;C:/Users/mohit/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.30/tomcat-embed-core-10.1.30.jar;C:/Users/mohit/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.30/tomcat-embed-el-10.1.30.jar;C:/Users/mohit/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.30/tomcat-embed-websocket-10.1.30.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-web/6.1.13/spring-web-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-webmvc/6.1.13/spring-webmvc-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-expression/6.1.13/spring-expression-6.1.13.jar;C:/Users/mohit/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.2/jakarta.xml.bind-api-4.0.2.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-core/6.1.13/spring-core-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-jcl/6.1.13/spring-jcl-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/3.3.4/spring-boot-starter-thymeleaf-3.3.4.jar;C:/Users/mohit/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.2.RELEASE/thymeleaf-spring6-3.1.2.RELEASE.jar;C:/Users/mohit/.m2/repository/org/thymeleaf/thymeleaf/3.1.2.RELEASE/thymeleaf-3.1.2.RELEASE.jar;C:/Users/mohit/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar;C:/Users/mohit/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar;C:/Users/mohit/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.3.4/spring-boot-starter-security-3.3.4.jar;C:/Users/mohit/.m2/repository/org/springframework/spring-aop/6.1.13/spring-aop-6.1.13.jar;C:/Users/mohit/.m2/repository/org/springframework/security/spring-security-config/6.3.3/spring-security-config-6.3.3.jar;C:/Users/mohit/.m2/repository/org/springframework/security/spring-security-web/6.3.3/spring-security-web-6.3.3.jar;C:/Users/mohit/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar;C:/Users/mohit/.m2/repository/org/springdoc/springdoc-openapi-security/1.6.8/springdoc-openapi-security-1.6.8.jar;C:/Users/mohit/.m2/repository/org/springdoc/springdoc-openapi-common/1.6.8/springdoc-openapi-common-1.6.8.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-core/2.2.0/swagger-core-2.2.0.jar;C:/Users/mohit/.m2/repository/org/apache/commons/commons-lang3/3.14.0/commons-lang3-3.14.0.jar;C:/Users/mohit/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.17.2/jackson-dataformat-yaml-2.17.2.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-annotations/2.2.0/swagger-annotations-2.2.0.jar;C:/Users/mohit/.m2/repository/io/swagger/core/v3/swagger-models/2.2.0/swagger-models-2.2.0.jar;C:/Users/mohit/.m2/repository/jakarta/validation/jakarta.validation-api/3.0.2/jakarta.validation-api-3.0.2.jar;C:/Users/mohit/.m2/repository/org/springframework/security/spring-security-core/6.3.3/spring-security-core-6.3.3.jar'
+-encoding
+'UTF-8'
+-protected
+--release
+17
+-sourcepath
+'F:/truwiz-backend/truwiz-backend/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'F:/truwiz-backend/truwiz-backend/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'truwiz-backend 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'truwiz-backend 1.0-SNAPSHOT API'
+org.Jtech.aop
+org.Jtech.config
+org.Jtech.Constant
+org.Jtech.Controller
+org.Jtech.DTO
+org.Jtech.Entity
+org.Jtech.jwt
+org.Jtech.Model
+org.Jtech.Repository
+org.Jtech.Service
+org.Jtech.TrainedModel
+org.Jtech
+org.Jtech.Util
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-data-jpa\3.3.4\spring-boot-starter-data-jpa-3.3.4.jar = 1727558115741
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-aop\3.3.4\spring-boot-starter-aop-3.3.4.jar = 1727558115869
+C:\Users\mohit\.m2\repository\org\aspectj\aspectjweaver\1.9.22.1\aspectjweaver-1.9.22.1.jar = 1727558119092
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-jdbc\3.3.4\spring-boot-starter-jdbc-3.3.4.jar = 1727558115866
+C:\Users\mohit\.m2\repository\com\zaxxer\HikariCP\5.1.0\HikariCP-5.1.0.jar = 1727558116384
+C:\Users\mohit\.m2\repository\org\springframework\spring-jdbc\6.1.13\spring-jdbc-6.1.13.jar = 1727558117191
+C:\Users\mohit\.m2\repository\org\hibernate\orm\hibernate-core\6.5.3.Final\hibernate-core-6.5.3.Final.jar = 1727558130971
+C:\Users\mohit\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar = 1727558116878
+C:\Users\mohit\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar = 1727558117404
+C:\Users\mohit\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar = 1727558119764
+C:\Users\mohit\.m2\repository\org\springframework\data\spring-data-jpa\3.3.4\spring-data-jpa-3.3.4.jar = 1727558122699
+C:\Users\mohit\.m2\repository\org\springframework\data\spring-data-commons\3.3.4\spring-data-commons-3.3.4.jar = 1727558121427
+C:\Users\mohit\.m2\repository\org\springframework\spring-orm\6.1.13\spring-orm-6.1.13.jar = 1727558120869
+C:\Users\mohit\.m2\repository\org\springframework\spring-context\6.1.13\spring-context-6.1.13.jar = 1727558122865
+C:\Users\mohit\.m2\repository\org\springframework\spring-tx\6.1.13\spring-tx-6.1.13.jar = 1727558123148
+C:\Users\mohit\.m2\repository\org\springframework\spring-beans\6.1.13\spring-beans-6.1.13.jar = 1727558123848
+C:\Users\mohit\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar = 1727558123311
+C:\Users\mohit\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar = 1727558123339
+C:\Users\mohit\.m2\repository\org\springframework\spring-aspects\6.1.13\spring-aspects-6.1.13.jar = 1727558124008
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-mail\3.3.4\spring-boot-starter-mail-3.3.4.jar = 1736069983202
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.4\spring-boot-starter-3.3.4.jar = 1727558123580
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot\3.3.4\spring-boot-3.3.4.jar = 1727558126894
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.4\spring-boot-autoconfigure-3.3.4.jar = 1727558128623
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.4\spring-boot-starter-logging-3.3.4.jar = 1727558124269
+C:\Users\mohit\.m2\repository\ch\qos\logback\logback-classic\1.5.8\logback-classic-1.5.8.jar = 1727558124771
+C:\Users\mohit\.m2\repository\ch\qos\logback\logback-core\1.5.8\logback-core-1.5.8.jar = 1727558125774
+C:\Users\mohit\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar = 1727558126068
+C:\Users\mohit\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar = 1727558126375
+C:\Users\mohit\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar = 1727558126256
+C:\Users\mohit\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar = 1727558126787
+C:\Users\mohit\.m2\repository\org\springframework\spring-context-support\6.1.13\spring-context-support-6.1.13.jar = 1736069983427
+C:\Users\mohit\.m2\repository\org\eclipse\angus\jakarta.mail\2.0.3\jakarta.mail-2.0.3.jar = 1736069983966
+C:\Users\mohit\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar = 1727558127437
+C:\Users\mohit\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.2.0\springdoc-openapi-starter-webmvc-ui-2.2.0.jar = 1737907077426
+C:\Users\mohit\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.2.0\springdoc-openapi-starter-webmvc-api-2.2.0.jar = 1737907077553
+C:\Users\mohit\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.2.0\springdoc-openapi-starter-common-2.2.0.jar = 1737907078223
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.15\swagger-core-jakarta-2.2.15.jar = 1737907077758
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.15\swagger-annotations-jakarta-2.2.15.jar = 1737907077363
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.15\swagger-models-jakarta-2.2.15.jar = 1737907077668
+C:\Users\mohit\.m2\repository\org\webjars\swagger-ui\5.2.0\swagger-ui-5.2.0.jar = 1737907083368
+C:\Users\mohit\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar = 1737993771292
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-actuator\3.3.4\spring-boot-starter-actuator-3.3.4.jar = 1753439264548
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-actuator-autoconfigure\3.3.4\spring-boot-actuator-autoconfigure-3.3.4.jar = 1753439264571
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-actuator\3.3.4\spring-boot-actuator-3.3.4.jar = 1753439264709
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar = 1731952206451
+C:\Users\mohit\.m2\repository\io\micrometer\micrometer-observation\1.13.4\micrometer-observation-1.13.4.jar = 1727558121992
+C:\Users\mohit\.m2\repository\io\micrometer\micrometer-commons\1.13.4\micrometer-commons-1.13.4.jar = 1727558122837
+C:\Users\mohit\.m2\repository\io\micrometer\micrometer-jakarta9\1.13.4\micrometer-jakarta9-1.13.4.jar = 1753439264949
+C:\Users\mohit\.m2\repository\io\micrometer\micrometer-core\1.13.4\micrometer-core-1.13.4.jar = 1753439265081
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar = 1731952206695
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar = 1731952206262
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar = 1731952206648
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.4\spring-boot-starter-web-3.3.4.jar = 1731952205891
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.4\spring-boot-starter-json-3.3.4.jar = 1731952206158
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar = 1731952206936
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar = 1731952206725
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.4\spring-boot-starter-tomcat-3.3.4.jar = 1731952206577
+C:\Users\mohit\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.30\tomcat-embed-core-10.1.30.jar = 1731952207477
+C:\Users\mohit\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.30\tomcat-embed-el-10.1.30.jar = 1731952206829
+C:\Users\mohit\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.30\tomcat-embed-websocket-10.1.30.jar = 1731952207498
+C:\Users\mohit\.m2\repository\org\springframework\spring-web\6.1.13\spring-web-6.1.13.jar = 1731952207582
+C:\Users\mohit\.m2\repository\org\springframework\spring-webmvc\6.1.13\spring-webmvc-6.1.13.jar = 1731952207561
+C:\Users\mohit\.m2\repository\org\springframework\spring-expression\6.1.13\spring-expression-6.1.13.jar = 1727558121872
+C:\Users\mohit\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar = 1727558127342
+C:\Users\mohit\.m2\repository\org\springframework\spring-core\6.1.13\spring-core-6.1.13.jar = 1727558131729
+C:\Users\mohit\.m2\repository\org\springframework\spring-jcl\6.1.13\spring-jcl-6.1.13.jar = 1727558131447
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-thymeleaf\3.3.4\spring-boot-starter-thymeleaf-3.3.4.jar = 1740240060917
+C:\Users\mohit\.m2\repository\org\thymeleaf\thymeleaf-spring6\3.1.2.RELEASE\thymeleaf-spring6-3.1.2.RELEASE.jar = 1740240060861
+C:\Users\mohit\.m2\repository\org\thymeleaf\thymeleaf\3.1.2.RELEASE\thymeleaf-3.1.2.RELEASE.jar = 1740240061640
+C:\Users\mohit\.m2\repository\org\attoparser\attoparser\2.0.7.RELEASE\attoparser-2.0.7.RELEASE.jar = 1740240061336
+C:\Users\mohit\.m2\repository\org\unbescape\unbescape\1.1.6.RELEASE\unbescape-1.1.6.RELEASE.jar = 1740240061648
+C:\Users\mohit\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.4\spring-boot-starter-security-3.3.4.jar = 1740316710153
+C:\Users\mohit\.m2\repository\org\springframework\spring-aop\6.1.13\spring-aop-6.1.13.jar = 1727558117419
+C:\Users\mohit\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar = 1740316712508
+C:\Users\mohit\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar = 1740316711999
+C:\Users\mohit\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.5\jjwt-api-0.11.5.jar = 1740322102725
+C:\Users\mohit\.m2\repository\org\springdoc\springdoc-openapi-security\1.6.8\springdoc-openapi-security-1.6.8.jar = 1740327322490
+C:\Users\mohit\.m2\repository\org\springdoc\springdoc-openapi-common\1.6.8\springdoc-openapi-common-1.6.8.jar = 1740327323435
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-core\2.2.0\swagger-core-2.2.0.jar = 1740327322783
+C:\Users\mohit\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar = 1726343916550
+C:\Users\mohit\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar = 1737906205503
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-annotations\2.2.0\swagger-annotations-2.2.0.jar = 1740327321637
+C:\Users\mohit\.m2\repository\io\swagger\core\v3\swagger-models\2.2.0\swagger-models-2.2.0.jar = 1740327322490
+C:\Users\mohit\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar = 1737906205618
+C:\Users\mohit\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar = 1740316712628
+F:\truwiz-backend\truwiz-backend\src\main\java = 1740241822438
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\allclasses-index.html = 1770325666350
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\allpackages-index.html = 1770325666354
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\constant-values.html = 1770325665707
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\element-list = 1770325665544
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\help-doc.html = 1770325666408
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\index-all.html = 1770325666402
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\index.html = 1770325666268
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\jquery-ui.overrides.css = 1770325666426
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\member-search-index.js = 1770325666362
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\module-search-index.js = 1770325666356
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\overview-summary.html = 1770325666404
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\overview-tree.html = 1770325666260
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\package-search-index.js = 1770325666357
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\script.js = 1770325666413
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\search.js = 1770325666415
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\serialized-form.html = 1770325665724
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\stylesheet.css = 1770325666410
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\tag-search-index.js = 1770325666364
+F:\truwiz-backend\truwiz-backend\target\site\apidocs\type-search-index.js = 1770325666359

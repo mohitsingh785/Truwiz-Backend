@@ -18,8 +18,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 
 
-
-
     @Query("SELECT new org.Jtech.DTO.UserData(u.userId,u.userName, u.email, u.phoneNumber, u.password) FROM User u WHERE u.email = :email")
     Optional<UserData> findByEmailAndPassword(@Param("email") String email);
 

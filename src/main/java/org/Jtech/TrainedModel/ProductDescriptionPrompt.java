@@ -4,6 +4,30 @@ package org.Jtech.TrainedModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Product Description Prompt
+ *
+ * Purpose:
+ * Generates a structured AI prompt for evaluating a product
+ * based on its ingredients and a user's personal profile.
+ *
+ * Scope:
+ * - Produces detailed product evaluation instructions
+ * - Considers harmful vs good ingredients
+ * - Incorporates user-specific factors such as age, BMI,
+ *   skin type, allergies, and gender
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This class belongs to the AI prompt-training layer and is used
+ * internally for product evaluation logic. It does not perform
+ * any business computation or validation.
+ */
+
+
 public class ProductDescriptionPrompt {
 
     private final List<String> examples;

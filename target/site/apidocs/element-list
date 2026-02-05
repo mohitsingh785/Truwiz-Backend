@@ -1,0 +1,13 @@
+org.Jtech
+org.Jtech.aop
+org.Jtech.config
+org.Jtech.Constant
+org.Jtech.Controller
+org.Jtech.DTO
+org.Jtech.Entity
+org.Jtech.jwt
+org.Jtech.Model
+org.Jtech.Repository
+org.Jtech.Service
+org.Jtech.TrainedModel
+org.Jtech.Util

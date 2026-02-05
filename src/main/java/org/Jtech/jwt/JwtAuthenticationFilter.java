@@ -18,6 +18,27 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+/**
+ * JWT Authentication Filter
+ *
+ * Purpose:
+ * Intercepts incoming HTTP requests to validate JWT tokens
+ * and set authentication context for secured endpoints.
+ *
+ * Scope:
+ * - Extracts JWT from Authorization header
+ * - Validates token integrity and expiry
+ * - Loads user details and sets security context
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This filter executes once per request and ensures stateless
+ * authentication using JWT.
+ */
+
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,6 +51,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    /**
+     * Filters incoming requests to validate JWT tokens.
+     *
+     * If a valid JWT is present, authentication is set in the
+     * Spring Security context.
+     *
+     * @param request incoming HTTP request
+     * @param response HTTP response
+     * @param filterChain filter chain
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -39,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         logger.info(" Header :  {}", requestHeader);
         String username = null;
         String token = null;
-        if (requestHeader != null && requestHeader.startsWith("Bearer")) {
+        if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             //looking good
             token = requestHeader.substring(7);
             try {

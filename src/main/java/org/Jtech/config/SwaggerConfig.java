@@ -10,10 +10,36 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.servers.Server;
+/**
+ * Swagger (OpenAPI) Configuration
+ *
+ * Purpose:
+ * Configures OpenAPI (Swagger) documentation for the Truwiz backend
+ * services, including API metadata and JWT-based security definitions.
+ *
+ * Scope:
+ * - API title, version, and description
+ * - Contact and license information
+ * - JWT bearer authentication configuration for Swagger UI
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This configuration enables interactive API documentation
+ * and allows authenticated API testing via JWT tokens
+ * in Swagger UI.
+ */
 
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * Configure and expose the OpenAPI specification for the application.
+     *
+     * @return customized OpenAPI configuration
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

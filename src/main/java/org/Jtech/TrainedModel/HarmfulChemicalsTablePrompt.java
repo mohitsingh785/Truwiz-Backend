@@ -2,6 +2,27 @@ package org.Jtech.TrainedModel;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Harmful Chemicals Table Prompt
+ *
+ * Purpose:
+ * Generates a structured AI prompt for identifying harmful or
+ * controversial chemicals present in a product.
+ *
+ * Scope:
+ * - Defines prompt rules for harmful chemical classification
+ * - Suggests safer alternatives where applicable
+ * - Uses reference examples to enforce output format
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This class is part of the AI prompt-training layer and is used
+ * internally during product safety evaluation. It does not
+ * contain business logic and should not be exposed directly.
+ */
 
 public class HarmfulChemicalsTablePrompt {
     private final List<String> examples;

@@ -3,6 +3,28 @@ package org.Jtech.TrainedModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Good Chemicals Table Prompt
+ *
+ * Purpose:
+ * Generates a structured AI prompt for identifying and describing
+ * beneficial or neutral chemicals present in a product.
+ *
+ * Scope:
+ * - Provides prompt instructions and formatting rules
+ * - Includes reference examples to guide AI output structure
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This class is part of the AI prompt-training layer and is used
+ * internally by the OpenAI service. It does not contain business logic
+ * and should not be exposed outside the AI processing flow.
+ */
+
+
 public class GoodChemicalsTablePrompt {
 
     private final List<String> examples;

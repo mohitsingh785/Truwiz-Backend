@@ -6,6 +6,60 @@
   <component name="ChangeListManager">
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/HealthCheckController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/HealthCheckWebController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/TruwizWebController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/HealthCheckApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TruwizApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/ArticleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/ArticleResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/CategoryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/CategoryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/HealthCheckService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/OpenAIService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/GoodChemicalsTablePrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/GoodChemicalsTablePrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/HarmfulChemicalsTablePrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/HarmfulChemicalsTablePrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDescriptionPrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDescriptionPrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductDetailTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductusagePrompt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/TrainedModel/ProductusagePrompt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Util/OpenAiParshing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Util/OpenAiParshing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Util/PasswordUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Util/StringListJsonConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Util/StringListJsonConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/aop/LoggingAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/aop/LoggingAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/config/MyConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/config/MyConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/jwt/JwtHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Constant/Const.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Constant/Const.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/HealthCheckController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/HealthCheckWebController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/HealthCheckApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/ArticleResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Model/ArticleResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/CategoryResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Model/CategoryResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/EmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/EmailService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/HealthCheckService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/OpenAIService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/GoodChemicalsTablePrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/GoodChemicalsTablePrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/HarmfulChemicalsTablePrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/HarmfulChemicalsTablePrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDescriptionPrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDescriptionPrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDetailTrainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDetailTrainer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductusagePrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductusagePrompt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/OpenAiParshing.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Util/OpenAiParshing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/PasswordUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/aop/LoggingAspect.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/aop/LoggingAspect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/MyConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/MyConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/SwaggerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/SwaggerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,24 +97,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HealthCheckApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven.healthcheck-service [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.healthcheck-service [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.healthcheck-service [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Health_check/HealthCheck/src/main/resources&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HealthCheckApplication.executor": "Run",
+    "Application.TruwizApplication.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven.healthcheck-service [clean,install].executor": "Run",
+    "Maven.healthcheck-service [clean].executor": "Run",
+    "Maven.healthcheck-service [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/project-structure",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Health_check/HealthCheck/src/main/resources",
+    "onboarding.tips.debug.path": "F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "advanced.settings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Health_check\HealthCheck\src\main\resources" />
@@ -72,7 +127,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="HealthCheckApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="TruwizApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="JDBC_DATABASE_PASSWORD" value="Rewa1056" />
         <env name="JDBC_DATABASE_URL" value="jdbc:mysql://healthcheck.c164m0smkm0g.eu-north-1.rds.amazonaws.com/health_check" />
@@ -80,7 +135,7 @@
         <env name="MAIL_PASSWORD" value="tkrp raed essr rfrt" />
         <env name="MAIL_USERNAME" value="detoxify402@gmail.com" />
       </envs>
-      <option name="MAIN_CLASS_NAME" value="org.Jtech.HealthCheckApplication" />
+      <option name="MAIN_CLASS_NAME" value="org.Jtech.TruwizApplication" />
       <module name="healthcheck-service" />
       <extension name="coverage">
         <pattern>
@@ -94,7 +149,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HealthCheckApplication" />
+        <item itemvalue="Application.TruwizApplication" />
       </list>
     </recent_temporary>
   </component>

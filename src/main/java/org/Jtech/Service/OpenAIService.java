@@ -14,11 +14,41 @@ import org.Jtech.Constant.Const;
 import java.util.Collections;
 import static org.Jtech.Util.OpenAiParshing.*;
 
+/**
+ * OpenAI Service
+ *
+ * Purpose:
+ * Handles AI-driven processing for product-related workflows, including
+ * extraction of product details from unstructured text, product evaluation,
+ * usage guidance generation, and chemical classification.
+ *
+ * Scope:
+ * - Extract structured product details from OCR text
+ * - Evaluate products based on ingredients and user context
+ * - Generate product usage guidance
+ * - Identify beneficial and harmful chemicals
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This service encapsulates all interactions with the AI model.
+ * Prompt generation and response parsing are delegated to
+ * trainer and parser utilities to keep responsibilities separated.
+ *
+ * Security:
+ * API keys retrieved by this service must never be logged
+ * or exposed outside trusted service layers.
+ */
+
+
+
 @Service
 public class OpenAIService {
 
     @Autowired
-    private HealthCheckService healthCheckService;
+    private UtilsService utilsService;
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String apiUrl = Const.apiUrl;
@@ -30,8 +60,21 @@ public class OpenAIService {
     private final ProductusagePrompt productusagePrompt = new ProductusagePrompt();
 
 
-    public ProductChemicalResponseDTO  fetchAllChemicals(String productText) {
-        String apiKey = healthCheckService.getGptKey(Const.gptModelkey);
+
+
+    /**
+     * Extract structured product details from unstructured OCR text.
+     *
+     * Used for:
+     * - Processing raw OCR output from scanned product labels
+     * - Extracting product name, category, chemical list,
+     *   expiry date, and price information
+     *
+     * @param productText unstructured OCR text obtained from product label scanning
+     * @return extracted structured product details, or null if extraction fails
+     */
+    public ProductChemicalResponseDTO  extractProductDetailsFromText(String productText) {
+        String apiKey = utilsService.getGptKey(Const.gptModelkey);
 
 
 
@@ -92,9 +135,19 @@ public class OpenAIService {
         return null;
     }
 
-
+    /**
+     * Generate usage guidance for a product based on evaluation data.
+     *
+     * Used for:
+     * - Providing usage instructions and recommendations
+     * - Guiding users on safe and effective product usage
+     *
+     * @param product product evaluation request containing
+     *                ingredient and user context
+     * @return product usage guide, or null if generation fails
+     */
     public UsageGuideDTO fetchProductUsageGuide(ProductEvaluationRequest product) {
-        String apiKey = healthCheckService.getGptKey(Const.gptModelkey);
+        String apiKey = utilsService.getGptKey(Const.gptModelkey);
 
         // Generate prompt using ProductDetailTrainer
         String prompt = productusagePrompt.generateprompt(formatProductDetails(product));
@@ -137,9 +190,19 @@ public class OpenAIService {
         return null;
     }
 
-
+    /**
+     * Retrieve beneficial (good) chemicals identified in a product.
+     *
+     * Used for:
+     * - Identifying safe or beneficial chemicals present in a product
+     * - Displaying positive ingredient information to users
+     *
+     * @param goodChemicalRequestDTO request data containing product
+     *                              and evaluation context
+     * @return beneficial chemical details, or null if none are found
+     */
     public GoodChemicalResponseDTO fetchGoodChemicalTable(GoodChemicalRequestDTO goodChemicalRequestDTO) {
-        String apiKey = healthCheckService.getGptKey(Const.gptModelkey);
+        String apiKey = utilsService.getGptKey(Const.gptModelkey);
 
         // Generate prompt using ProductDetailTrainer
         String prompt = goodChemicalsTablePrompt.generatePrompt(formatGoodChemicalDetails(goodChemicalRequestDTO));
@@ -182,8 +245,19 @@ public class OpenAIService {
         return null;
     }
 
+    /**
+     * Retrieve harmful or unsafe chemicals identified in a product.
+     *
+     * Used for:
+     * - Highlighting potentially harmful ingredients
+     * - Warning users about unsafe or unsuitable chemicals
+     *
+     * @param harmfulChemicalRequestDTO request data containing product
+     *                                  and evaluation context
+     * @return harmful chemical details, or null if none are found
+     */
  public HarmfulChemicalResponseDTO fetchHarmfulChemicalTable(HarmfulChemicalRequestDTO harmfulChemicalRequestDTO) {
-        String apiKey = healthCheckService.getGptKey(Const.gptModelkey);
+        String apiKey = utilsService.getGptKey(Const.gptModelkey);
 
         // Generate prompt using ProductDetailTrainer
         String prompt = harmfulChemicalsTablePrompt.generatePrompt(formatHarmfulChemicalDetails(harmfulChemicalRequestDTO));
@@ -227,9 +301,19 @@ public class OpenAIService {
     }
 
 
-
+    /**
+     * Evaluate a product based on ingredient composition and user profile.
+     *
+     * Used for:
+     * - Assessing product suitability for a user
+     * - Evaluating safety, compatibility, and overall product quality
+     *
+     * @param product product evaluation request containing
+     *                extracted product and user details
+     * @return product evaluation result, or null if evaluation fails
+     */
     public ProductEvaluationDTO fetchProductEvaluation(ProductEvaluationRequest product) {
-        String apiKey = healthCheckService.getGptKey(Const.gptModelkey);
+        String apiKey = utilsService.getGptKey(Const.gptModelkey);
 
         // Generate prompt using ProductDetailTrainer
         String prompt = productDescriptionPrompt.generatePrompt(formatProductDetails(product));

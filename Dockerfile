@@ -5,7 +5,7 @@ FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
 # Copy the built JAR file into the container
-COPY ./target/healthcheck-backend-app.jar app.jar
+COPY ./target/truwiz-backend.jar app.jar
 
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]

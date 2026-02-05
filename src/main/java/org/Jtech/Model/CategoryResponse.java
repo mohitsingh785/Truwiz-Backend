@@ -7,22 +7,22 @@ import java.util.List;
 public class CategoryResponse {
 
 
-    private int statuscode;
+    private int statusCode;
     private String message;
     private List<Category> category;
 
-    public CategoryResponse(int statuscode,String message,List<Category> category){
-        this.statuscode=statuscode;
+    public CategoryResponse(int statusCode,String message,List<Category> category){
+        this.statusCode=statusCode;
         this.message=message;
         this.category=category;
     }
 
-    public int getStatuscode() {
-        return statuscode;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public void setStatuscode(int statuscode) {
-        this.statuscode = statuscode;
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getMessage() {

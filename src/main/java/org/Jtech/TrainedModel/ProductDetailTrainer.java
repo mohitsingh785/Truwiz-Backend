@@ -3,6 +3,28 @@ package org.Jtech.TrainedModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Product Detail Trainer
+ *
+ * Purpose:
+ * Generates an AI prompt for extracting structured product
+ * details from unstructured OCR text captured from product images.
+ *
+ * Scope:
+ * - Interprets OCR text from front, back, and ingredient photos
+ * - Extracts product name, category, chemicals, expiry date, and price
+ * - Determines source confidence and detection accuracy
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This class belongs to the AI prompt-training layer and is used
+ * internally for OCR-based product detail extraction. It does not
+ * perform validation or business logic.
+ */
+
 public class ProductDetailTrainer {
 
     public String generatePrompt(String inputText) {

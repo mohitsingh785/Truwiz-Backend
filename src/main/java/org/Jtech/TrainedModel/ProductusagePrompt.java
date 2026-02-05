@@ -3,6 +3,30 @@ package org.Jtech.TrainedModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Product Usage Prompt
+ *
+ * Purpose:
+ * Generates an AI prompt for producing a personalized
+ * product usage guide based on product details and
+ * individual user characteristics.
+ *
+ * Scope:
+ * - Provides usage instructions, timing, precautions, and storage guidance
+ * - Personalizes advice using skin/scalp type, age, BMI, weight, and allergies
+ * - Ensures consumer-friendly and safety-focused output
+ *
+ * Metadata:
+ * Added on : 2026-02-06
+ * Author   : Mohit Singh
+ *
+ * Notes:
+ * This class belongs to the AI prompt-training layer and is used
+ * internally to generate structured usage guidance. It does not
+ * perform any validation or business decision-making.
+ */
+
+
 public class ProductusagePrompt {
 
     private final List<String> examples;
