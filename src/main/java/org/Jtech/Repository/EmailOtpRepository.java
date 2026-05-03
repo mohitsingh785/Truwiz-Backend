@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface EmailOtpRepository extends CrudRepository<EmailVerify,Integer> {
 
 
-    @Query("SELECT new org.Jtech.Model.OtpResponse(o.otp, o.createdAt) FROM EmailVerify o WHERE o.id = :otpId")
-    Optional<OtpResponse> findOtpAndCreatedAtByUserId(@Param("otpId") Integer otpId);
+//    @Query("SELECT new org.Jtech.Model.OtpResponse(o.otp, o.createdAt) FROM EmailVerify o WHERE o.id = :otpId")
+//    Optional<OtpResponse> findOtpAndCreatedAtByUserId(@Param("otpId") Integer otpId);
 }

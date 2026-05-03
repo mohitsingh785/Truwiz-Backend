@@ -97,4 +97,27 @@ public class UtilsService {
     public boolean matchPassword(String plainPassword, String hashedPassword) {
         return encoder.matches(plainPassword, hashedPassword);
     }
+
+    /**
+     * Hash the OTP using BCrypt.
+     *
+     * @param plainOtp the plain Otp to be hashed
+     * @return the hashed Otp
+     */
+    public String hashOtp(String plainOtp) {
+        return encoder.encode(plainOtp);
+    }
+
+    /**
+     * Verify if the plain Otp matches the hashed Otp.
+     *
+     * @param plainOtp the plain Otp to verify
+     * @param hashedOtp the hashed Otp to match against
+     * @return true if Otp match, false otherwise
+     */
+    public boolean matchOtp(String plainOtp, String hashedOtp) {
+        return encoder.matches(plainOtp, hashedOtp);
+    }
+
+
 }

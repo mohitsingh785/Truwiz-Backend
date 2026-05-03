@@ -2,6 +2,7 @@ package org.Jtech.Service;
 
 
 import jakarta.transaction.Transactional;
+import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.UserData;
 import org.Jtech.Entity.OTP;
 import org.Jtech.Model.OtpResponse;
@@ -83,14 +84,14 @@ public class AuthService {
     }
 
     // Retrieve OTP and creation timestamp for password reset verification
-    public Optional<OtpResponse> getOtpAndCreatedAtByUserId(Integer userId) {
-        return otpRepository.findOtpAndCreatedAtByUserId(userId);
+    public Optional<OTP> getOtpAndCreatedAtByEmail(String email, OtpPurpose otpPurpose) {
+        return otpRepository.findTopByEmailAndOtpPurposeOrderByUpdatedAtDesc(email,otpPurpose);
     }
 
-    // Retrieve OTP and creation timestamp for email verification during signup
-    public Optional<OtpResponse> getOtpAndEmailVerify(Integer userId) {
-        return emailOtpRepository.findOtpAndCreatedAtByUserId(userId);
-    }
+//    // Retrieve OTP and creation timestamp for email verification during signup
+//    public Optional<OtpResponse> getOtpAndEmailVerify(Integer userId) {
+//        return emailOtpRepository.findOtpAndCreatedAtByUserId(userId);
+//    }
 
 
 }

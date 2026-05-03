@@ -4,25 +4,26 @@ public class GetUserIdResponse {
 
 
 
-    private Long id;
+    private String email;
     private String message;
     private int responseCode;
 
-    public GetUserIdResponse(Long id,String message,int responseCode){
+    public GetUserIdResponse(String email,String message,int responseCode){
 
 
-        this.id=id;
+        this.email=email;
         this.message=message;
         this.responseCode=responseCode;
 
     }
 
-    public Long getId() {
-        return id;
+
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getMessage() {
