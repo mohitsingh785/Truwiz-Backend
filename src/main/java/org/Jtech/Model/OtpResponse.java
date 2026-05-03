@@ -5,29 +5,38 @@ package org.Jtech.Model;
 import java.sql.Timestamp;
 
 public class OtpResponse {
-    private String otp;
-    private Timestamp createdAt;
+    private String otpHash;
+    private Timestamp expiryTime;
+    private boolean used;
 
     // Constructor
-    public OtpResponse(String otp, Timestamp createdAt) {
-        this.otp = otp;
-        this.createdAt = createdAt;
+    public OtpResponse(String otpHash, Timestamp expiryTime,boolean used) {
+        this.otpHash = otpHash;
+        this.expiryTime = expiryTime;
+        this.used=used;
     }
 
-    // Getters and Setters
-    public String getOtp() {
-        return otp;
+    public Timestamp getExpiryTime() {
+        return expiryTime;
     }
 
-    public void setOtp(String otp) {
-        this.otp = otp;
+    public void setExpiryTime(Timestamp expiryTime) {
+        this.expiryTime = expiryTime;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
+    public boolean isUsed() {
+        return used;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public String getOtpHash() {
+        return otpHash;
+    }
+
+    public void setOtpHash(String otpHash) {
+        this.otpHash = otpHash;
     }
 }

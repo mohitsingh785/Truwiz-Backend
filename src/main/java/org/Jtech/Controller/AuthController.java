@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.CombinedUserDetails;
 import org.Jtech.DTO.UserData;
 import org.Jtech.DTO.UserDetailsDTO;
@@ -39,33 +40,34 @@ import java.util.Optional;
 
 /**
  * Authentication Controller
- *
+ * <p>
  * Purpose:
  * Exposes REST APIs for user authentication and account security,
  * including login, signup, password reset, and OTP-based verification.
- *
+ * <p>
  * Scope:
  * - User login with JWT token generation
  * - User registration
  * - Password reset workflows
  * - Email and OTP verification
- *
+ * <p>
  * Metadata:
  * Added on : 2025-12-29
  * Author   : Mohit Singh
- *
+ * <p>
  * Notes:
  * This controller is responsible only for authentication
  * and account security operations. User profile and
  * product-related logic are handled by separate controllers.
+ * Modifition
+ * Updated otp sending and verification method with new logic (03-May-2026, Mohit Singh)
  */
-
 
 
 @RestController
 @RequestMapping("/v1/auth")
 @Tag(
-        name="Authentication",
+        name = "Authentication",
         description = "User authentication and JWT token management"
 )
 public class AuthController {
@@ -78,7 +80,6 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
 
 
     @Autowired
@@ -101,7 +102,7 @@ public class AuthController {
 
     /**
      * Authenticate a user using email and password.
-     *
+     * <p>
      * Used for:
      * - Verifying user credentials
      * - Generating JWT token on successful authentication
@@ -175,14 +176,13 @@ public class AuthController {
     }
 
 
-
     /**
      * Reset a user's password.
-     *
+     * <p>
      * Used for:
      * - Updating password after successful OTP verification
      *
-     * @param id user identifier
+     * @param id       user identifier
      * @param password new password to be set
      * @return status message indicating reset result
      */
@@ -231,14 +231,13 @@ public class AuthController {
     }
 
 
-
     /**
      * Register a new user along with their profile details.
-     *
+     * <p>
      * Used for:
      * - Creating a new user account
      * - Storing user profile information such as skin type,
-     *   hair type, allergies, and health-related data
+     * hair type, allergies, and health-related data
      *
      * @param userAndDetails request payload containing user
      *                       and user profile details
@@ -325,10 +324,9 @@ public class AuthController {
     }
 
 
-
     /**
      * Generate an OTP for password reset.
-     *
+     * <p>
      * Used for:
      * - Sending OTP to user's registered email
      * - Initiating password reset workflow
@@ -357,12 +355,24 @@ public class AuthController {
         String generatedOtp = utilsService.generateOtp();
         logger.info("Generated OTP: {}", generatedOtp);
 
-        Optional<OTP> existingOtp = otpRepository.findById(id.intValue());
+        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
+        String hashOtp = utilsService.hashOtp(generatedOtp);
 
         OTP otp = existingOtp.orElse(new OTP());
-        otp.setUserId(id.intValue());
-        otp.setOtp(generatedOtp);
-        otp.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        long now = System.currentTimeMillis();
+
+        if (existingOtp.isPresent()) {
+            otp.setUpdatedAt(new Timestamp(now));
+        } else {
+            otp.setCreatedAt(new Timestamp(now));
+        }
+
+        otp.setExpiryTime(new Timestamp(now + 60_000));
+        otp.setOtpHash(hashOtp);
+        otp.setEmail(email);
+        otp.setUsed(false);
+        otp.setOtpPurpose(OtpPurpose.RESET_PASSWORD);
+
 
         authService.saveOrUpdateOtp(otp);
 
@@ -377,7 +387,7 @@ public class AuthController {
 
         }
         // If the user ID is found, return a 200 response
-        GetUserIdResponse response = new GetUserIdResponse(id, "OTP sent successfully", 200);
+        GetUserIdResponse response = new GetUserIdResponse(email, "OTP sent successfully", 200);
         logger.info("Response sent for email: {} with userId: {}", email, id);
         return ResponseEntity.ok(response);
     }
@@ -385,7 +395,7 @@ public class AuthController {
 
     /**
      * Generate an OTP for email verification during signup.
-     *
+     * <p>
      * Used for:
      * - Verifying email ownership before account creation
      *
@@ -402,8 +412,7 @@ public class AuthController {
         // Fetch user ID by email
         Long id = authService.getUserIdByEmail(email);
         if (id != null) {
-            logger.warn("No user found for email: {}", email);
-            GetUserIdResponse response = new GetUserIdResponse(id, "Email Already Registered", 409);
+            GetUserIdResponse response = new GetUserIdResponse(email, "Email Already Registered", 409);
             return ResponseEntity.status(409).body(response);
         }
 
@@ -412,11 +421,25 @@ public class AuthController {
         String generatedOtp = utilsService.generateOtp();
         logger.info("Generated OTP: {}", generatedOtp);
 
-        EmailVerify otp = new EmailVerify();
-        otp.setOtp(generatedOtp);
-        otp.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
+        String hashOtp = utilsService.hashOtp(generatedOtp);
 
-        emailOtpRepository.save(otp);
+        OTP otp = existingOtp.orElse(new OTP());
+        long now = System.currentTimeMillis();
+        logger.info("Found existingOtp: {}", existingOtp);
+        if (existingOtp.isPresent()) {
+            otp.setUpdatedAt(new Timestamp(now));
+        } else {
+            logger.info("Found elseeeeeeeeeeeeeeeeeee: {}", existingOtp);
+            otp.setCreatedAt(new Timestamp(now));
+        }
+
+        otp.setExpiryTime(new Timestamp(now + 60_000));
+        otp.setOtpHash(hashOtp);
+        otp.setEmail(email);
+        otp.setUsed(false);
+        otp.setOtpPurpose(OtpPurpose.REGISTER);
+        authService.saveOrUpdateOtp(otp);
 
         String subject = "Your OTP Code";
         String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
@@ -429,118 +452,69 @@ public class AuthController {
 
         }
         // If the user ID is found, return a 200 response
-        GetUserIdResponse response = new GetUserIdResponse((long) otp.getId(), "OTP sent successfully", 200);
-        logger.info("Response sent for email: {} with userId: {}", email, (long) otp.getId());
+        GetUserIdResponse response = new GetUserIdResponse(email, "OTP sent successfully", 200);
+        logger.info("Response sent for email: {} with userId: {}", email);
         return ResponseEntity.ok(response);
     }
 
 
-
     /**
-     * Verify an OTP provided by the user.
-     *
+     * Verify an OTP for password reset and Register.
+     * <p>
      * Used for:
-     * - Validating OTP within allowed time window
-     * - Completing password reset  verification
-     *
-     * @param otp one-time password
-     * @param id user or verification identifier
-     * @return verification result
+     * verify the otp when User reset password or register
+     * @param otp otp
+     * @param email email
+     * @param otpPurpose type
+     * @return verify the otp when User reset password or register
      */
-    @Operation(summary = "Verify OTP", description = "Verify the OTP for a user.")
-    @GetMapping("/otp/verify-reset")
-    public ResponseEntity<GetUserIdResponse> verifyPasswordResetOtp(
-            @RequestParam(value = "otp") String otp,
-            @RequestParam(value = "id") Integer id) {
+    @Operation(summary = "verify-otp", description = "Verify an OTP for password reset and Register")
+    @PostMapping("/otp/verify-otp")
+    public ResponseEntity<GetUserIdResponse> verifyOtp(
+            @RequestParam String otp,
+            @RequestParam String email,
+            @RequestParam String otpPurpose
+    ) {
 
-        // Fetch OTP and createdAt
-        Optional<OtpResponse> result = authService.getOtpAndCreatedAtByUserId(id);
+        OtpPurpose purpose = OtpPurpose.from(otpPurpose);
+        Optional<OTP> optionalOtp =
+                authService.getOtpAndCreatedAtByEmail(email, purpose);
 
-        if (result.isPresent()) {
-            OtpResponse otpResponse = result.get();
-            String storedOtp = otpResponse.getOtp();
-            Timestamp createdAt = otpResponse.getCreatedAt();
-
-            // Log the fetched data
-            logger.info("Fetched OTP for userId {}: {}", id, storedOtp);
-            logger.info("Fetched Timestamp for userId {}: {}", id, createdAt);
-
-            // Get the current system time
-            long currentTime = System.currentTimeMillis();
-            long createdTime = createdAt.getTime();
-
-            // Calculate the time difference
-            long timeDifference = (currentTime - createdTime) / 1000; // Difference in seconds
-
-            // Verify OTP and time range
-            if (timeDifference <= 60 && storedOtp.equals(otp)) {
-                logger.info("OTP verified successfully for userId: {}", id);
-                return ResponseEntity.ok(new GetUserIdResponse((long) id, "OTP verified successfully", 200));
-            } else if (timeDifference > 60) {
-                logger.warn("OTP expired for userId: {}", id);
-                return ResponseEntity.status(400).body(new GetUserIdResponse(null, "OTP expired", 400));
-            } else {
-                logger.warn("Invalid OTP for userId: {}", id);
-                return ResponseEntity.status(400).body(new GetUserIdResponse(null, "Invalid OTP", 400));
-            }
-        } else {
-            logger.warn("No OTP found for userId: {}", id);
-            return ResponseEntity.status(404).body(new GetUserIdResponse(null, "No OTP found", 404));
+        if (optionalOtp.isEmpty()) {
+            logger.warn("No OTP found for email: {} and purpose: {}", email, otpPurpose);
+            return ResponseEntity.status(404)
+                    .body(new GetUserIdResponse(null, "No OTP found", 404));
         }
+
+        OTP otpEntity = optionalOtp.get();
+        long now = System.currentTimeMillis();
+
+        // 1. Already used
+        if (otpEntity.isUsed()) {
+            return ResponseEntity.status(400)
+                    .body(new GetUserIdResponse(null, "OTP already used", 400));
+        }
+
+        // 2. Expired
+        if (now > otpEntity.getExpiryTime().getTime()) {
+            return ResponseEntity.status(400)
+                    .body(new GetUserIdResponse(null, "OTP expired", 400));
+        }
+
+        // 3. Match
+        if (!utilsService.matchOtp(otp, otpEntity.getOtpHash())) {
+            return ResponseEntity.status(400)
+                    .body(new GetUserIdResponse(null, "Invalid OTP", 400));
+        }
+
+        // 4. Mark used
+        otpEntity.setUsed(true);
+        otpRepository.save(otpEntity);
+
+        return ResponseEntity.ok(
+                new GetUserIdResponse(email, "OTP verified successfully", 200)
+        );
     }
 
-
-    /**
-     * Verify an OTP provided by the user.
-     *
-     * Used for:
-     * - Validating OTP within allowed time window
-     * - Completing  signup verification
-     *
-     * @param otp one-time password
-     * @param id user or verification identifier
-     * @return verification result
-     */
-    @Operation(summary = "Verify OTP For Signup", description = "Verify the OTP for a user for Signup.")
-    @GetMapping("/otp/verify-signup")
-    public ResponseEntity<GetUserIdResponse> verifySignupOtp(
-            @RequestParam(value = "otp") String otp,
-            @RequestParam(value = "id") Integer id) {
-
-        // Fetch OTP and createdAt
-        Optional<OtpResponse> result = authService.getOtpAndEmailVerify(id);
-
-        if (result.isPresent()) {
-            OtpResponse otpResponse = result.get();
-            String storedOtp = otpResponse.getOtp();
-            Timestamp createdAt = otpResponse.getCreatedAt();
-
-            // Log the fetched data
-            logger.info("Fetched OTP for userId {}: {}", id, storedOtp);
-            logger.info("Fetched Timestamp for userId {}: {}", id, createdAt);
-
-            // Get the current system time
-            long currentTime = System.currentTimeMillis();
-            long createdTime = createdAt.getTime();
-
-            // Calculate the time difference
-            long timeDifference = (currentTime - createdTime) / 1000; // Difference in seconds
-
-            // Verify OTP and time range
-            if (timeDifference <= 60 && storedOtp.equals(otp)) {
-                logger.info("OTP verified successfully for userId: {}", id);
-                return ResponseEntity.ok(new GetUserIdResponse((long) id, "OTP verified successfully", 200));
-            } else if (timeDifference > 60) {
-                logger.warn("OTP expired for userId: {}", id);
-                return ResponseEntity.status(400).body(new GetUserIdResponse(null, "OTP expired", 400));
-            } else {
-                logger.warn("Invalid OTP for userId: {}", id);
-                return ResponseEntity.status(400).body(new GetUserIdResponse(null, "Invalid OTP", 400));
-            }
-        } else {
-            logger.warn("No OTP found for userId: {}", id);
-            return ResponseEntity.status(404).body(new GetUserIdResponse(null, "No OTP found", 404));
-        }
-    }
 
 }
