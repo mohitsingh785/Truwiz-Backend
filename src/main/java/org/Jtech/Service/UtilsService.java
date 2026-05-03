@@ -1,11 +1,13 @@
 package org.Jtech.Service;
 
 
+import org.Jtech.Entity.KeyStore;
 import org.Jtech.Repository.KeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Random;
 
 /**
@@ -64,7 +66,7 @@ public class UtilsService {
     /**
      * Retrieve an internal API key by name.
      *
-     * @param KeyName identifier of the required key
+     * @param keyName identifier of the required key
      * @return API key value for internal use
      *
      * Note:
@@ -72,9 +74,18 @@ public class UtilsService {
      * Returned keys must not be logged, cached insecurely,
      * or exposed outside trusted layers.
      */
-    public String getGptKey(String KeyName){
+    public String getGptKey(String keyName){
+        KeyStore key = keyRepository.getApiKey(keyName);
 
-        return keyRepository.getApiKey(KeyName).getKeyVal();
+        if (key == null) {
+            throw new RuntimeException("API key not found for: " + keyName);
+        }
+
+        keyRepository.updateLastUsedAt(
+                new Timestamp(System.currentTimeMillis()), keyName
+        );
+
+        return key.getKeyVal();
     }
 
     /**
@@ -118,6 +129,7 @@ public class UtilsService {
     public boolean matchOtp(String plainOtp, String hashedOtp) {
         return encoder.matches(plainOtp, hashedOtp);
     }
+
 
 
 }

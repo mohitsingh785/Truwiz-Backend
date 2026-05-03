@@ -7,26 +7,13 @@
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/EmailVerify.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/EmailVerify.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/OTP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/OTP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/GetUserIdResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/GetUserIdResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/OtpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/OtpResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/EmailOtpRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/EmailOtpRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/OtpRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/OtpRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/KeyStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/KeyStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/KeyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/KeyRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UtilsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UtilsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/EmailVerify.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/EmailVerify.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/OTP.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/OTP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/GetUserIdResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Model/GetUserIdResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Model/OtpResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Model/OtpResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/EmailOtpRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/EmailOtpRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/OtpRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/OtpRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/AuthService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/KeyStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/KeyStore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/KeyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/KeyRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,27 +51,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HealthCheckApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TruwizApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven.healthcheck-service [clean,install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.healthcheck-service [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.healthcheck-service [install].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/free-mysql-integration&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Health_check/HealthCheck/src/main/resources&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HealthCheckApplication.executor": "Run",
+    "Application.TruwizApplication.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JUnit.KeyServiceTest.executor": "Run",
+    "Maven.healthcheck-service [clean,install].executor": "Run",
+    "Maven.healthcheck-service [clean].executor": "Run",
+    "Maven.healthcheck-service [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/api__client__key__changes",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "F:/Projects/truwiz-backend/truwiz-backend/src/test",
+    "onboarding.tips.debug.path": "F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "advanced.settings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Projects\truwiz-backend\truwiz-backend\src\test" />
       <recent name="F:\Health_check\HealthCheck\src\main\resources" />
     </key>
   </component>
@@ -93,7 +82,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.TruwizApplication">
     <configuration name="TruwizApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
         <env name="JDBC_DATABASE_PASSWORD" value="Rewa1056@" />
@@ -124,6 +113,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="KeyServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="truwiz-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.Jtech.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.Jtech.service" />
+      <option name="MAIN_CLASS_NAME" value="org.Jtech.service.KeyServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.KeyServiceTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -146,5 +155,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.springframework.beans.BeanInstantiationException" package="org.springframework.beans" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

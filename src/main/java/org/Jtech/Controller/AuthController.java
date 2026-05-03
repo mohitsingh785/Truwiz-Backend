@@ -407,7 +407,6 @@ public class AuthController {
     public ResponseEntity<GetUserIdResponse> generateEmailVerificationOtp(@RequestParam(value = "email", required = true) String email) {
         Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
         logger.info("Received request to generate OTP for email: {}", email);
         // Fetch user ID by email
         Long id = authService.getUserIdByEmail(email);
