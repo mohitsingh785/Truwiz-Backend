@@ -7,13 +7,15 @@
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/KeyStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/KeyStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/KeyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/KeyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UtilsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UtilsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/EmailVerify.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/EmailVerify.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/EmailOtpRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/EmailOtpRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/KeyStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/KeyStore.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/KeyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/KeyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/Article.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/EmailVerify.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Repository/EmailOtpRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/AuthService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/AuthService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +63,7 @@
     "Maven.healthcheck-service [clean].executor": "Run",
     "Maven.healthcheck-service [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/api__client__key__changes",
+    "git-widget-placeholder": "feature/article-changes",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "F:/Projects/truwiz-backend/truwiz-backend/src/test",
     "onboarding.tips.debug.path": "F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java",

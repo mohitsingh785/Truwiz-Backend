@@ -15,14 +15,12 @@ import org.Jtech.DTO.CombinedUserDetails;
 import org.Jtech.DTO.UserData;
 import org.Jtech.DTO.UserDetailsDTO;
 import org.Jtech.DTO.UserLoginDTO;
-import org.Jtech.Entity.EmailVerify;
 import org.Jtech.Entity.OTP;
 import org.Jtech.Entity.User;
 import org.Jtech.Entity.UserDetails;
 import org.Jtech.Model.GetUserIdResponse;
 import org.Jtech.Model.OtpResponse;
 import org.Jtech.Model.UserAndDetails;
-import org.Jtech.Repository.EmailOtpRepository;
 import org.Jtech.Repository.OtpRepository;
 import org.Jtech.Repository.UserDetailsRepository;
 import org.Jtech.Repository.UserRepository;
@@ -97,8 +95,8 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private EmailOtpRepository emailOtpRepository;
+//    @Autowired
+//    private EmailOtpRepository emailOtpRepository;
 
     /**
      * Authenticate a user using email and password.

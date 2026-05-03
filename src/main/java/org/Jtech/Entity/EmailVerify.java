@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 // Deprecated: Replaced by otp_verify (03-May-2026, Mohit Singh)
+/*
 @Entity
 @Table(name = "Email_otp")
 public class EmailVerify {
@@ -50,3 +51,4 @@ public class EmailVerify {
         this.createdAt = createdAt;
     }
 }
+ */

@@ -6,7 +6,7 @@ import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.UserData;
 import org.Jtech.Entity.OTP;
 import org.Jtech.Model.OtpResponse;
-import org.Jtech.Repository.EmailOtpRepository;
+//import org.Jtech.Repository.EmailOtpRepository;
 import org.Jtech.Repository.OtpRepository;
 import org.Jtech.Repository.UserDetailsRepository;
 import org.Jtech.Repository.UserRepository;
@@ -51,8 +51,8 @@ public class AuthService {
     private OtpRepository otpRepository;
 
 
-    @Autowired
-    private EmailOtpRepository emailOtpRepository;
+//    @Autowired
+//    private EmailOtpRepository emailOtpRepository;
 
     // Fetch user authentication data using email
     public Optional<UserData> authenticate(String email) {
