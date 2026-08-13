@@ -2,6 +2,9 @@ package org.Jtech.DTO;
 
 
 import org.Jtech.Constant.Gender;
+import org.Jtech.Constant.HairType;
+import org.Jtech.Constant.SkinColor;
+import org.Jtech.Constant.SkinType;
 
 import java.util.List;
 
@@ -11,34 +14,30 @@ public class CombinedUserDetails {
     private String userName;
     private String email;
     private String phoneNumber;
-    private String skinType;
-    private String hairType;
+    private SkinType skinType;
+    private HairType hairType;
     private Integer age;
     private Gender gender;
-    private String skinColour;
+    private SkinColor skinColour;
     private List<String> allergies;
-    private Float bmi;
-    private Float weight;
+    private Float heightKg;
+    private Float weightKg;
 
-    // Constructor
-    public CombinedUserDetails(String Token,Long userId, String userName, String email, String phoneNumber,
-                               String skinType, String hairType,Integer age, Gender gender, String skinColour,
-                               List<String> allergies, Float bmi, Float weight) {
-        this.Token=Token;
+    public CombinedUserDetails(String token, Long userId, String userName, String email, String phoneNumber, SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightKg, Float weightKg) {
+        Token = token;
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.hairType = hairType;
         this.skinType = skinType;
+        this.hairType = hairType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
         this.allergies = allergies;
-        this.bmi = bmi;
-        this.weight = weight;
+        this.heightKg = heightKg;
+        this.weightKg = weightKg;
     }
-
 
     public String getToken() {
         return Token;
@@ -48,7 +47,6 @@ public class CombinedUserDetails {
         Token = token;
     }
 
-    // Getters and Setters
     public Long getUserId() {
         return userId;
     }
@@ -81,12 +79,20 @@ public class CombinedUserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getSkinType() {
+    public SkinType getSkinType() {
         return skinType;
     }
 
-    public void setSkinType(String skinType) {
+    public void setSkinType(SkinType skinType) {
         this.skinType = skinType;
+    }
+
+    public HairType getHairType() {
+        return hairType;
+    }
+
+    public void setHairType(HairType hairType) {
+        this.hairType = hairType;
     }
 
     public Integer getAge() {
@@ -105,11 +111,11 @@ public class CombinedUserDetails {
         this.gender = gender;
     }
 
-    public String getSkinColour() {
+    public SkinColor getSkinColour() {
         return skinColour;
     }
 
-    public void setSkinColour(String skinColour) {
+    public void setSkinColour(SkinColor skinColour) {
         this.skinColour = skinColour;
     }
 
@@ -121,44 +127,11 @@ public class CombinedUserDetails {
         this.allergies = allergies;
     }
 
-    public Float getBmi() {
-        return bmi;
+    public Float getHeightKg() {
+        return heightKg;
     }
 
-    public void setBmi(Float bmi) {
-        this.bmi = bmi;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
-    @Override
-    public String toString() {
-        return "CombinedUserDetails{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", skinType='" + skinType + '\'' +
-                ", age=" + age +
-                ", gender=" + gender +
-                ", skinColour='" + skinColour + '\'' +
-                ", allergies=" + allergies +
-                ", bmi=" + bmi +
-                ", weight=" + weight +
-                '}';
-    }
-
-    public String getHairType() {
-        return hairType;
-    }
-
-    public void setHairType(String hairType) {
-        this.hairType = hairType;
+    public void setHeightKg(Float heightKg) {
+        this.heightKg = heightKg;
     }
 }

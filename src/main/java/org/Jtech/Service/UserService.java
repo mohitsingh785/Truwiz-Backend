@@ -60,10 +60,11 @@ public class UserService implements UserDetailsService {
      * @param id unique identifier of the user
      * @return aggregated user profile data
      */
+    /*
     public UserFullData printUserDetails(Long id){
 
         UserData userdata=user.alldata(id);
-        UserDetailsDTO userDetailsDTO=userDetails.userdetaildata(id);
+        UserDetailsDTO userDetailsDTO=userDetails.userDetailsData(id);
 
         // Construct and return UserFullData
         return new UserFullData(
@@ -75,12 +76,12 @@ public class UserService implements UserDetailsService {
                 userDetailsDTO.getGender(),
                 userDetailsDTO.getSkinColour(),
                 userDetailsDTO.getAllergies(),
-                userDetailsDTO.getBmi(),
-                userDetailsDTO.getWeight()
+                userDetailsDTO.getHeightCm(),
+                userDetailsDTO.getWeightKg()
         );
 
     }
-
+/*
 
     /**
      * Retrieve full user profile data using user ID.
@@ -92,11 +93,13 @@ public class UserService implements UserDetailsService {
      * @param userId unique identifier of the user
      * @return aggregated user profile data
      */
+    /*
     public UserDetailsDTO getUserById(Long userId){
         // Fetch user details from the repository
-        return  userDetails.userdetaildata(userId);
+        return  userDetails.userDetailsData(userId);
     }
 
+    /*
     /**
      * Load user details by username (email).
      *

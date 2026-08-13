@@ -108,6 +108,7 @@ public class AuthController {
      * @param userLoginDTO login request containing email and password
      * @return authenticated user details along with JWT token
      */
+    /*
     @Operation(
             summary = "Login using email and password",
             description = "Login using email and password and get all user details",
@@ -139,7 +140,7 @@ public class AuthController {
         if (userDataOptional.isPresent()) {
             UserData userData = userDataOptional.get();
             Long userId = userData.getUserID();
-            UserDetailsDTO userDetailsDTO = userDetailsRepository.userdetaildata(userId);
+            UserDetailsDTO userDetailsDTO = userDetailsRepository.userDetailsData(userId);
 
             String encryptedPassword = userData.getPassword();
             if (utilsService.matchPassword(password, encryptedPassword)) {
@@ -158,8 +159,8 @@ public class AuthController {
                         userDetailsDTO.getGender(),
                         userDetailsDTO.getSkinColour(),
                         userDetailsDTO.getAllergies(),
-                        userDetailsDTO.getBmi(),
-                        userDetailsDTO.getWeight()
+                        userDetailsDTO.getHeightCm(),
+                        userDetailsDTO.getWeightKg()
                 );
 
 
@@ -173,7 +174,7 @@ public class AuthController {
         }
     }
 
-
+*/
     /**
      * Reset a user's password.
      * <p>
@@ -241,6 +242,8 @@ public class AuthController {
      *                       and user profile details
      * @return status message indicating registration result
      */
+
+    /*
     @Operation(
             summary = "Add User and Details",
             description = "Add a new user along with their details, including skin type, allergies, and other health-related information.",
@@ -265,7 +268,7 @@ public class AuthController {
                                             "    \"gender\": \"MALE\",\n" +
                                             "    \"skinColour\": \"Fair\",\n" +
                                             "    \"allergies\": [\"Pollen\"],\n" +
-                                            "    \"bmi\": 22.3,\n" +
+                                            "    \"height\": 122.3,\n" +
                                             "    \"weight\": 70.0\n" +
                                             "  }\n" +
                                             "}"
@@ -293,12 +296,12 @@ public class AuthController {
             logger.info("Received request with user details: {}", userDetails);
 
             // Validate allergies and convert to JSON if needed
-            if (userDetails.getAllergies() != null) {
-                logger.info("Converting allergies to JSON: {}", userDetails.getAllergies());
+            if (userDetails.getUserAllergies() != null) {
+                logger.info("Converting allergies to JSON: {}", userDetails.getUserAllergies());
                 // Ensure the JSON is valid
-                String allergiesJson = new ObjectMapper().writeValueAsString(userDetails.getAllergies());
+                String allergiesJson = new ObjectMapper().writeValueAsString(userDetails.getUserAllergies());
                 logger.info("Converted allergies JSON: {}", allergiesJson);
-                userDetails.setAllergies(new ObjectMapper().readValue(allergiesJson, List.class));
+                userDetails.setUserAllergies(new ObjectMapper().readValue(allergiesJson, List.class));
             }
 
             // Save the user to the database
@@ -320,7 +323,7 @@ public class AuthController {
                     .body("An error occurred: " + e.getMessage());
         }
     }
-
+*/
 
     /**
      * Generate an OTP for password reset.
