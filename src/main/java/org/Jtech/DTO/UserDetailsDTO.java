@@ -1,5 +1,6 @@
 package org.Jtech.DTO;
 
+import jakarta.validation.constraints.*;
 import org.Jtech.Constant.Gender;
 import org.Jtech.Constant.HairType;
 import org.Jtech.Constant.SkinColor;
@@ -10,42 +11,38 @@ import java.util.List;
 public class UserDetailsDTO {
 
 
-    private Long userId;
+    @NotNull
     private SkinType skinType;
+    @NotNull
     private HairType hairType;
+    @NotNull
+    @Min(1)
+    @Max(120)
     private Integer age;
+    @NotNull
     private Gender gender;
+    @NotNull
     private SkinColor skinColour;
-    private List<String> allergies;
+    @NotNull
+    private List<Long> allergyIds;
+    @NotNull
+    @Positive
+    @DecimalMax("250")
     private Float heightCm;
+    @NotNull
+    @Positive
+    @DecimalMax("250")
     private Float weightKg;
 
-    public UserDetailsDTO(Long userId, SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightCm, Float weightKg) {
-        this.userId = userId;
+    public UserDetailsDTO(SkinType skinType, Float weightKg, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<Long> allergyIds, Float heightCm) {
         this.skinType = skinType;
+        this.weightKg = weightKg;
         this.hairType = hairType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
-        this.allergies = allergies;
+        this.allergyIds = allergyIds;
         this.heightCm = heightCm;
-        this.weightKg = weightKg;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public HairType getHairType() {
-        return hairType;
-    }
-
-    public void setHairType(HairType hairType) {
-        this.hairType = hairType;
     }
 
     public SkinType getSkinType() {
@@ -56,20 +53,20 @@ public class UserDetailsDTO {
         this.skinType = skinType;
     }
 
+    public HairType getHairType() {
+        return hairType;
+    }
+
+    public void setHairType(HairType hairType) {
+        this.hairType = hairType;
+    }
+
     public Integer getAge() {
         return age;
     }
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public SkinColor getSkinColour() {
-        return skinColour;
-    }
-
-    public void setSkinColour(SkinColor skinColour) {
-        this.skinColour = skinColour;
     }
 
     public Gender getGender() {
@@ -80,12 +77,20 @@ public class UserDetailsDTO {
         this.gender = gender;
     }
 
-    public List<String> getAllergies() {
-        return allergies;
+    public List<Long> getAllergyIds() {
+        return allergyIds;
     }
 
-    public void setAllergies(List<String> allergies) {
-        this.allergies = allergies;
+    public void setAllergyIds(List<Long> allergyIds) {
+        this.allergyIds = allergyIds;
+    }
+
+    public SkinColor getSkinColour() {
+        return skinColour;
+    }
+
+    public void setSkinColour(SkinColor skinColour) {
+        this.skinColour = skinColour;
     }
 
     public Float getHeightCm() {

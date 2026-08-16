@@ -3,6 +3,8 @@ package org.Jtech.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "user_allergy")
 public class UserAllergy {
@@ -18,6 +20,11 @@ public class UserAllergy {
     @ManyToOne
     @JoinColumn(name = "allergy_id",nullable = false)
     private Allergies allergy;
+
+    public UserAllergy(UserDetails userDetails, Allergies allergy) {
+        this.userDetails = userDetails;
+        this.allergy = allergy;
+    }
 
     public UserDetails getUserDetails() {
         return userDetails;
@@ -40,6 +47,6 @@ public class UserAllergy {
     }
 
     public void setAllergy(Allergies allergy) {
-        this.allergy = allergy;
+        allergy = allergy;
     }
 }

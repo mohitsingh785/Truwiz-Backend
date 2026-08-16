@@ -53,6 +53,15 @@ public class UserDetails {
     @OneToMany(mappedBy = "userDetails",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<UserAllergy> userAllergies;
 
+    public UserDetails(SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, Float heightCm, Float weightKg) {
+        this.skinType = skinType;
+        this.hairType = hairType;
+        this.age = age;
+        this.gender = gender;
+        this.skinColour = skinColour;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
+    }
 
     public Set<UserAllergy> getUserAllergies() {
         return userAllergies;

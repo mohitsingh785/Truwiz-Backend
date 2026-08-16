@@ -5,39 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07d44c36-cacd-435e-afd4-144404fbf40e" name="Changes" comment="add">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/CombinedUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/CombinedUserDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/UserDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/UserDetailsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/UserFullData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/DTO/UserFullData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/UserAllergy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/UserAllergy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/UserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Entity/UserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserDetailsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserDetailsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/ArticleController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/CategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Controller/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/CombinedUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/CombinedUserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/ProductEvaluationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/ProductEvaluationDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UsageGuideDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UsageGuideDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserDetailsDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/DTO/UserDetailsDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/UserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Entity/UserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/OpenAIService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/OpenAIService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Service/UtilsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDetailTrainer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/TrainedModel/ProductDetailTrainer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/OpenAiParshing.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Util/OpenAiParshing.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/Util/StringListJsonConverter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/config/SecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtAuthenticationEntryPoint.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/Jtech/jwt/JwtHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/org/Jtech/service/KeyServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/static/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/templates/terms-and-conditions.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/UserAndDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Model/UserAndDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/Jtech/Service/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,38 +51,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HealthCheckApplication.executor": "Run",
-    "Application.TruwizApplication.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JUnit.KeyServiceTest.executor": "Run",
-    "Maven.healthcheck-service [clean,install].executor": "Run",
-    "Maven.healthcheck-service [clean].executor": "Run",
-    "Maven.healthcheck-service [install].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/user__allergy",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "F:/Projects/truwiz-backend/truwiz-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "onboarding.tips.debug.path": "F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HealthCheckApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TruwizApplication.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JUnit.KeyServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.healthcheck-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.healthcheck-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.healthcheck-service [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/user__allergy&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Projects/truwiz-backend/truwiz-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;F:/Health_check/HealthCheck/src/main/java/org/Jtech/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\Projects\truwiz-backend\truwiz-backend\src\test" />
