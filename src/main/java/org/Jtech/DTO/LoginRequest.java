@@ -1,12 +1,16 @@
 package org.Jtech.DTO;
 
-public class UserLoginDTO {
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public class LoginRequest {
+    @Email
+    @NotBlank
     private String email;
+    @NotBlank
     private String password;
 
-
-
-    // Getters and Setters
     public String getEmail() {
         return email;
     }

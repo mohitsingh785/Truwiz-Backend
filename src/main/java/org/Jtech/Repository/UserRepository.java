@@ -14,26 +14,21 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    @Query("SELECT new org.Jtech.DTO.UserData(u.userId, u.userName, u.email, u.phoneNumber,u.password) FROM User  u WHERE u.userId = :id")
-    UserData alldata(@Param("id") Long id);
 
 
+    User findByEmailAndPassword(String email,String password);
 
-    @Query("SELECT new org.Jtech.DTO.UserData(u.userId,u.userName, u.email, u.phoneNumber, u.password) FROM User u WHERE u.email = :email")
-    Optional<UserData> findByEmailAndPassword(@Param("email") String email);
-
-    @Query("SELECT u FROM User u WHERE u.email = :email")
-    Optional<User> findByEmail(@Param("email") String email);
+    Optional<User> findByEmail(String email);
 
 
-    @Query("SELECT u.userId FROM User u WHERE u.email = :email")
-    Long findUserIdByEmail(@Param("email") String email);
+    Long findUserIdByEmail(String email);
 
 
     @Transactional
     @Modifying
     @Query("UPDATE User u SET u.password = :password WHERE u.userId = :userId")
     int updatePassword(@Param("userId") Long userId, @Param("password") String newPassword);
+
 
     boolean existsByEmail(String email);
 

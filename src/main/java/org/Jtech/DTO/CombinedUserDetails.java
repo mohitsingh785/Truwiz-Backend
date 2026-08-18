@@ -9,8 +9,6 @@ import org.Jtech.Constant.SkinType;
 import java.util.List;
 
 public class CombinedUserDetails {
-    private String Token;
-    private Long userId;
     private String userName;
     private String email;
     private String phoneNumber;
@@ -23,9 +21,7 @@ public class CombinedUserDetails {
     private Float heightKg;
     private Float weightKg;
 
-    public CombinedUserDetails(String token, Long userId, String userName, String email, String phoneNumber, SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightKg, Float weightKg) {
-        Token = token;
-        this.userId = userId;
+    public CombinedUserDetails(String userName, String email, String phoneNumber, SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightKg, Float weightKg) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -37,22 +33,6 @@ public class CombinedUserDetails {
         this.allergies = allergies;
         this.heightKg = heightKg;
         this.weightKg = weightKg;
-    }
-
-    public String getToken() {
-        return Token;
-    }
-
-    public void setToken(String token) {
-        Token = token;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getUserName() {
@@ -133,5 +113,13 @@ public class CombinedUserDetails {
 
     public void setHeightKg(Float heightKg) {
         this.heightKg = heightKg;
+    }
+
+    public Float getWeightKg() {
+        return weightKg;
+    }
+
+    public void setWeightKg(Float weightKg) {
+        this.weightKg = weightKg;
     }
 }

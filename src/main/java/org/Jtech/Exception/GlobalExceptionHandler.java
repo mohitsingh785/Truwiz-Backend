@@ -33,11 +33,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AllergyNotFoundException.class)
     public ProblemDetail handleAllergyNotFoundException(AllergyNotFoundException ex,HttpServletRequest request){
 
-        ProblemDetail problemDetail=ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        ProblemDetail problemDetail=ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
         problemDetail.setTitle("Allergy Not found");
         problemDetail.setDetail(ex.getMessage());
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
     }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ProblemDetail handleInvalidCredentialsException(InvalidCredentialsException ex,HttpServletRequest request){
+
+        ProblemDetail problemDetail=ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Invalid email or password.");
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
+
+
 
 }

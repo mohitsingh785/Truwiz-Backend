@@ -1,7 +1,6 @@
 package org.Jtech.Controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -12,21 +11,12 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.Jtech.Constant.OtpPurpose;
-import org.Jtech.DTO.CombinedUserDetails;
-import org.Jtech.DTO.UserData;
-import org.Jtech.DTO.UserDetailsDTO;
-import org.Jtech.DTO.UserLoginDTO;
+import org.Jtech.DTO.*;
 import org.Jtech.Entity.OTP;
-import org.Jtech.Entity.User;
-import org.Jtech.Entity.UserAllergy;
-import org.Jtech.Entity.UserDetails;
 import org.Jtech.Model.GetUserIdResponse;
-import org.Jtech.Model.OtpResponse;
 import org.Jtech.Model.UserAndDetails;
-import org.Jtech.Repository.AllergiesRepository;
 import org.Jtech.Repository.OtpRepository;
 import org.Jtech.Repository.UserDetailsRepository;
-import org.Jtech.Repository.UserRepository;
 import org.Jtech.Service.*;
 import org.Jtech.jwt.JwtHelper;
 import org.slf4j.Logger;
@@ -35,9 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.Jtech.DTO.*;
+
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -81,19 +70,6 @@ public class AuthController {
     private UserDetailsRepository userDetailsRepository;
 
     @Autowired
-    private UserService userService;
-
-
-    @Autowired
-    private JwtHelper helper;
-
-    @Autowired
-    private AllergiesRepository allergiesRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private OtpRepository otpRepository;
 
     @Autowired
@@ -102,8 +78,7 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
-//    @Autowired
-//    private EmailOtpRepository emailOtpRepository;
+
 
     /**
      * Authenticate a user using email and password.
@@ -112,10 +87,9 @@ public class AuthController {
      * - Verifying user credentials
      * - Generating JWT token on successful authentication
      *
-     * @param userLoginDTO login request containing email and password
+     * @param loginRequest login request containing email and password
      * @return authenticated user details along with JWT token
      */
-    /*
     @Operation(
             summary = "Login using email and password",
             description = "Login using email and password and get all user details",
@@ -124,7 +98,7 @@ public class AuthController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Logged in successfully",
-                            content = @Content(schema = @Schema(implementation = CombinedUserDetails.class))
+                            content = @Content(schema = @Schema(implementation = LoginRequest.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
@@ -132,56 +106,19 @@ public class AuthController {
                             content = @Content(schema = @Schema(implementation = String.class))
                     ),
                     @ApiResponse(
-                            responseCode = "400",
-                            description = "Invalid request parameters",
+                            responseCode = "404",
+                            description = "Invalid email or password.",
                             content = @Content(schema = @Schema(implementation = String.class))
                     )
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
-        String email = userLoginDTO.getEmail();
-        String password = userLoginDTO.getPassword();
-        Optional<UserData> userDataOptional = authService.authenticate(email);
-
-        if (userDataOptional.isPresent()) {
-            UserData userData = userDataOptional.get();
-            Long userId = userData.getUserID();
-            UserDetailsDTO userDetailsDTO = userDetailsRepository.userDetailsData(userId);
-
-            String encryptedPassword = userData.getPassword();
-            if (utilsService.matchPassword(password, encryptedPassword)) {
-                org.springframework.security.core.userdetails.UserDetails userDetails = userService.loadUserByUsername(email);
-                String token = this.helper.generateToken(userDetails);
-                // Assuming `CombinedUserDetails` constructor takes all required parameters.
-                CombinedUserDetails combinedUserDetails = new CombinedUserDetails(
-                        token,
-                        userId,
-                        userData.getUserName(),
-                        userData.getEmail(),
-                        userData.getPhoneNumber(),
-                        userDetailsDTO.getSkinType(),
-                        userDetailsDTO.getHairType(),
-                        userDetailsDTO.getAge(),
-                        userDetailsDTO.getGender(),
-                        userDetailsDTO.getSkinColour(),
-                        userDetailsDTO.getAllergies(),
-                        userDetailsDTO.getHeightCm(),
-                        userDetailsDTO.getWeightKg()
-                );
-
-
-                // Returning CombinedUserDetails as JSON response.
-                return ResponseEntity.ok(combinedUserDetails);
-            } else {
-                return ResponseEntity.status(401).body("Invalid email or password!");
-            }
-        } else {
-            return ResponseEntity.status(401).body("User doesn't exist.");
-        }
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+      LoginResponse loginResponse= authService.authenticate(loginRequest);
+      return ResponseEntity.ok(loginResponse);
     }
 
-*/
+
     /**
      * Reset a user's password.
      * <p>
@@ -245,7 +182,7 @@ public class AuthController {
      * - Storing user profile information such as skin type,
      * hair type, allergies, and health-related data
      *
-     * @param userAndDetails request payload containing user
+     * @param userAndDetailsRequest request payload containing user
      *                       and user profile details
      * @return status message indicating registration result
      */

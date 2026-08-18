@@ -8,6 +8,7 @@ import org.Jtech.Constant.HairType;
 import org.Jtech.Constant.SkinColor;
 import org.Jtech.Constant.SkinType;
 import org.Jtech.Util.StringListJsonConverter;
+
 import java.util.List;
 import java.util.Set;
 
@@ -50,9 +51,11 @@ public class UserDetails {
     @Column(name = "weight_kg")
     private Float weightKg;
 
-    @OneToMany(mappedBy = "userDetails",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserAllergy> userAllergies;
 
+    public UserDetails() {
+    }
     public UserDetails(SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, Float heightCm, Float weightKg) {
         this.skinType = skinType;
         this.hairType = hairType;

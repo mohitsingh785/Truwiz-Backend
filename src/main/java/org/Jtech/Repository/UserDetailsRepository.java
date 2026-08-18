@@ -1,20 +1,17 @@
 package org.Jtech.Repository;
 
+import org.Jtech.DTO.UserDetailsView;
+import org.Jtech.Entity.User;
 import org.Jtech.Entity.UserDetails;
 import org.Jtech.DTO.UserDetailsDTO;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface UserDetailsRepository extends CrudRepository<UserDetails, Long> {
+import java.util.Optional;
 
+public interface UserDetailsRepository extends JpaRepository<UserDetails, Long> {
 
-
-    /*
-    @Query("SELECT new org.Jtech.DTO.UserDetailsDTO(u.user.userId, u.skinType,u.hairType, u.age, u.gender, u.skinColour, u.anyAllergies," +
-            " u.heightCm, u.weightKg) " +
-            "FROM UserDetails u WHERE u.user.userId = :id")
-    UserDetailsDTO userDetailsData(@Param("id") Long id);
-
-     */
+    Optional<UserDetailsView> findByUserUserId(Long userId);
 }

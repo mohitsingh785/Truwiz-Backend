@@ -21,6 +21,8 @@ public class UserAllergy {
     @JoinColumn(name = "allergy_id",nullable = false)
     private Allergies allergy;
 
+    public UserAllergy() {
+    }
     public UserAllergy(UserDetails userDetails, Allergies allergy) {
         this.userDetails = userDetails;
         this.allergy = allergy;
