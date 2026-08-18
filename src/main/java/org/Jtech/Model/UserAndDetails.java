@@ -2,13 +2,18 @@ package org.Jtech.Model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
+import org.Jtech.DTO.UserDetailsDTO;
 import org.Jtech.Entity.User;
 import org.Jtech.Entity.UserDetails;
 
 public class UserAndDetails {
+    @Valid
     private User user;
-    private UserDetails userDetails;
-
+    @Valid
+    @JsonProperty("userDetails")
+    private UserDetailsDTO userDetailsDTO;
 
     public User getUser() {
         return user;
@@ -18,11 +23,11 @@ public class UserAndDetails {
         this.user = user;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public UserDetailsDTO getUserDetailsDTO() {
+        return userDetailsDTO;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserDetailsDTO(UserDetailsDTO userDetailsDTO) {
+        this.userDetailsDTO = userDetailsDTO;
     }
 }

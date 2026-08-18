@@ -1,6 +1,8 @@
 package org.Jtech.DTO;
 
 import org.Jtech.Constant.Gender;
+import org.Jtech.Constant.SkinColor;
+import org.Jtech.Constant.SkinType;
 
 import java.util.List;
 
@@ -9,21 +11,15 @@ public class UserFullData {
     private String userName;
     private String email;
     private String phoneNumber;
-    private String skinType;
+    private SkinType skinType;
     private Integer age;
     private Gender gender;
-    private String skinColour;
+    private SkinColor skinColour;
     private List<String> allergies;
-    private Float bmi;
-    private Float weight;
+    private Float heightCm;
+    private Float weightKg;
 
-    // No-argument constructor
-    public UserFullData() {
-    }
-
-    // Parameterized constructor
-    public UserFullData(String userName, String email, String phoneNumber, String skinType, Integer age,
-                        Gender gender, String skinColour, List<String> allergies, Float bmi, Float weight) {
+    public UserFullData(String userName, String email, String phoneNumber, SkinType skinType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightCm, Float weightKg) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -32,48 +28,87 @@ public class UserFullData {
         this.gender = gender;
         this.skinColour = skinColour;
         this.allergies = allergies;
-        this.bmi = bmi;
-        this.weight = weight;
+        this.heightCm = heightCm;
+        this.weightKg = weightKg;
     }
-
 
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getSkinType() {
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public SkinType getSkinType() {
         return skinType;
     }
 
-    public Gender getGender() {
-        return gender;
+    public void setSkinType(SkinType skinType) {
+        this.skinType = skinType;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public String getSkinColour() {
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public SkinColor getSkinColour() {
         return skinColour;
+    }
+
+    public void setSkinColour(SkinColor skinColour) {
+        this.skinColour = skinColour;
     }
 
     public List<String> getAllergies() {
         return allergies;
     }
 
-    public Float getBmi() {
-        return bmi;
+    public void setAllergies(List<String> allergies) {
+        this.allergies = allergies;
     }
 
-    public Float getWeight() {
-        return weight;
+    public Float getHeightCm() {
+        return heightCm;
+    }
+
+    public void setHeightCm(Float heightCm) {
+        this.heightCm = heightCm;
+    }
+
+    public Float getWeightKg() {
+        return weightKg;
+    }
+
+    public void setWeightKg(Float weightKg) {
+        this.weightKg = weightKg;
     }
 }

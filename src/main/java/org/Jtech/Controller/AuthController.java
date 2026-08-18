@@ -1,7 +1,6 @@
 package org.Jtech.Controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -10,30 +9,24 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.Jtech.Constant.OtpPurpose;
-import org.Jtech.DTO.CombinedUserDetails;
-import org.Jtech.DTO.UserData;
-import org.Jtech.DTO.UserDetailsDTO;
-import org.Jtech.DTO.UserLoginDTO;
+import org.Jtech.DTO.*;
 import org.Jtech.Entity.OTP;
-import org.Jtech.Entity.User;
-import org.Jtech.Entity.UserDetails;
 import org.Jtech.Model.GetUserIdResponse;
-import org.Jtech.Model.OtpResponse;
 import org.Jtech.Model.UserAndDetails;
 import org.Jtech.Repository.OtpRepository;
 import org.Jtech.Repository.UserDetailsRepository;
-import org.Jtech.Repository.UserRepository;
 import org.Jtech.Service.*;
 import org.Jtech.jwt.JwtHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -77,16 +70,6 @@ public class AuthController {
     private UserDetailsRepository userDetailsRepository;
 
     @Autowired
-    private UserService userService;
-
-
-    @Autowired
-    private JwtHelper helper;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private OtpRepository otpRepository;
 
     @Autowired
@@ -95,8 +78,7 @@ public class AuthController {
     @Autowired
     private EmailService emailService;
 
-//    @Autowired
-//    private EmailOtpRepository emailOtpRepository;
+
 
     /**
      * Authenticate a user using email and password.
@@ -105,7 +87,7 @@ public class AuthController {
      * - Verifying user credentials
      * - Generating JWT token on successful authentication
      *
-     * @param userLoginDTO login request containing email and password
+     * @param loginRequest login request containing email and password
      * @return authenticated user details along with JWT token
      */
     @Operation(
@@ -116,7 +98,7 @@ public class AuthController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Logged in successfully",
-                            content = @Content(schema = @Schema(implementation = CombinedUserDetails.class))
+                            content = @Content(schema = @Schema(implementation = LoginRequest.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
@@ -124,53 +106,16 @@ public class AuthController {
                             content = @Content(schema = @Schema(implementation = String.class))
                     ),
                     @ApiResponse(
-                            responseCode = "400",
-                            description = "Invalid request parameters",
+                            responseCode = "404",
+                            description = "Invalid email or password.",
                             content = @Content(schema = @Schema(implementation = String.class))
                     )
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
-        String email = userLoginDTO.getEmail();
-        String password = userLoginDTO.getPassword();
-        Optional<UserData> userDataOptional = authService.authenticate(email);
-
-        if (userDataOptional.isPresent()) {
-            UserData userData = userDataOptional.get();
-            Long userId = userData.getUserID();
-            UserDetailsDTO userDetailsDTO = userDetailsRepository.userdetaildata(userId);
-
-            String encryptedPassword = userData.getPassword();
-            if (utilsService.matchPassword(password, encryptedPassword)) {
-                org.springframework.security.core.userdetails.UserDetails userDetails = userService.loadUserByUsername(email);
-                String token = this.helper.generateToken(userDetails);
-                // Assuming `CombinedUserDetails` constructor takes all required parameters.
-                CombinedUserDetails combinedUserDetails = new CombinedUserDetails(
-                        token,
-                        userId,
-                        userData.getUserName(),
-                        userData.getEmail(),
-                        userData.getPhoneNumber(),
-                        userDetailsDTO.getSkinType(),
-                        userDetailsDTO.getHairType(),
-                        userDetailsDTO.getAge(),
-                        userDetailsDTO.getGender(),
-                        userDetailsDTO.getSkinColour(),
-                        userDetailsDTO.getAllergies(),
-                        userDetailsDTO.getBmi(),
-                        userDetailsDTO.getWeight()
-                );
-
-
-                // Returning CombinedUserDetails as JSON response.
-                return ResponseEntity.ok(combinedUserDetails);
-            } else {
-                return ResponseEntity.status(401).body("Invalid email or password!");
-            }
-        } else {
-            return ResponseEntity.status(401).body("User doesn't exist.");
-        }
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
+      LoginResponse loginResponse= authService.authenticate(loginRequest);
+      return ResponseEntity.ok(loginResponse);
     }
 
 
@@ -237,10 +182,12 @@ public class AuthController {
      * - Storing user profile information such as skin type,
      * hair type, allergies, and health-related data
      *
-     * @param userAndDetails request payload containing user
+     * @param userAndDetailsRequest request payload containing user
      *                       and user profile details
      * @return status message indicating registration result
      */
+
+
     @Operation(
             summary = "Add User and Details",
             description = "Add a new user along with their details, including skin type, allergies, and other health-related information.",
@@ -264,9 +211,9 @@ public class AuthController {
                                             "    \"age\": 25,\n" +
                                             "    \"gender\": \"MALE\",\n" +
                                             "    \"skinColour\": \"Fair\",\n" +
-                                            "    \"allergies\": [\"Pollen\"],\n" +
-                                            "    \"bmi\": 22.3,\n" +
-                                            "    \"weight\": 70.0\n" +
+                                            "    \"allergyIds\": [2,3,4],\n" +
+                                            "    \"heightCm\": 122.3,\n" +
+                                            "    \"weightKg\": 70.0\n" +
                                             "  }\n" +
                                             "}"
                             )
@@ -274,7 +221,7 @@ public class AuthController {
             )
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User and UserDetails added successfully"),
+            @ApiResponse(responseCode = "201", description = "User Created Successfully"),
             @ApiResponse(responseCode = "500", description = "An error occurred while adding the user",
                     content = @Content(
                             mediaType = "application/json",
@@ -283,44 +230,10 @@ public class AuthController {
     })
 
     @PostMapping("signup")
-    public ResponseEntity<String> registerUser(@RequestBody UserAndDetails userAndDetails) {
-        try {
-            User user = userAndDetails.getUser();
-            String encryptpass = utilsService.hashPassword(userAndDetails.getUser().getPassword());
-            user.setPassword(encryptpass);
-            UserDetails userDetails = userAndDetails.getUserDetails();
-
-            logger.info("Received request with user details: {}", userDetails);
-
-            // Validate allergies and convert to JSON if needed
-            if (userDetails.getAllergies() != null) {
-                logger.info("Converting allergies to JSON: {}", userDetails.getAllergies());
-                // Ensure the JSON is valid
-                String allergiesJson = new ObjectMapper().writeValueAsString(userDetails.getAllergies());
-                logger.info("Converted allergies JSON: {}", allergiesJson);
-                userDetails.setAllergies(new ObjectMapper().readValue(allergiesJson, List.class));
-            }
-
-            // Save the user to the database
-            User savedUser = userRepository.save(user);
-
-            // Set the foreign key reference in UserDetails
-            userDetails.setUser(savedUser);
-
-            // Save the user details to the database
-            userDetailsRepository.save(userDetails);
-
-            return ResponseEntity
-                    .status(201) // HTTP 201 Created
-                    .body("User and UserDetails added successfully!");
-        } catch (Exception e) {
-            logger.error("Error occurred while adding user and details", e);
-            return ResponseEntity
-                    .status(500)
-                    .body("An error occurred: " + e.getMessage());
-        }
+    public ResponseEntity<org.Jtech.DTO.ApiResponse> registerUser(@Valid @RequestBody UserAndDetails userAndDetailsRequest) {
+            authService.registerUser(userAndDetailsRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new org.Jtech.DTO.ApiResponse(true,"User registered successfully."));
     }
-
 
     /**
      * Generate an OTP for password reset.

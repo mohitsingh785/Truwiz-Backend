@@ -1,6 +1,8 @@
 package org.Jtech.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 
 
@@ -18,9 +20,11 @@ public class User implements org.springframework.security.core.userdetails.UserD
     private Long userId;
 
     @Column(name = "user_name", nullable = false)
+    @NotBlank
     private String userName;
 
     @Column(name = "email", nullable = false, unique = true)
+    @Email
     private String email;
 
     @Column(name = "password", nullable = false)

@@ -54,6 +54,8 @@ public class UserController {
      * @param id unique identifier of the user
      * @return user profile details
      */
+
+    /*
     @Operation(
             summary = "Get user profile details",
             description = "Retrieve user profile and preference details using the user ID"
@@ -77,6 +79,6 @@ public class UserController {
 
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
-
+*/
 
 }
