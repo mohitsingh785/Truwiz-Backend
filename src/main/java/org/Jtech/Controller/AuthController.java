@@ -13,7 +13,7 @@ import jakarta.validation.Valid;
 import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.*;
 import org.Jtech.Entity.OTP;
-import org.Jtech.Model.GetUserIdResponse;
+import org.Jtech.Model.GetOtpResponse;
 import org.Jtech.Model.UserAndDetails;
 import org.Jtech.Repository.OtpRepository;
 import org.Jtech.Repository.UserDetailsRepository;
@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,7 +80,6 @@ public class AuthController {
     private EmailService emailService;
 
 
-
     /**
      * Authenticate a user using email and password.
      * <p>
@@ -103,19 +103,19 @@ public class AuthController {
                     @ApiResponse(
                             responseCode = "404",
                             description = "User not found",
-                            content = @Content(schema = @Schema(implementation = String.class))
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
                             description = "Invalid email or password.",
-                            content = @Content(schema = @Schema(implementation = String.class))
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
                     )
             }
     )
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
-      LoginResponse loginResponse= authService.authenticate(loginRequest);
-      return ResponseEntity.ok(loginResponse);
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+        return ResponseEntity.ok(loginResponse);
     }
 
 
@@ -125,8 +125,6 @@ public class AuthController {
      * Used for:
      * - Updating password after successful OTP verification
      *
-     * @param id       user identifier
-     * @param password new password to be set
      * @return status message indicating reset result
      */
     @Operation(
@@ -135,42 +133,21 @@ public class AuthController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Password reset successfully",
+                            description = "Password updated successfully",
                             content = @Content(schema = @Schema(implementation = String.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
                             description = "User not found",
-                            content = @Content(schema = @Schema(implementation = String.class))
-                    ),
-                    @ApiResponse(
-                            responseCode = "400",
-                            description = "Invalid request parameters",
-                            content = @Content(schema = @Schema(implementation = String.class))
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
                     )
             }
     )
-
-    @GetMapping("/password/reset")
-    public ResponseEntity<?> resetPassword(
-            @RequestParam(name = "id") Long id,
-            @RequestParam("password") String password) {
-
-        try {
-            if (id == null || password == null || password.isEmpty()) {
-                return ResponseEntity.badRequest().body("Invalid request parameters.");
-            }
-
-            String encryptpass = utilsService.hashPassword(password);
-
-            boolean updated = authService.changeUserPassword(id, encryptpass);
-            if (!updated) {
-                return ResponseEntity.status(401).body("Invalid email or password!");
-            }
-            return ResponseEntity.ok("Password reset successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body("An error occurred while resetting the password.");
-        }
+    @PostMapping("/password/reset")
+    public ResponseEntity<org.Jtech.DTO.ApiResponse> resetPassword(
+            @Valid @RequestBody PasswordResetRequest passwordResetRequest) {
+        authService.passwordReset(passwordResetRequest);
+        return ResponseEntity.ok().body(new org.Jtech.DTO.ApiResponse(true, "Password updated successfully"));
     }
 
 
@@ -183,10 +160,9 @@ public class AuthController {
      * hair type, allergies, and health-related data
      *
      * @param userAndDetailsRequest request payload containing user
-     *                       and user profile details
+     *                              and user profile details
      * @return status message indicating registration result
      */
-
 
     @Operation(
             summary = "Add User and Details",
@@ -231,8 +207,8 @@ public class AuthController {
 
     @PostMapping("signup")
     public ResponseEntity<org.Jtech.DTO.ApiResponse> registerUser(@Valid @RequestBody UserAndDetails userAndDetailsRequest) {
-            authService.registerUser(userAndDetailsRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new org.Jtech.DTO.ApiResponse(true,"User registered successfully."));
+        authService.registerUser(userAndDetailsRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new org.Jtech.DTO.ApiResponse(true, "User registered successfully."));
     }
 
     /**
@@ -242,65 +218,14 @@ public class AuthController {
      * - Sending OTP to user's registered email
      * - Initiating password reset workflow
      *
-     * @param email registered user email
      * @return user identifier and OTP generation status
      */
     @Operation(summary = "Generate OTP for password reset", description = "Generate an OTP for a user's email.")
-    @GetMapping("/otp/password-reset")
-    public ResponseEntity<GetUserIdResponse> generatePasswordResetOtp(@RequestParam(value = "email", required = true) String email) {
-        Logger logger = LoggerFactory.getLogger(this.getClass());
-
-        logger.info("Received request to generate OTP for email: {}", email);
-
-        // Fetch user ID by email
-        Long id = authService.getUserIdByEmail(email);
-        if (id == null) {
-            logger.warn("No user found for email: {}", email);
-            GetUserIdResponse response = new GetUserIdResponse(null, "Email not found", 404);
-            return ResponseEntity.status(404).body(response);
-        }
-
-        logger.info("Found userId: {}", id);
-
-        // Generate a new OTP
-        String generatedOtp = utilsService.generateOtp();
-        logger.info("Generated OTP: {}", generatedOtp);
-
-        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
-        String hashOtp = utilsService.hashOtp(generatedOtp);
-
-        OTP otp = existingOtp.orElse(new OTP());
-        long now = System.currentTimeMillis();
-
-        if (existingOtp.isPresent()) {
-            otp.setUpdatedAt(new Timestamp(now));
-        } else {
-            otp.setCreatedAt(new Timestamp(now));
-        }
-
-        otp.setExpiryTime(new Timestamp(now + 60_000));
-        otp.setOtpHash(hashOtp);
-        otp.setEmail(email);
-        otp.setUsed(false);
-        otp.setOtpPurpose(OtpPurpose.RESET_PASSWORD);
-
-
-        authService.saveOrUpdateOtp(otp);
-
-        String subject = "Your OTP Code";
-        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
-
-        try {
-            emailService.sendOtpEmail(email, subject, body);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
+    @PostMapping("/otp/password-reset")
+    public ResponseEntity<GetOtpResponse> generatePasswordResetOtp(@Valid @RequestBody ForgotPasswordRequest forgotPasswordRequest) {
         // If the user ID is found, return a 200 response
-        GetUserIdResponse response = new GetUserIdResponse(email, "OTP sent successfully", 200);
-        logger.info("Response sent for email: {} with userId: {}", email, id);
-        return ResponseEntity.ok(response);
+        GetOtpResponse response = authService.generateOtpForPasswordReset(forgotPasswordRequest.getEmail());
+        return ResponseEntity.ok().body(response);
     }
 
 
@@ -310,61 +235,13 @@ public class AuthController {
      * Used for:
      * - Verifying email ownership before account creation
      *
-     * @param email email address to be verified
      * @return OTP generation status
      */
     @Operation(summary = "generate-otp-email-verify", description = "Generate an OTP for a email verification.")
     @GetMapping("/otp/email-verification")
-    public ResponseEntity<GetUserIdResponse> generateEmailVerificationOtp(@RequestParam(value = "email", required = true) String email) {
-        Logger logger = LoggerFactory.getLogger(this.getClass());
-
-        logger.info("Received request to generate OTP for email: {}", email);
-        // Fetch user ID by email
-        Long id = authService.getUserIdByEmail(email);
-        if (id != null) {
-            GetUserIdResponse response = new GetUserIdResponse(email, "Email Already Registered", 409);
-            return ResponseEntity.status(409).body(response);
-        }
-
-        logger.info("Found userId: {}", id);
-        // Generate a new OTP
-        String generatedOtp = utilsService.generateOtp();
-        logger.info("Generated OTP: {}", generatedOtp);
-
-        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
-        String hashOtp = utilsService.hashOtp(generatedOtp);
-
-        OTP otp = existingOtp.orElse(new OTP());
-        long now = System.currentTimeMillis();
-        logger.info("Found existingOtp: {}", existingOtp);
-        if (existingOtp.isPresent()) {
-            otp.setUpdatedAt(new Timestamp(now));
-        } else {
-            logger.info("Found elseeeeeeeeeeeeeeeeeee: {}", existingOtp);
-            otp.setCreatedAt(new Timestamp(now));
-        }
-
-        otp.setExpiryTime(new Timestamp(now + 60_000));
-        otp.setOtpHash(hashOtp);
-        otp.setEmail(email);
-        otp.setUsed(false);
-        otp.setOtpPurpose(OtpPurpose.REGISTER);
-        authService.saveOrUpdateOtp(otp);
-
-        String subject = "Your OTP Code";
-        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
-
-        try {
-            emailService.sendOtpEmail(email, subject, body);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        // If the user ID is found, return a 200 response
-        GetUserIdResponse response = new GetUserIdResponse(email, "OTP sent successfully", 200);
-        logger.info("Response sent for email: {} with userId: {}", email);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<GetOtpResponse> generateEmailVerificationOtp(@Valid @RequestBody EmailVerificationRequest emailVerificationRequest) {
+        GetOtpResponse response = authService.generateOtpForEmailVerification(emailVerificationRequest.getEmail());
+        return ResponseEntity.ok().body(response);
     }
 
 
@@ -373,57 +250,16 @@ public class AuthController {
      * <p>
      * Used for:
      * verify the otp when User reset password or register
-     * @param otp otp
-     * @param email email
-     * @param otpPurpose type
+     *
      * @return verify the otp when User reset password or register
      */
     @Operation(summary = "verify-otp", description = "Verify an OTP for password reset and Register")
     @PostMapping("/otp/verify-otp")
-    public ResponseEntity<GetUserIdResponse> verifyOtp(
-            @RequestParam String otp,
-            @RequestParam String email,
-            @RequestParam String otpPurpose
+    public ResponseEntity<GetOtpResponse> verifyOtp(
+            @Valid @RequestBody VerifyOtpRequest verifyOtpRequest
     ) {
-
-        OtpPurpose purpose = OtpPurpose.from(otpPurpose);
-        Optional<OTP> optionalOtp =
-                authService.getOtpAndCreatedAtByEmail(email, purpose);
-
-        if (optionalOtp.isEmpty()) {
-            logger.warn("No OTP found for email: {} and purpose: {}", email, otpPurpose);
-            return ResponseEntity.status(404)
-                    .body(new GetUserIdResponse(null, "No OTP found", 404));
-        }
-
-        OTP otpEntity = optionalOtp.get();
-        long now = System.currentTimeMillis();
-
-        // 1. Already used
-        if (otpEntity.isUsed()) {
-            return ResponseEntity.status(400)
-                    .body(new GetUserIdResponse(null, "OTP already used", 400));
-        }
-
-        // 2. Expired
-        if (now > otpEntity.getExpiryTime().getTime()) {
-            return ResponseEntity.status(400)
-                    .body(new GetUserIdResponse(null, "OTP expired", 400));
-        }
-
-        // 3. Match
-        if (!utilsService.matchOtp(otp, otpEntity.getOtpHash())) {
-            return ResponseEntity.status(400)
-                    .body(new GetUserIdResponse(null, "Invalid OTP", 400));
-        }
-
-        // 4. Mark used
-        otpEntity.setUsed(true);
-        otpRepository.save(otpEntity);
-
-        return ResponseEntity.ok(
-                new GetUserIdResponse(email, "OTP verified successfully", 200)
-        );
+        GetOtpResponse response = authService.verifyOtp(verifyOtpRequest);
+        return ResponseEntity.ok().body(response);
     }
 
 
