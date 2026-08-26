@@ -67,18 +67,6 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthService authService;
-    @Autowired
-    private UserDetailsRepository userDetailsRepository;
-
-    @Autowired
-    private OtpRepository otpRepository;
-
-    @Autowired
-    private UtilsService utilsService;
-
-    @Autowired
-    private EmailService emailService;
-
 
     /**
      * Authenticate a user using email and password.

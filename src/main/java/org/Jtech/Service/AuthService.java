@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.Jtech.Constant.Const.OTP_EXPIRY_MILLIS;
 
 /**
@@ -74,6 +77,8 @@ public class AuthService {
     @Autowired
     private EmailService emailService;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
 
 
     // Update the user's password using userId (expects hashed password)
@@ -129,10 +134,13 @@ public class AuthService {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 
+        logger.info("Login attempt for email: {}", email);
         // Verify if user exist
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new InvalidCredentialsException("Invalid email or password"));
+                        new InvalidCredentialsException("Invalid email or password",email));
+
+        logger.debug("User found for email: {}", email);
         Long userId = user.getUserId();
 
         // Get the Encrypted password from user entity
@@ -140,25 +148,28 @@ public class AuthService {
 
         // Verify is entered password match with user password
         if (!utilsService.matchPassword(password, encryptedPassword)) {
-            throw new InvalidCredentialsException("Invalid email or password.");
+            throw new InvalidCredentialsException("Invalid email or password.",email);
         }
 
+        logger.debug("Password verified for user: {}", email);
         // generate auth token
         org.springframework.security.core.userdetails.UserDetails userDetails = userService.loadUserByUsername(email);
         String token = this.helper.generateToken(userDetails);
 
+        logger.debug("JWT generated for user: {}", email);
         // Get the user details using the userId
         UserDetailsView userDetailsView = userDetailsRepository.findByUserUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
 
         // Get the User Allergy using the user details id
         List<UserAllergy> userAllergies = userAllergyRepository.findByUserDetailsDetailsId(userDetailsView.getDetailsId());
-
+        logger.info("User {} allergy fetched successfully", email);
         // Create the list to store user allergy
         List<String> storeUserAllergies = userAllergies.stream().
                 map(UserAllergy::getAllergy).
                 map(Allergies::getAllergyName).
                 toList();
 
+        logger.info("User {} logged in successfully", email);
         // return final LoginResponse
         return userMapper.createLoginResponse(user, userDetailsView, storeUserAllergies, token);
     }
@@ -172,14 +183,14 @@ public class AuthService {
         String oldPassword = passwordResetRequest.getOldPassword();
         User user = userRepository.findByuserId(userId)
                 .orElseThrow(() ->
-                        new InvalidCredentialsException("User not found."));
+                        new UserNotFoundException("User not found."));
 
         // Get the Encrypted password from user entity
         String encryptedPassword = user.getPassword();
 
         // Verify is entered old password match with user password
         if (!utilsService.matchPassword(oldPassword, encryptedPassword)) {
-            throw new InvalidCredentialsException("Current password is incorrect.");
+            throw new InvalidCredentialsException("Current password is incorrect.",user.getEmail());
         }
 
         // hash the new password
