@@ -44,41 +44,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    /**
-     * Retrieve user profile details by user ID.
-     *
-     * Used for:
-     * - Fetching personal and preference-related information of a user
-     * - Displaying user profile data in the application
-     *
-     * @param id unique identifier of the user
-     * @return user profile details
-     */
 
-    /*
-    @Operation(
-            summary = "Get user profile details",
-            description = "Retrieve user profile and preference details using the user ID"
-    )
-    @GetMapping("{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
-
-        if (id == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Please provide a valid ID.");
-        }
-
-        // Fetch user details from the repository
-        UserDetailsDTO userDetails = userService.getUserById(id);
-
-        // Check if user details are null (invalid ID)
-        if (userDetails == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("User not found for ID: " + id);
-        }
-
-        return new ResponseEntity<>(userDetails, HttpStatus.OK);
-    }
-*/
 
 }

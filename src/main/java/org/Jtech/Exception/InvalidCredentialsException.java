@@ -1,7 +1,13 @@
 package org.Jtech.Exception;
 
 public class InvalidCredentialsException extends RuntimeException{
-    public InvalidCredentialsException(String message){
+    private final String email;
+    public InvalidCredentialsException(String message,String email){
         super(message);
+        this.email=email;
     }
+    public String getEmail() {
+        return email;
+    }
+
 }

@@ -67,7 +67,7 @@ public class SecurityConfig {
 
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests().
-                requestMatchers("/v1/auth/login", "/v1/auth//password/reset" ,"/v1/auth/signup",  "/v1/auth/otp/password-reset", "/v1/auth/otp/email-verification","/v1/auth/otp/verify-otp","/terms").permitAll() // Allow without authentication
+                requestMatchers("/v1/auth/login", "/v1/auth/password/reset" ,"/v1/auth/signup",  "/v1/auth/otp/password-reset", "/v1/auth/otp/email-verification","/v1/auth/otp/verify-otp","/terms").permitAll() // Allow without authentication
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**","/configuration/ui","/swagger-resources/**","/swagger-ui.html", "/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll() // Allow Swagger UI access
                 .anyRequest()
                 .authenticated()

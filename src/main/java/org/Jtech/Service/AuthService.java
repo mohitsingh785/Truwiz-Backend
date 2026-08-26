@@ -5,25 +5,21 @@ import jakarta.transaction.Transactional;
 import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.*;
 import org.Jtech.Entity.*;
-import org.Jtech.Exception.AllergyNotFoundException;
-import org.Jtech.Exception.InvalidCredentialsException;
-import org.Jtech.Exception.UserAlreadyExistsException;
-import org.Jtech.Exception.UserNotFoundException;
-import org.Jtech.Model.OtpResponse;
-//import org.Jtech.Repository.EmailOtpRepository;
+import org.Jtech.Exception.*;
+import org.Jtech.Model.GetOtpResponse;
 import org.Jtech.Model.UserAndDetails;
 import org.Jtech.Repository.*;
 import org.Jtech.jwt.JwtHelper;
 import org.Jtech.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.Jtech.Constant.Const.OTP_EXPIRY_MILLIS;
 
 /**
  * Auth Service
@@ -78,9 +74,11 @@ public class AuthService {
     @Autowired
     private JwtHelper helper;
 
+    @Autowired
+    private EmailService emailService;
 
-//    @Autowired
-//    private EmailOtpRepository emailOtpRepository;
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
 
 
     // Update the user's password using userId (expects hashed password)
@@ -90,16 +88,6 @@ public class AuthService {
         // Return true if one or more rows were updated
         return affectedRows > 0;
     }
-
-    // This method is used to fetch the userId using the Email (12/18/2025)
-    public Long getUserIdByEmail(String email) {
-        return userRepository.findUserIdByEmail(email);
-    }
-
-//    // This method is used to fetch user details by using the Email (12/18/2025)
-//    public Optional<UserData> fetchUserByEmailPassword(String email) {
-//        return userRepository.findByEmailAndPassword(email);
-//    }
 
     // Persist or update OTP for password reset flow
     public void saveOrUpdateOtp(OTP otp) {
@@ -146,10 +134,13 @@ public class AuthService {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
 
+        logger.info("Login attempt for email: {}", email);
         // Verify if user exist
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new InvalidCredentialsException("Invalid email or password"));
+                        new InvalidCredentialsException("Invalid email or password",email));
+
+        logger.debug("User found for email: {}", email);
         Long userId = user.getUserId();
 
         // Get the Encrypted password from user entity
@@ -157,33 +148,188 @@ public class AuthService {
 
         // Verify is entered password match with user password
         if (!utilsService.matchPassword(password, encryptedPassword)) {
-            throw new InvalidCredentialsException("Invalid email or password.");
+            throw new InvalidCredentialsException("Invalid email or password.",email);
         }
 
+        logger.debug("Password verified for user: {}", email);
         // generate auth token
         org.springframework.security.core.userdetails.UserDetails userDetails = userService.loadUserByUsername(email);
         String token = this.helper.generateToken(userDetails);
 
+        logger.debug("JWT generated for user: {}", email);
         // Get the user details using the userId
         UserDetailsView userDetailsView = userDetailsRepository.findByUserUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
 
         // Get the User Allergy using the user details id
         List<UserAllergy> userAllergies = userAllergyRepository.findByUserDetailsDetailsId(userDetailsView.getDetailsId());
-
+        logger.info("User {} allergy fetched successfully", email);
         // Create the list to store user allergy
         List<String> storeUserAllergies = userAllergies.stream().
                 map(UserAllergy::getAllergy).
                 map(Allergies::getAllergyName).
                 toList();
 
+        logger.info("User {} logged in successfully", email);
         // return final LoginResponse
         return userMapper.createLoginResponse(user, userDetailsView, storeUserAllergies, token);
     }
 
-//    // Retrieve OTP and creation timestamp for email verification during signup
-//    public Optional<OtpResponse> getOtpAndEmailVerify(Integer userId) {
-//        return emailOtpRepository.findOtpAndCreatedAtByUserId(userId);
-//    }
 
+    // Reset the User Password
+    public void passwordReset(PasswordResetRequest passwordResetRequest) {
+
+        Long userId = passwordResetRequest.getId();
+        String newPassword = passwordResetRequest.getNewPassword();
+        String oldPassword = passwordResetRequest.getOldPassword();
+        User user = userRepository.findByuserId(userId)
+                .orElseThrow(() ->
+                        new UserNotFoundException("User not found."));
+
+        // Get the Encrypted password from user entity
+        String encryptedPassword = user.getPassword();
+
+        // Verify is entered old password match with user password
+        if (!utilsService.matchPassword(oldPassword, encryptedPassword)) {
+            throw new InvalidCredentialsException("Current password is incorrect.",user.getEmail());
+        }
+
+        // hash the new password
+        String encryptPass = utilsService.hashPassword(newPassword);
+
+        // update the password
+        boolean updated = changeUserPassword(userId, encryptPass);
+
+        if (!updated) {
+            throw new RequestFailedException("Request Failed for Password reset");
+        }
+    }
+
+
+    // Generate the otp for password reset
+    public GetOtpResponse generateOtpForPasswordReset(String email){
+
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if (user.isEmpty()) {
+            return new GetOtpResponse(
+                    true,
+                    email,
+                    "If an account exists with this email, an OTP has been sent."
+            );
+        }
+
+        // Generate a new OTP
+        String generatedOtp = utilsService.generateOtp();
+
+        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
+        String hashOtp = utilsService.hashOtp(generatedOtp);
+
+        OTP otp = existingOtp.orElse(new OTP());
+        long now = System.currentTimeMillis();
+
+        if (existingOtp.isEmpty()) {
+            otp.setCreatedAt(new Timestamp(now));
+        }
+
+        otp.setUpdatedAt(new Timestamp(now));
+
+        otp.setExpiryTime(new Timestamp(now + OTP_EXPIRY_MILLIS));
+        otp.setOtpHash(hashOtp);
+        otp.setEmail(email);
+        otp.setUsed(false);
+        otp.setOtpPurpose(OtpPurpose.RESET_PASSWORD);
+
+        // Save the otp
+        saveOrUpdateOtp(otp);
+
+        String subject = "Your OTP Code";
+        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
+
+        try {
+            emailService.sendOtpEmail(email, subject, body);
+
+        } catch (Exception ex) {
+            throw new EmailSendFailedException(
+                    "Failed to send OTP email. Please try again later.");
+        }
+
+        return new GetOtpResponse(true,email,"Otp sent successfully");
+    }
+
+    // Generate the otp for email verification
+    public GetOtpResponse generateOtpForEmailVerification(String email){
+
+        if (userRepository.existsByEmail(email)){
+            throw new UserAlreadyExistsException("User Already Exist with email " + email);
+        }
+
+        // Generate a new OTP
+        String generatedOtp = utilsService.generateOtp();
+
+        Optional<OTP> existingOtp = otpRepository.findTopByEmailOrderByUpdatedAtDesc(email);
+        String hashOtp = utilsService.hashOtp(generatedOtp);
+
+        OTP otp = existingOtp.orElse(new OTP());
+        long now = System.currentTimeMillis();
+
+        if (existingOtp.isEmpty()) {
+            otp.setCreatedAt(new Timestamp(now));
+        }
+
+        otp.setExpiryTime(new Timestamp(now + 60_000));
+        otp.setOtpHash(hashOtp);
+        otp.setEmail(email);
+        otp.setUsed(false);
+        otp.setOtpPurpose(OtpPurpose.REGISTER);
+        saveOrUpdateOtp(otp);
+
+        String subject = "Your OTP Code";
+        String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
+
+        try {
+            emailService.sendOtpEmail(email, subject, body);
+
+        } catch (Exception ex) {
+            throw new EmailSendFailedException(
+                    "Failed to send OTP email. Please try again later.");
+        }
+
+        return new GetOtpResponse(true,email,"Otp sent successfully");
+    }
+
+
+    // Verify Otp for password reset and email verification
+    public GetOtpResponse verifyOtp(VerifyOtpRequest verifyOtpRequest){
+
+        OtpPurpose purpose = verifyOtpRequest.getOtpPurpose();
+        OTP otpEntity = getOtpAndCreatedAtByEmail(
+                verifyOtpRequest.getEmail(),
+                purpose
+        ).orElseThrow(() ->
+                new OtpNotFoundException("OTP not found. Please request a new OTP."));
+
+        long now = System.currentTimeMillis();
+        // 1. Already used
+        if (otpEntity.isUsed()) {
+            throw new OtpAlreadyUsedException(
+                    "OTP has already been used.");
+        }
+        // 2. Expired
+        if (now > otpEntity.getExpiryTime().getTime()) {
+            throw new OtpExpiredException(
+                    "OTP has expired.");
+        }
+        // 3. Match
+        if (!utilsService.matchOtp(verifyOtpRequest.getOtp(), otpEntity.getOtpHash())) {
+            throw new InvalidOtpException(
+                    "Invalid OTP.");
+        }
+        // 4. Mark used
+        otpEntity.setUsed(true);
+        otpRepository.save(otpEntity);
+
+        return new GetOtpResponse(false, verifyOtpRequest.getEmail(), "OTP verified successfully");
+
+    }
 
 }
