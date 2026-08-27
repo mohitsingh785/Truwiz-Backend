@@ -1,7 +1,14 @@
 package org.Jtech.Exception;
 
 public class RequestFailedException extends RuntimeException{
-    public RequestFailedException(String message){
+
+    private final String email;
+    public RequestFailedException(String message,String email){
         super(message);
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

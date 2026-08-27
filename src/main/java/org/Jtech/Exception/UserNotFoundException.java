@@ -1,7 +1,13 @@
 package org.Jtech.Exception;
 
 public class UserNotFoundException extends RuntimeException{
-    public UserNotFoundException(String message){
+    private final Long userId;
+    public UserNotFoundException(String message,Long userId){
         super(message);
+        this.userId=userId;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 }

@@ -103,8 +103,10 @@ public class AuthService {
     // Register the User
     public void registerUser(UserAndDetails userAndDetails) {
         User user = userAndDetails.getUser();
+        logger.info("New user register request received for email={}",user.getEmail());
+
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new UserAlreadyExistsException("User Already Exist with email " + user.getEmail());
+            throw new UserAlreadyExistsException("User Already Exist with email ",user.getEmail());
         }
         String encryptPass = utilsService.hashPassword(userAndDetails.getUser().getPassword());
         user.setPassword(encryptPass);
@@ -115,17 +117,18 @@ public class AuthService {
         userDetails.setUser(user);
         user.setUserDetails(userDetails);
         userRepository.save(user);
-
+        logger.info("User and user details saved successfully for user={}",user.getEmail());
         List<Allergies> allergies =
                 allergiesRepository.findAllById(userDetailsDto.getAllergyIds());
 
         if (allergies.size() != userDetailsDto.getAllergyIds().size()) {
-            throw new AllergyNotFoundException("Invalid allergy IDs supplied.");
+            throw new AllergyNotFoundException("Invalid allergy IDs supplied.",user.getEmail());
         }
         for (Allergies allergy : allergies) {
             UserAllergy userAllergy = new UserAllergy(userDetails, allergy);
             userAllergyRepository.save(userAllergy);
         }
+        logger.info("User register successfully for user={}",user.getEmail());
 
     }
 
@@ -158,7 +161,7 @@ public class AuthService {
 
         logger.debug("JWT generated for user: {}", email);
         // Get the user details using the userId
-        UserDetailsView userDetailsView = userDetailsRepository.findByUserUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        UserDetailsView userDetailsView = userDetailsRepository.findByUserUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found",userId));
 
         // Get the User Allergy using the user details id
         List<UserAllergy> userAllergies = userAllergyRepository.findByUserDetailsDetailsId(userDetailsView.getDetailsId());
@@ -181,10 +184,12 @@ public class AuthService {
         Long userId = passwordResetRequest.getId();
         String newPassword = passwordResetRequest.getNewPassword();
         String oldPassword = passwordResetRequest.getOldPassword();
+        logger.info("Password reset request received for userId={}", userId);
         User user = userRepository.findByuserId(userId)
                 .orElseThrow(() ->
-                        new UserNotFoundException("User not found."));
+                        new UserNotFoundException("User not found.",userId));
 
+        logger.debug("User located for password reset. userId={}", userId);
         // Get the Encrypted password from user entity
         String encryptedPassword = user.getPassword();
 
@@ -192,6 +197,7 @@ public class AuthService {
         if (!utilsService.matchPassword(oldPassword, encryptedPassword)) {
             throw new InvalidCredentialsException("Current password is incorrect.",user.getEmail());
         }
+        logger.info("Password updated successfully. userId={}", userId);
 
         // hash the new password
         String encryptPass = utilsService.hashPassword(newPassword);
@@ -200,24 +206,26 @@ public class AuthService {
         boolean updated = changeUserPassword(userId, encryptPass);
 
         if (!updated) {
-            throw new RequestFailedException("Request Failed for Password reset");
+            throw new RequestFailedException("Request Failed for Password reset",user.getEmail());
         }
+        logger.info("Password updated successfully for user {}",user.getEmail());
     }
 
 
     // Generate the otp for password reset
     public GetOtpResponse generateOtpForPasswordReset(String email){
-
+        logger.info("Password reset OTP requested for email: {}", email);
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isEmpty()) {
+            logger.info("Password reset requested for non-existing email: {}", email);
             return new GetOtpResponse(
                     true,
                     email,
                     "If an account exists with this email, an OTP has been sent."
             );
         }
-
+        logger.info("User found for password reset OTP: {}", email);
         // Generate a new OTP
         String generatedOtp = utilsService.generateOtp();
 
@@ -228,9 +236,10 @@ public class AuthService {
         long now = System.currentTimeMillis();
 
         if (existingOtp.isEmpty()) {
+            logger.info("Creating new OTP record for email: {}", email);
             otp.setCreatedAt(new Timestamp(now));
         }
-
+        logger.info("Updating existing OTP record for email: {}", email);
         otp.setUpdatedAt(new Timestamp(now));
 
         otp.setExpiryTime(new Timestamp(now + OTP_EXPIRY_MILLIS));
@@ -241,14 +250,15 @@ public class AuthService {
 
         // Save the otp
         saveOrUpdateOtp(otp);
-
+        logger.info("OTP generated and stored successfully for email: {}", email);
         String subject = "Your OTP Code";
         String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
 
         try {
             emailService.sendOtpEmail(email, subject, body);
-
+            logger.info("Password reset OTP email sent successfully to {}", email);
         } catch (Exception ex) {
+            logger.error("Failed to send password reset OTP email to {}", email, ex);
             throw new EmailSendFailedException(
                     "Failed to send OTP email. Please try again later.");
         }
@@ -258,11 +268,11 @@ public class AuthService {
 
     // Generate the otp for email verification
     public GetOtpResponse generateOtpForEmailVerification(String email){
-
+        logger.info("Email verification OTP requested for email: {}", email);
         if (userRepository.existsByEmail(email)){
-            throw new UserAlreadyExistsException("User Already Exist with email " + email);
+            throw new UserAlreadyExistsException("User Already Exist with email",email);
         }
-
+        logger.info("Email is available for registration: {}", email);
         // Generate a new OTP
         String generatedOtp = utilsService.generateOtp();
 
@@ -273,8 +283,10 @@ public class AuthService {
         long now = System.currentTimeMillis();
 
         if (existingOtp.isEmpty()) {
+            logger.info("Creating new email verification OTP record for {}", email);
             otp.setCreatedAt(new Timestamp(now));
         }
+        logger.info("Updating existing email verification OTP record for {}", email);
 
         otp.setExpiryTime(new Timestamp(now + 60_000));
         otp.setOtpHash(hashOtp);
@@ -282,14 +294,15 @@ public class AuthService {
         otp.setUsed(false);
         otp.setOtpPurpose(OtpPurpose.REGISTER);
         saveOrUpdateOtp(otp);
-
+        logger.info("Email verification OTP generated and stored for {}", email);
         String subject = "Your OTP Code";
         String body = "Dear user,\n\nYour OTP code is:" + generatedOtp + "\n\nRegards,\nToxi Scan Teams";
 
         try {
             emailService.sendOtpEmail(email, subject, body);
-
+            logger.info("Email verification OTP sent successfully to {}", email);
         } catch (Exception ex) {
+            logger.error("Failed to send email verification OTP to {}", email, ex);
             throw new EmailSendFailedException(
                     "Failed to send OTP email. Please try again later.");
         }
@@ -300,14 +313,16 @@ public class AuthService {
 
     // Verify Otp for password reset and email verification
     public GetOtpResponse verifyOtp(VerifyOtpRequest verifyOtpRequest){
-
+        logger.info("OTP verification requested for email: {} with purpose: {}",
+                verifyOtpRequest.getEmail(),
+                verifyOtpRequest.getOtpPurpose());
         OtpPurpose purpose = verifyOtpRequest.getOtpPurpose();
         OTP otpEntity = getOtpAndCreatedAtByEmail(
                 verifyOtpRequest.getEmail(),
                 purpose
         ).orElseThrow(() ->
                 new OtpNotFoundException("OTP not found. Please request a new OTP."));
-
+        logger.info("OTP record found for email: {}", verifyOtpRequest.getEmail());
         long now = System.currentTimeMillis();
         // 1. Already used
         if (otpEntity.isUsed()) {
@@ -324,8 +339,12 @@ public class AuthService {
             throw new InvalidOtpException(
                     "Invalid OTP.");
         }
+        logger.info("OTP validated successfully for email: {}",
+                verifyOtpRequest.getEmail());
         // 4. Mark used
         otpEntity.setUsed(true);
+        logger.info("OTP marked as used for email: {}",
+                verifyOtpRequest.getEmail());
         otpRepository.save(otpEntity);
 
         return new GetOtpResponse(false, verifyOtpRequest.getEmail(), "OTP verified successfully");

@@ -1,7 +1,13 @@
 package org.Jtech.Exception;
 
 public class AllergyNotFoundException extends RuntimeException{
-    public AllergyNotFoundException(String message){
+    private final String email;
+    public AllergyNotFoundException(String message,String email){
         super(message);
+        this.email=email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
