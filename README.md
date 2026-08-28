@@ -6,7 +6,7 @@ TruWiz processes ingredient formulations against individual user health profiles
 
 ---
 
-## ⚡ Core Engine Highlights
+##  Core Engine Highlights
 
 * **Multi-Parametric Scoring:** Evaluates ingredients across 8 scientific metrics (Safety, Irritation, Comedogenic, Hydration, Sebum Control, Hair Benefit, Allergy Risk, Data Confidence).
 
@@ -29,7 +29,7 @@ TruWiz processes ingredient formulations against individual user health profiles
 
 ---
 
-## 🏗 System Architecture
+## System Architecture
 
 ```
                                   [ Mobile Client / Public API Client ]
@@ -74,7 +74,7 @@ TruWiz processes ingredient formulations against individual user health profiles
 
 ---
 
-## 🗄 Schema Architecture
+##  Schema Architecture
 
 The relational model separates into three main domains: **Identity & Health Profile**, **INCI Chemical Intelligence**, and **Product Catalog**.
 
@@ -138,7 +138,7 @@ The relational model separates into three main domains: **Identity & Health Prof
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 * **Language:** Java 21 LTS
 
@@ -158,44 +158,7 @@ The relational model separates into three main domains: **Identity & Health Prof
 * **Documentation & Tooling:** OpenAPI 3.0 / Swagger UI, Maven, Lombok
 
 
-
----
-
-## 🚦 Module Status
-
-| Module | Status |
-| --- | --- |
-| JWT Authentication & User Authorization | Complete
-
- |
-| Multi-Purpose OTP Verification Engine | Complete
-
- |
-| Brand Management (CRUD + JPA Auditing) | Complete
-
- |
-| Global Exception Handling & Swagger Spec | Complete
-
- |
-| Product & Catalog Domain Services | In Progress
-
- |
-| Request Logging (AOP Implementation) | In Progress
-
- |
-| INCI Data Ingestion & Scoring Engine | Schema Complete / Logic Designed
-
- |
-| LLM Summarizer Integration | Designed
-
- |
-| Unverified Scan & OCR Review Queue | Designed
-
- |
-
----
-
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
