@@ -122,19 +122,15 @@ The relational model separates into three main domains: **Identity & Health Prof
 ### Table Specifications
 
 | Domain | Key Tables | Description |
-| --- | --- | --- |
 | **User & Profile** | `user`, `user_details`, `user_allergy`, `allergies`<br> | Stores authentication details, physical profiles, and explicit allergen mappings.
 
- |
 | **Catalog Base** | `brand`, `category`, `product`, `product_ingredient`<br> | Handles category hierarchies, brand profiles, and positional ingredient mapping.
 
- |
 | **INCI Engine** | `inci_ingredient`, `inci_synonyms`, `inci_tag`, `inci_tag_mapping`, `inci_allergy_mapping`<br> | Stores base chemical scores, alternate names, semantic tags, and risk links.
 
- |
+ 
 | **System Support** | `otp_verify`, `api_client_key`, `article`<br> | Manages transactional OTP flows, API key authorization, and content modules.
 
- |
 
 ---
 
