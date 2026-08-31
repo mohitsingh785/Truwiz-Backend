@@ -30,10 +30,6 @@ public class KeyStore {
     @Column(name = "key_val",nullable = false)
     private String  KeyVal;
 
-    @CreationTimestamp
-    @Column(name="created_at",nullable = false, updatable = false)
-    private Timestamp createdAt;
-
     @Column(name="is_active",nullable = false)
     private boolean isActive;
 
@@ -65,13 +61,6 @@ public class KeyStore {
         isActive = active;
     }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public String getKeyVal() {
         return KeyVal;
