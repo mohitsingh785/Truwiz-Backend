@@ -425,9 +425,9 @@ Then open a pull request against `main`.
 <br/>
 
 Authors
-<div align="center"> <table> <tr> <td align="center" width="320"> <br/> <img src="docs/mohit.jpg" width="110" height="110" style="border-radius:50%; object-fit:cover;" alt="Mohit Singh"/> <br/><br/>
+<div align="center"> <table> <tr> <td align="center" width="320"> <br/> <img src="docs/Mohit.jpg" width="110" height="110" style="border-radius:50%; object-fit:cover;" alt="Mohit Singh"/> <br/><br/>
 
-Mohit Singh <br/> <sub>Backend Development</sub> <br/><br/> <sub>Architected the scoring engine and API layer end to end.</sub> <br/><br/>
+Mohit Singh <br/> <sub>Backend Developer</sub> <br/><br/> <sub>Architected the scoring engine and API layer end to end.</sub> <br/><br/>
 
 <a href="https://www.linkedin.com/in/mohit-singh-37966720b/"> <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Mohit Singh LinkedIn"/> </a>
 
