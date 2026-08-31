@@ -424,28 +424,24 @@ Then open a pull request against `main`.
 
 <br/>
 
-## Authors
+Authors
+<div align="center"> <table> <tr> <td align="center" width="320"> <br/> <img src="docs/mohit.jpg" width="110" height="110" style="border-radius:50%; object-fit:cover;" alt="Mohit Singh"/> <br/><br/>
 
-<table>
-<tr>
-<td width="50%">
+Mohit Singh <br/> <sub>Backend Development</sub> <br/><br/> <sub>Architected the scoring engine and API layer end to end.</sub> <br/><br/>
 
-**Backend Development**
-**Mohit Singh**
-[LinkedIn](https://www.linkedin.com/in/mohit-singh-37966720b/)
+<a href="https://www.linkedin.com/in/mohit-singh-37966720b/"> <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Mohit Singh LinkedIn"/> </a>
 
-</td>
-<td width="50%">
+<br/><br/>
 
-**UI / UX Design**
-**Uma Shankar**
-[LinkedIn](https://www.linkedin.com/in/uma-shankar-k/) · [Portfolio](https://umashankardesign.netlify.app)
+</td> <td align="center" width="320"> <br/> <img src="docs/Uma.png" width="110" height="110" style="border-radius:50%; object-fit:cover;" alt="Uma Shankar"/> <br/><br/>
 
-</td>
-</tr>
-</table>
+Uma Shankar <br/> <sub>UI / UX Design</sub> <br/><br/> <sub>Designed the product experience and visual identity.</sub> <br/><br/>
 
-<br/>
+<a href="https://www.linkedin.com/in/uma-shankar-k/"> <img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Uma Shankar LinkedIn"/> </a> <a href="https://umashankardesign.netlify.app"> <img src="https://img.shields.io/badge/Portfolio-Visit-FF5A5F?style=for-the-badge&logo=aboutdotme&logoColor=white" alt="Uma Shankar Portfolio"/> </a>
+
+<br/><br/>
+
+</td> </tr> </table> </div> <br/>
 
 ## License
 
