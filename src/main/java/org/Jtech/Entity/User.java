@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements org.springframework.security.core.userdetails.UserDetails {
+public class User extends BaseEntity implements org.springframework.security.core.userdetails.UserDetails  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

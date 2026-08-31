@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "user_allergy")
-public class UserAllergy {
+public class UserAllergy extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
