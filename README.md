@@ -74,48 +74,13 @@ TruWiz processes ingredient formulations against individual user health profiles
 
 ---
 
-##  Schema Architecture
+## Database Schema
 
-The relational model separates into three main domains: **Identity & Health Profile**, **INCI Chemical Intelligence**, and **Product Catalog**.
+The following ER diagram represents the relational database used by TruWiz.
 
-```
-┌──────────────┐             ┌─────────────────┐             ┌─────────────────┐             ┌──────────┐
-│     user     │ ── (1:1) ──►│  user_details   │ ── (1:N) ──►│  user_allergy   │ ── (N:1) ──►│allergies │
-└──────────────┘             └─────────────────┘             └─────────────────┘             └────┬─────┘
-                                                                                                  │
-┌──────────────┐             ┌─────────────────┐                                                  │
-│  otp_verify  │             │ api_client_key  │                                                  │
-└──────────────┘             └─────────────────┘                                                  │
-                                                                                                  │
-┌──────────────┐                                                                                  │
-│   category   │ ── (1:N) ──┐                                                                     │
-└──────────────┘            │                                                                     │
-                            ▼                                                                     │
-┌──────────────┐     ┌──────────────┐                                                             │
-│    brand     │──1:N│   product    │                                                             │
-└──────────────┘     └──────┬───────┘                                                             │
-                            │                                                                     │
-                          (1:N)                                                                   │
-                            ▼                                                                     │
-                     ┌──────┴───────┐                                                             │
-                     │ product_     │                                                             │
-                     │ ingredient   │                                                             │
-                     └──────┬───────┘                                                             │
-                            │                                                                     │
-                          (N:1)                                                                   │
-                            ▼                                                                     │
-                     ┌──────┴───────┐             ┌─────────────────┐                             │
-                     │inci_         │ ── (1:N) ──►│inci_allergy_    │ ────────────────────────────┘
-                     │ingredient    │             │mapping          │
-                     └──────┬───────┘             └─────────────────┘
-                            │
-            ┌───────────────┴───────────────┐
-            │ (1:N)                         │ (1:N)
-            ▼                               ▼
-     ┌──────────────┐                ┌──────────────┐                ┌──────────────┐
-     │inci_synonyms │                │inci_tag_     │ ── (N:1) ──►  │   inci_tag   │
-     └──────────────┘                │mapping       │                └──────────────┘
-                                     └──────────────┘
+<p align="center">
+  <img src="docs/images/er-diagram.svg" alt="TruWiz Database ER Diagram" width="1000">
+</p>
 
 ```
 
