@@ -1,354 +1,388 @@
-````markdown
-# TruWiz
+<div align="center">
 
-<p align="center">
-  <img src="docs/images/logo.png" width="180" alt="TruWiz Logo"/>
-</p>
+<img src="docs/logo.png" alt="TruWiz Logo" width="120" onerror="this.style.display='none'"/>
 
-<h3 align="center">Know Before You Use</h3>
+# TruWiz Backend
 
-<p align="center">
-AI-powered Cosmetic Ingredient Intelligence Platform
-</p>
+### Know Before You Use
 
-<p align="center">
+**AI-powered cosmetic ingredient intelligence — built on deterministic science, explained in plain English.**
 
-![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen)
-![JWT](https://img.shields.io/badge/JWT-Security-blue)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
-![Swagger](https://img.shields.io/badge/OpenAPI-Swagger-green)
-![Docker](https://img.shields.io/badge/Docker-Ready-2496ED)
+<br/>
 
-</p>
+<img src="https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 21"/>
+<img src="https://img.shields.io/badge/Spring%20Boot-3-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot 3"/>
+<img src="https://img.shields.io/badge/Spring%20Security-JWT-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white" alt="Spring Security"/>
+<img src="https://img.shields.io/badge/MySQL-8-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"/>
+<img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+<img src="https://img.shields.io/badge/OpenAPI-Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger"/>
 
----
+<br/><br/>
 
-#  Overview
+[Getting Started](#getting-started) · [API Docs](#swagger-documentation) · [Architecture](#system-architecture) · [Roadmap](#roadmap)
 
-**TruWiz** is an intelligent cosmetic ingredient analysis platform that helps users determine whether a skincare or haircare product is suitable for their unique skin and hair profile.
+</div>
 
-Instead of relying on generic product ratings, TruWiz performs **scientific ingredient analysis**, **personalized risk scoring**, and **AI-generated explanations** based on the user's profile.
+<br/>
 
-The platform combines a deterministic scoring engine with Large Language Models (LLMs) to deliver transparent and trustworthy cosmetic safety reports.
+## Overview
 
----
+TruWiz analyzes cosmetic ingredients against an individual's skin type, hair type, and known allergies to determine whether a product is actually suitable for them — not a generic star rating, but a personalized, evidence-based verdict.
 
-#  Application Preview
+What sets TruWiz apart is architectural: **scoring and explanation are strictly separated.** A deterministic scientific engine computes every score first. Only after the numbers are final does a Large Language Model step in — and its sole job is to translate those numbers into a clear, human-readable explanation. The AI never sees an ingredient it can rate on its own, and it never touches a score once one exists.
 
-<p align="center">
-<img src="docs/images/login.png" width="250"/>
-<img src="docs/images/home.png" width="250"/>
-<img src="docs/images/analysis.png" width="250"/>
-</p>
+<br/>
 
----
+## Application Preview
 
-#  Application Demo
+<div align="center">
 
-<p align="center">
-<img src="docs/videos/scan-demo.gif" width="280"/>
-</p>
-
----
-
-# ✨ Features
-
-- 🔐 JWT Authentication
-- 📧 Email OTP Verification
-- 👤 User Profile Management
-- 🧴 Personalized Cosmetic Analysis
-- 🧪 Ingredient Intelligence Engine
-- ⚠️ Allergen Detection
-- 📷 OCR Ingredient Extraction (Planned)
-- 🤖 AI-powered Product Explanation
-- 📊 \\Scientific Safety Scoring
--  INCI Chemical Database
-- Product Catalog
-- Public Developer API
-- Audit Logging
-- Swagger Documentation
-
----
-
-# 🧠 Core Engine Highlights
-
-### Multi-Parametric Scoring
-
-Each ingredient is evaluated using eight scientific metrics:
-
-| Metric | Description |
-|----------|-------------|
-| Safety | Overall ingredient safety |
-| Irritation | Skin irritation potential |
-| Comedogenic | Acne / pore-clogging risk |
-| Hydration | Moisturizing effectiveness |
-| Sebum Control | Oil regulation capability |
-| Hair Benefit | Hair health contribution |
-| Allergy Risk | Personalized allergy detection |
-| Confidence | Scientific evidence confidence |
-
----
-
-### Position-Based Weighting
-
-Ingredient concentration is estimated using its position within the INCI list.
-
-Ingredients appearing earlier in the formulation contribute significantly more to the final product score than trace ingredients.
-
----
-
-### Personalized Profile Matching
-
-Every product is evaluated against the user's:
-
-- Skin Type
-- Hair Type
-- Known Allergies
-
-This ensures every analysis is personalized rather than generic.
-
----
-
-### AI Explanation Layer
-
-The scoring engine always computes the rating first.
-
-The LLM only receives structured JSON outputs from the scoring engine to generate human-readable explanations.
-
-**The AI cannot:**
-
-- Change scores
-- Modify ingredient risk
-- Override calculations
-- Invent safety information
-
-This separation guarantees explainability while preserving deterministic scoring.
-
----
-
-### Guided OCR Pipeline
-
-For products unavailable in the catalog:
-
-1. Capture packaging images
-2. Extract ingredient list using OCR
-3. Match ingredients against the INCI database
-4. Calculate a preliminary safety score
-5. Generate AI explanations
-6. Queue product for verification
-
----
-
-### Public Developer API
-
-API Client Keys allow third-party developers to access:
-
-- Product Catalog
-- INCI Database
-- Ingredient Information
-- Allergen Mappings
-- Product Analysis APIs
-
----
-
-# 🏗 System Architecture
-
-<p align="center">
-<img src="docs/images/architecture.svg"/>
-</p>
-
----
-
-# 🔄 Product Analysis Pipeline
-
-<p align="center">
-<img src="docs/images/scoring-flow.svg"/>
-</p>
-
-The analysis process follows these stages:
-
-1. Product Search / Barcode Scan
-2. Ingredient Extraction
-3. Synonym Resolution
-4. INCI Database Lookup
-5. Ingredient Risk Analysis
-6. Position Weighting
-7. Personalized Profile Matching
-8. Product Rating Calculation
-9. AI Explanation Generation
-10. Personalized Safety Report
-
----
-
-# 🗄 Database Schema
-
-<p align="center">
-
-<a href="docs/database-er.svg">
-
-<img src="docs/images/database-er.svg" width="1000"/>
-
+<a href="docs/videos/app-demo.mp4">
+  <img src="docs/Codex%20Image%20Sep%201%2C%202026%2C%2001_30_06%20AM.png" alt="TruWiz application preview — click to watch the demo" width="850"/>
 </a>
 
-</p>
+<sub>Click the preview above to watch the full demo (MP4). GitHub does not support inline MP4 playback — swap this asset for a GIF if you want the preview to autoplay directly in the README.</sub>
 
-The database is organized into four major domains:
+</div>
 
-- Authentication & Security
-- User Health Profiles
-- Product Catalog
-- INCI Chemical Intelligence
+<br/>
 
----
+## Key Features
 
-# 🛠 Tech Stack
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**Authentication & Identity**
+- JWT-based stateless authentication
+- Email OTP verification
+- Role-based access control
+
+**User Profiling**
+- Skin type classification
+- Hair type classification
+- Allergy and sensitivity mapping
+
+**Catalog Management**
+- Brand management
+- Category management
+- Full product catalog
+
+</td>
+<td width="50%" valign="top">
+
+**Ingredient Intelligence**
+- INCI ingredient database
+- Ingredient synonym resolution
+- Ingredient tagging system
+- Ingredient–allergy mapping
+
+**Analysis Engine**
+- Deterministic scientific scoring
+- Position-based ingredient weighting
+- Personalized product analysis
+- LLM-powered explanation layer
+
+**Platform**
+- Audit logging
+- Public developer API
+- OCR ingredient extraction *(planned)*
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+## Why TruWiz Is Different
+
+| | Traditional Cosmetic Apps | TruWiz |
+|---|---|---|
+| **Scoring** | Opaque, editorial, or crowd-sourced | Deterministic, formula-driven scientific engine |
+| **Personalization** | Generic ratings for all users | Matched against skin type, hair type, and allergies |
+| **Role of AI** | Often generates the rating itself | Explains a score it cannot change or override |
+| **Transparency** | "Black box" verdicts | Every score is traceable to a scientific calculation |
+| **Trust model** | Rating and reasoning are entangled | Rating and reasoning are architecturally separated |
+
+<br/>
+
+## Core Engine
+
+Every ingredient is evaluated against a multi-metric scientific model:
+
+| Metric | Description |
+|---|---|
+| Safety | Overall safety profile of the ingredient |
+| Irritation | Likelihood of causing skin/scalp irritation |
+| Comedogenic | Pore-clogging potential |
+| Hydration | Moisturizing contribution |
+| Sebum Control | Effect on oil regulation |
+| Hair Benefit | Contribution to hair health outcomes |
+| Allergy Risk | Risk relative to the user's declared allergies |
+| Confidence | Reliability of the underlying data for this ingredient |
+
+**Position-based weighting.** Ingredient order in a formulation reflects concentration. TruWiz weights ingredients accordingly — those listed earlier in the INCI list contribute more heavily to the final score, mirroring how formulations are actually read by chemists.
+
+**The AI explanation boundary.** Once scoring is complete, a structured JSON payload — not raw text — is passed to the LLM. The LLM's role is strictly bounded:
+
+```
+✔ Convert structured scores into natural-language explanations
+✔ Highlight the ingredients driving a result
+✔ Communicate findings in plain, accessible English
+
+✘ Cannot modify scores
+✘ Cannot invent risks
+✘ Cannot override calculations
+✘ Cannot manipulate ingredient ratings
+```
+
+This boundary is what makes TruWiz's output auditable: every explanation the user reads traces back to a deterministic calculation, not a language model's judgment call.
+
+<br/>
+
+## System Architecture
+
+```
+┌──────────────┐      ┌──────────────────┐      ┌─────────────────────┐
+│   Client /    │─────▶│   Spring Boot      │─────▶│   Spring Security    │
+│   Public API  │      │   REST Layer       │      │   (JWT + OTP)        │
+└──────────────┘      └──────────────────┘      └─────────────────────┘
+                               │
+                               ▼
+                    ┌────────────────────┐
+                    │  Service Layer       │
+                    │  (Business Logic)    │
+                    └────────────────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              ▼                                   ▼
+   ┌─────────────────────┐            ┌─────────────────────┐
+   │  Scientific Scoring   │            │  LLM Explanation      │
+   │  Engine (Deterministic)│──scores──▶│  Layer (Gemini/OpenAI) │
+   └─────────────────────┘            └─────────────────────┘
+              │
+              ▼
+   ┌─────────────────────┐
+   │  Spring Data JPA /     │
+   │  Hibernate / MySQL     │
+   └─────────────────────┘
+```
+
+<br/>
+
+## Product Analysis Flow
+
+```
+Product Search
+      │
+      ▼
+Ingredient Extraction
+      │
+      ▼
+Synonym Resolution
+      │
+      ▼
+INCI Database Lookup
+      │
+      ▼
+Scientific Ingredient Analysis
+      │
+      ▼
+Position Weighting
+      │
+      ▼
+User Profile Matching
+      │
+      ▼
+Final Product Score
+      │
+      ▼
+LLM Explanation
+      │
+      ▼
+Personalized Safety Report
+```
+
+<br/>
+
+## Database Schema
+
+<div align="center">
+<img src="docs/database-er.svg" alt="TruWiz Database ER Diagram" width="850"/>
+</div>
+
+The schema centers on a normalized ingredient model: products reference INCI entries through a synonym-resolution layer, while allergy mappings and user profiles join at query time to produce a personalized score — keeping the scientific data reusable across every user rather than duplicated per profile.
+
+<br/>
+
+## Tech Stack
 
 | Layer | Technology |
-|--------|------------|
+|---|---|
 | Language | Java 21 |
-| Framework | Spring Boot 3.x |
-| Security | Spring Security + JWT |
-| ORM | Spring Data JPA / Hibernate |
-| Database | MySQL 8 |
-| Build Tool | Maven |
-| Documentation | OpenAPI / Swagger |
-| AI | Gemini / OpenAI |
-| OCR | Google ML Kit *(Planned)* |
+| Framework | Spring Boot 3 |
+| Security | Spring Security, JWT |
+| Persistence | Spring Data JPA, Hibernate |
+| Database | MySQL |
+| API Documentation | Swagger / OpenAPI |
 | Containerization | Docker |
+| Build Tool | Maven |
+| AI / LLM | Gemini / OpenAI |
+| Ingredient Extraction | OCR *(planned)* |
 
----
+<br/>
 
-# 📁 Project Structure
+## Project Structure
 
-```text
-src
-├── config
-├── controller
-├── dto
-├── entity
-├── enums
-├── exception
-├── mapper
-├── repository
-├── security
-├── service
-├── util
-└── validator
+```
+truwiz-backend/
+├── src/
+│   ├── main/
+│   │   ├── java/com/truwiz/
+│   │   │   ├── config/           # Security, Swagger, app configuration
+│   │   │   ├── controller/       # REST controllers
+│   │   │   ├── service/          # Business logic & scoring engine
+│   │   │   ├── repository/       # Spring Data JPA repositories
+│   │   │   ├── entity/           # JPA entities
+│   │   │   ├── dto/              # Request/response models
+│   │   │   ├── security/         # JWT & authentication logic
+│   │   │   ├── llm/              # LLM explanation layer integration
+│   │   │   └── exception/        # Global exception handling
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       └── db/migration/     # Schema migrations
+│   └── test/
+├── docs/                         # Diagrams, media, documentation assets
+├── Dockerfile
+├── pom.xml
+└── README.md
 ```
 
----
+<br/>
 
-# 🚀 Getting Started
+## Getting Started
 
-## Prerequisites
+### Prerequisites
 
-- Java 21
-- Maven 3.8+
+- Java 21+
+- Maven 3.9+
 - MySQL 8+
+- Docker (optional, for containerized setup)
 
----
-
-## Clone Repository
+### Local Setup
 
 ```bash
-git clone https://github.com/your-username/truwiz-backend.git
-
+# Clone the repository
+git clone https://github.com/<your-org>/truwiz-backend.git
 cd truwiz-backend
-```
 
----
+# Configure environment variables
+cp .env.example .env
 
-## Configure Database
+# Build the project
+mvn clean install
 
-```yaml
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/truwiz_db?createDatabaseIfNotExist=true&useSSL=false
-    username: ${DB_USER:root}
-    password: ${DB_PASS:password}
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-```
-
----
-
-## Build
-
-```bash
-mvn clean package -DskipTests
-```
-
----
-
-## Run
-
-```bash
+# Run the application
 mvn spring-boot:run
 ```
 
----
+### Run with Docker
 
-# 📚 API Documentation
+```bash
+docker build -t truwiz-backend .
+docker run -p 8080:8080 --env-file .env truwiz-backend
+```
 
-After running the application:
+The API will be available at `http://localhost:8080`.
+
+<br/>
+
+## Configuration
+
+Key environment variables required to run TruWiz:
+
+| Variable | Description |
+|---|---|
+| `DB_URL` | MySQL connection string |
+| `DB_USERNAME` | Database username |
+| `DB_PASSWORD` | Database password |
+| `JWT_SECRET` | Secret key used to sign JWTs |
+| `JWT_EXPIRATION` | Token expiration time (ms) |
+| `LLM_API_KEY` | API key for Gemini/OpenAI explanation layer |
+| `MAIL_HOST` / `MAIL_USERNAME` / `MAIL_PASSWORD` | SMTP config for OTP email delivery |
+
+<br/>
+
+## Swagger Documentation
+
+Once the application is running, interactive API documentation is available at:
 
 ```
 http://localhost:8080/swagger-ui.html
 ```
 
----
+The OpenAPI spec is exposed at:
 
-# 🛣 Roadmap
+```
+http://localhost:8080/v3/api-docs
+```
 
-- ✅ Authentication
-- ✅ OTP Verification
-- ✅ User Profiles
-- ✅ Ingredient Intelligence
-- ✅ Personalized Product Analysis
-- ✅ AI Explanations
-- ✅ Public Developer API
-- ✅ Audit Logging
-- 🚧 OCR Ingredient Recognition
-- 🚧 Barcode Scanner
-- 🚧 Product Recommendations
-- 🚧 Product Comparison
-- 🚧 Admin Dashboard
-- 🚧 Analytics
+<br/>
 
----
+## Roadmap
 
-# 👨‍💻 Authors
+- [ ] OCR-based ingredient extraction from product images
+- [ ] Public developer API key management portal
+- [ ] Expanded allergy and sensitivity taxonomy
+- [ ] Ingredient interaction warnings (multi-ingredient conflicts)
+- [ ] Mobile SDK for third-party integrations
 
-## Backend Development
+<br/>
 
+## Contributing
+
+Contributions are welcome. Please open an issue to discuss significant changes before submitting a pull request.
+
+```bash
+# Fork the repo, then:
+git checkout -b feature/your-feature-name
+git commit -m "Add: your feature"
+git push origin feature/your-feature-name
+```
+
+Then open a pull request against `main`.
+
+<br/>
+
+## Authors
+
+<table>
+<tr>
+<td width="50%">
+
+**Backend Development**
 **Mohit Singh**
+[LinkedIn](https://www.linkedin.com/in/mohit-singh-37966720b/)
 
-- LinkedIn: https://www.linkedin.com/in/mohit-singh-37966720b/
+</td>
+<td width="50%">
 
----
-
-## UI / UX Design
-
+**UI / UX Design**
 **Uma Shankar**
+[LinkedIn](https://www.linkedin.com/in/uma-shankar-k/) · [Portfolio](https://umashankardesign.netlify.app)
 
-- LinkedIn: https://www.linkedin.com/in/uma-shankar-k/
-- Portfolio: https://umashankardesign.netlify.app
+</td>
+</tr>
+</table>
 
----
+<br/>
 
-# ⭐ Support
+## License
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-It helps others discover the project and motivates future development.
+<br/>
 
----
-
-<p align="center">
-Built with ❤️ using Spring Boot, AI, and Cosmetic Science.
-</p>
-````
+<div align="center">
+<sub>Built with Java 21 and Spring Boot — scored by science, explained by AI.</sub>
+</div>
