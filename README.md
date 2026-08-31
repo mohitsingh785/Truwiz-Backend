@@ -79,7 +79,9 @@ TruWiz processes ingredient formulations against individual user health profiles
 The following ER diagram represents the relational database used by TruWiz.
 
 <p align="center">
-  <img src="docs/images/er-diagram.svg" alt="TruWiz Database ER Diagram" width="1000">
+<a href="database-er.drawio.svg">
+<img src="database-er.drawio.svg" width="1000">
+</a>
 </p>
 
 ```
