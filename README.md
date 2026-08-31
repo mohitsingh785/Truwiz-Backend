@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="docs/logo.png" alt="TruWiz Logo" width="120" onerror="this.style.display='none'"/>
+<img src="docs/truwizlogo.svg" alt="TruWiz Logo" width="120" onerror="this.style.display='none'"/>
 
 # TruWiz Backend
 
 ### Know Before You Use
 
-**AI-powered cosmetic ingredient intelligence — built on deterministic science, explained in plain English.**
+**AI-powered Product Intelligence Platform — built on deterministic science, explained in plain English.**
 
 <br/>
 
@@ -27,9 +27,13 @@
 
 ## Overview
 
-TruWiz analyzes cosmetic ingredients against an individual's skin type, hair type, and known allergies to determine whether a product is actually suitable for them — not a generic star rating, but a personalized, evidence-based verdict.
+TruWiz is an AI-powered **Product Intelligence Platform** built to help people understand what's actually in the products they use — starting with ingredients, and starting with personal care.
 
-What sets TruWiz apart is architectural: **scoring and explanation are strictly separated.** A deterministic scientific engine computes every score first. Only after the numbers are final does a Large Language Model step in — and its sole job is to translate those numbers into a clear, human-readable explanation. The AI never sees an ingredient it can rate on its own, and it never touches a score once one exists.
+The platform analyzes a product's ingredient composition against an individual's profile — skin type, hair type, and known allergies — to determine whether that product is genuinely suitable for them. Not a generic star rating, but a personalized, evidence-based verdict.
+
+**Cosmetics are the starting point, not the destination.** TruWiz is being built domain by domain: personal care, cosmetics, skincare, and haircare today; food, packaged goods, household products, baby care, and pet care as the platform matures. The scoring engine, allergy-mapping model, and AI explanation layer are all built to generalize across product categories — see [Vision & Roadmap](#vision--roadmap) below.
+
+What sets TruWiz apart architecturally is that **scoring and explanation are strictly separated.** A deterministic scientific engine computes every score first. Only after the numbers are final does a Large Language Model step in — and its sole job is to translate those numbers into a clear, human-readable explanation. The AI never rates a product on its own, and it never touches a score once one exists. This principle is designed to hold regardless of which product category it's applied to.
 
 <br/>
 
@@ -103,6 +107,40 @@ What sets TruWiz apart is architectural: **scoring and explanation are strictly 
 | **Role of AI** | Often generates the rating itself | Explains a score it cannot change or override |
 | **Transparency** | "Black box" verdicts | Every score is traceable to a scientific calculation |
 | **Trust model** | Rating and reasoning are entangled | Rating and reasoning are architecturally separated |
+
+<br/>
+
+## Vision & Roadmap
+
+TruWiz's long-term goal is to become a **Product Intelligence Platform** that spans the full range of consumer products people put on and in their bodies and homes — not a cosmetics app.
+
+Personal care is the starting domain because it has the clearest scientific literature and the highest personalization value. The scoring engine, allergy-mapping model, and AI explanation layer are all built to be domain-agnostic, so expanding into a new category is a data and taxonomy problem, not an architecture rewrite.
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**Current Focus**
+- Personal Care
+- Cosmetics
+- Skincare
+- Haircare
+
+</td>
+<td width="50%" valign="top">
+
+**Planned Expansion**
+- Food & Beverages
+- Packaged Foods
+- Nutritional Products
+- Household & Cleaning Products
+- Baby Care Products
+- Pet Care Products
+- Other consumer products with ingredient transparency
+
+</td>
+</tr>
+</table>
 
 <br/>
 
@@ -211,7 +249,34 @@ Personalized Safety Report
 <img src="docs/database-er.svg" alt="TruWiz Database ER Diagram" width="850"/>
 </div>
 
-The schema centers on a normalized ingredient model: products reference INCI entries through a synonym-resolution layer, while allergy mappings and user profiles join at query time to produce a personalized score — keeping the scientific data reusable across every user rather than duplicated per profile.
+The schema centers on a normalized ingredient model: products reference INCI entries through a synonym-resolution layer, while allergy mappings and user profiles join at query time to produce a personalized score — keeping the scientific data reusable across every user rather than duplicated per profile. This normalized, category-agnostic design is also what makes the schema extensible to future product domains without a redesign.
+
+<br/>
+
+## The TruWiz Open Product Database
+
+One of the core long-term ideas behind TruWiz is to open up the underlying data — not just the app experience.
+
+The vision is an **open, community-accessible product intelligence database**: a structured, API-first dataset that developers, researchers, startups, and consumers can query directly, rather than a closed dataset locked behind a single app.
+
+As it matures, the database is intended to expose:
+
+| Data Type | Description |
+|---|---|
+| Products | Catalog entries across all supported product domains |
+| Brands | Structured brand metadata |
+| Categories | Product category taxonomy |
+| Ingredients | INCI and category-specific ingredient records |
+| Scientific Ingredient Profiles | Safety, irritation, comedogenic, and other computed metrics |
+| Allergen Mappings | Ingredient-to-allergen relationships |
+| Product Ratings | Aggregated and personalized scoring data |
+| Ingredient Relationships | Synonyms, interactions, and cross-references |
+| Safety Metadata | Supporting evidence behind each score |
+| Regulatory Information | *(future)* Region-specific compliance data |
+
+The closest analogy is **OpenFoodFacts** — but where OpenFoodFacts is food-first and largely descriptive, TruWiz aims to layer in deterministic scientific scoring and AI-generated explanations, and to extend that model across cosmetics, food, household, baby care, and pet care products.
+
+The **Public Developer API** listed under [Key Features](#key-features) is the first surface of this vision — it isn't just an integration endpoint bolted onto the app. It's designed to be the access layer for the open database itself, so third-party developers can build their own tools, comparisons, and applications on top of TruWiz's data rather than TruWiz's UI alone.
 
 <br/>
 
@@ -336,6 +401,11 @@ http://localhost:8080/v3/api-docs
 - [ ] Expanded allergy and sensitivity taxonomy
 - [ ] Ingredient interaction warnings (multi-ingredient conflicts)
 - [ ] Mobile SDK for third-party integrations
+- [ ] Open Product Database public release (API-first access)
+- [ ] Expansion into Food & Beverage products
+- [ ] Expansion into Household & Cleaning products
+- [ ] Expansion into Baby Care and Pet Care products
+- [ ] Regulatory and compliance metadata layer
 
 <br/>
 
