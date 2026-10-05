@@ -2,12 +2,10 @@ package org.Jtech.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import javax.naming.Name;
+import java.util.Set;
 
 @Entity
 @Table(name="category")
@@ -18,14 +16,25 @@ public class Category extends BaseEntity{
     @JsonProperty("category_id")
     private Integer categoryId;
 
-    @Column(name="Category_name",nullable = false)
-    @JsonProperty("Category_name")
+    @Column(name="category_name",nullable = false)
+    @JsonProperty("category_name")
     private String categoryName;
 
 
-    @Column(name="Category_img",nullable = false)
-    @JsonProperty("Category_img")
+    @Column(name="category_img",nullable = false)
+    @JsonProperty("category_img")
     private String categoryImg;
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
 
     public Integer getCategoryId() {
         return categoryId;

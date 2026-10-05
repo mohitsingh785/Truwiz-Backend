@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.Jtech.Constant.BrandStatus;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name="brand")
 public class Brand extends BaseEntity{
@@ -23,6 +26,17 @@ public class Brand extends BaseEntity{
 
     @Column(name="logo_url")
     private String logoUrl;
+
+    @OneToMany(mappedBy = "brand")
+    private Set<Product> products;
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     @Column(name="status")
     @Enumerated(EnumType.STRING)
