@@ -20,6 +20,16 @@ public class Allergies {
     @OneToMany(mappedBy = "allergy")
     private Set<UserAllergy> userAllergies;
 
+    @OneToMany(mappedBy = "allergy")
+    private Set<InciAllergyMapping> inciAllergies;
+
+    public Set<InciAllergyMapping> getInciAllergies() {
+        return inciAllergies;
+    }
+
+    public void setInciAllergies(Set<InciAllergyMapping> inciAllergies) {
+        this.inciAllergies = inciAllergies;
+    }
 
     public Set<UserAllergy> getUserAllergies() {
         return userAllergies;
