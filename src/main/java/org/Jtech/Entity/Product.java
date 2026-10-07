@@ -4,6 +4,8 @@ package org.Jtech.Entity;
 import jakarta.persistence.*;
 import org.Jtech.Constant.ProductStatus;
 
+import java.util.Set;
+
 @Entity
 @Table(name="product")
 public class Product extends BaseEntity{
@@ -34,6 +36,9 @@ public class Product extends BaseEntity{
     @Column(name="status")
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductIngredient> productIngredients;
 
     public String getBarcode() {
         return barcode;
