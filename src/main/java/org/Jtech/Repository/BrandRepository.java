@@ -1,0 +1,7 @@
+package org.Jtech.Repository;
+
+import org.Jtech.Entity.Brand;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BrandRepository extends JpaRepository<Brand,Long> {
+}
