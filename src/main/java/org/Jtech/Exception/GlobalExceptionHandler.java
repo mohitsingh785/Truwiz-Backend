@@ -120,5 +120,15 @@ public class GlobalExceptionHandler {
         return problemDetail;
     }
 
+    @ExceptionHandler(InvalidSortFieldException.class)
+    public ProblemDetail InvalidSortFieldException(Exception ex, HttpServletRequest request) {
+
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Invalid sort field");
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
+
 
 }

@@ -1,8 +1,24 @@
 package org.Jtech.Controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import org.Jtech.Constant.BrandStatus;
+import org.Jtech.DTO.BrandApiResponse;
+import org.Jtech.DTO.BrandSummaryResponse;
+import org.Jtech.DTO.PageResponse;
+import org.Jtech.Service.BrandService;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 /**
  * Brand Controller
@@ -25,8 +41,30 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/v1/brand")
+@RequestMapping("/v1/brands")
 public class BrandController {
+
+    @Autowired
+    private BrandService brandService;
+
+    // Get the all brands
+    @GetMapping
+    @Operation(summary = "Get paginated list of brands, sorted by name, optionally filtered by status")
+    public ResponseEntity<BrandApiResponse<PageResponse<BrandSummaryResponse>>> getBrands(
+            @ParameterObject
+            @PageableDefault(size = 20, sort = "name", direction = Sort.Direction.ASC)
+            Pageable pageable,
+            @RequestParam(required = false) BrandStatus status) {
+
+        PageResponse<BrandSummaryResponse> brands = brandService.getBrands(status, pageable);
+        return ResponseEntity.ok(BrandApiResponse.success("Brands fetched successfully", brands));
+    }
+
+    // Get the brand by ID
+
+    // Update the Brand
+
+    // Delete the brand
 
 
 }

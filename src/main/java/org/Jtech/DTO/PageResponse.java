@@ -1,0 +1,40 @@
+package org.Jtech.DTO;
+
+
+import java.util.List;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
+
+public record PageResponse<T>(
+        List<T> content,
+        int page,
+        int size,
+        long totalElements,
+        int totalPages,
+        boolean first,
+        boolean last,
+        List<String> sort
+) {
+
+    public static <T> PageResponse<T> from(Page<T> page) {
+        return from(page, page.getSort());
+    }
+
+    public static <T> PageResponse<T> from(Page<T> page, Sort displaySort) {
+        {
+            List<String> sort = page.getSort().stream()
+                    .map(order -> order.getProperty() + "," + order.getDirection().name().toLowerCase())
+                    .toList();
+
+            return new PageResponse<>(
+                    page.getContent(),
+                    page.getNumber(),
+                    page.getSize(),
+                    page.getTotalElements(),
+                    page.getTotalPages(),
+                    page.isFirst(),
+                    page.isLast(),
+                    sort
+            );
+        }
+    }}
