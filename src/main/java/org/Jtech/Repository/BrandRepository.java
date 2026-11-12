@@ -9,4 +9,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 // BrandRepository: the second interface enables findAll(spec, pageable)
 public interface BrandRepository extends JpaRepository<Brand, Long>, JpaSpecificationExecutor<Brand> {
+    boolean existsByBrandNameIgnoreCase(String brandName);
+
+    boolean existsByBrandNameIgnoreCaseAndBrandIdNot(String brandName, Long brandId);
+
 }

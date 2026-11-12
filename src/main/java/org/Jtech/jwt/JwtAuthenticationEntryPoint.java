@@ -1,14 +1,21 @@
 package org.Jtech.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.time.Instant;
+
 /**
  * JWT Authentication Entry Point
  *
@@ -32,17 +39,41 @@ import java.io.PrintWriter;
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    /**
-     * Commences an authentication scheme.
-     *
-     * @param request HTTP request
-     * @param response HTTP response
-     * @param authException authentication exception
-     */
+    // Shared with JwtAuthenticationFilter: the filter writes, this class reads
+    public static final String JWT_ERROR_ATTRIBUTE = "jwt_error";
+    public static final String JWT_EXPIRED = "expired";
+    public static final String JWT_INVALID = "invalid";
+
+    private final ObjectMapper objectMapper;
+
+    public JwtAuthenticationEntryPoint(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        PrintWriter writer = response.getWriter();
-        writer.println("Access Denied !! " + authException.getMessage());
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
+                         AuthenticationException authException) throws IOException {
+
+        // Why is there no authenticated user? The filter leaves the reason here.
+        Object jwtError = request.getAttribute(JWT_ERROR_ATTRIBUTE);
+
+        String detail;
+        if (JWT_EXPIRED.equals(jwtError)) {
+            detail = "Token has expired. Please log in again.";
+        } else if (JWT_INVALID.equals(jwtError)) {
+            detail = "Invalid token.";
+        } else {
+            detail = "Authentication is required to access this resource.";
+        }
+
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, detail);
+        problemDetail.setTitle("Unauthorized");
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        problemDetail.setProperty("timestamp", Instant.now());
+
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType(MediaType.APPLICATION_PROBLEM_JSON_VALUE);
+        objectMapper.writeValue(response.getOutputStream(), problemDetail);
     }
 }
