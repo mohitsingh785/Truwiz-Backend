@@ -15,7 +15,7 @@ public class InciTag extends BaseEntity{
     @Column(name="tag_id")
     private Long tagId;
 
-    @Column(name="tag_name",unique = true,length = 255)
+    @Column(name="tag_name",nullable = false, unique = true,length = 255)
     @NotBlank
     private String tagName;
 
@@ -27,7 +27,7 @@ public class InciTag extends BaseEntity{
     }
 
     public void setId(Long tagId) {
-        tagId = tagId;
+        this.tagId = tagId;
     }
 
     public String getTagName() {

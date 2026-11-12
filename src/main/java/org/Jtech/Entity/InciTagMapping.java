@@ -11,7 +11,10 @@ UNIQUE (inci_id, tag_id)
  */
 
 @Entity
-@Table(name = "inci_tag_mapping")
+@Table(name = "inci_tag_mapping",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_inci_tag_mapping_inci_tag",
+                columnNames = {"inci_id", "tag_id"}))
 public class InciTagMapping extends BaseEntity{
 
 

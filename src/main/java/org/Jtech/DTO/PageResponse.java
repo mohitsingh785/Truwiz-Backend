@@ -21,20 +21,19 @@ public record PageResponse<T>(
     }
 
     public static <T> PageResponse<T> from(Page<T> page, Sort displaySort) {
-        {
-            List<String> sort = page.getSort().stream()
-                    .map(order -> order.getProperty() + "," + order.getDirection().name().toLowerCase())
-                    .toList();
+        List<String> sort = displaySort.stream()
+                .map(order -> order.getProperty() + "," + order.getDirection().name().toLowerCase())
+                .toList();
 
-            return new PageResponse<>(
-                    page.getContent(),
-                    page.getNumber(),
-                    page.getSize(),
-                    page.getTotalElements(),
-                    page.getTotalPages(),
-                    page.isFirst(),
-                    page.isLast(),
-                    sort
-            );
-        }
-    }}
+        return new PageResponse<>(
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isFirst(),
+                page.isLast(),
+                sort
+        );
+    }
+}
