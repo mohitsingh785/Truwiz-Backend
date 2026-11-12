@@ -10,11 +10,11 @@ public class ProductIngredient extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="inci_id",nullable = false)
     private InciIngredient inciIngredient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="barcode",nullable = false)
     private Product product;
 

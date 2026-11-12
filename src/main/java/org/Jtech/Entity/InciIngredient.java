@@ -177,4 +177,12 @@ public class InciIngredient extends BaseEntity {
     public void setConfidenceLevel(Integer confidenceLevel) {
         this.confidenceLevel = confidenceLevel;
     }
+
+    public Set<InciAllergyMapping> getInciAllergies() {
+        return inciAllergies;
+    }
+
+    public void setInciAllergies(Set<InciAllergyMapping> inciAllergies) {
+        this.inciAllergies = inciAllergies;
+    }
 }

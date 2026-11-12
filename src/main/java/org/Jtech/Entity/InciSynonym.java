@@ -12,7 +12,7 @@ public class InciSynonym extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="inci_id",nullable = false)
     private InciIngredient inciIngredient;
 

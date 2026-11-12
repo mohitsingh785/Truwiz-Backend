@@ -5,7 +5,10 @@ package org.Jtech.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "inci_allergy_mapping")
+@Table(name = "inci_allergy_mapping",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_inci_allergy_mapping_inci_allergy",
+                columnNames = {"inci_id", "allergy_id"}))
 public class InciAllergyMapping extends BaseEntity {
 
     @Id
