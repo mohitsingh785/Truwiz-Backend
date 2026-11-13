@@ -1,10 +1,14 @@
 package org.Jtech.Entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
+import org.Jtech.Constant.InciStatus;
+import org.Jtech.Constant.PregnancyClass;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -18,6 +22,44 @@ public class InciIngredient extends BaseEntity {
     @Column(name = "inci_name", nullable = false, unique = true, length = 255)
     @NotBlank
     private String inciName;
+
+    // Matching key, e.g. "Aqua / Water" -> "AQUA/WATER". Set by InciNameNormalizer only, never by hand.
+    @Column(name = "normalized_name", nullable = false, unique = true, length = 255)
+    private String normalizedName;
+
+    // INACTIVE rows stay linked to existing products but are never matched again.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 16)
+    private InciStatus status = InciStatus.ACTIVE;
+
+    // Chemical ID, e.g. 98-92-0. Optional and NOT unique: extracts often have none, some names have several.
+    @Column(name = "cas_number", length = 100)
+    private String casNumber;
+
+    // 2–3 plain sentences: what it is and why it's used. Shown on ingredient cards.
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
+    // UNKNOWN = not assessed yet, so uncurated rows never claim SAFE.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "pregnancy_class", nullable = false, length = 16)
+    private PregnancyClass pregnancyClass = PregnancyClass.UNKNOWN;
+
+    // Usual concentration range in % w/w. Used by the ConcentrationEstimator (S.2). Null = unknown.
+    @DecimalMin(value = "0.00")
+    @DecimalMax(value = "100.00")
+    @Column(name = "typical_min_pct", precision = 5, scale = 2)
+    private BigDecimal typicalMinPct;
+
+    @DecimalMin(value = "0.00")
+    @DecimalMax(value = "100.00")
+    @Column(name = "typical_max_pct", precision = 5, scale = 2)
+    private BigDecimal typicalMaxPct;
+
+    // Where each value came from, e.g. {"severityScore": {"rule": "ANNEX_V_PRESERVATIVE", "source": "CosIng"}}
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "derivation", columnDefinition = "json")
+    private Map<String, Object> derivation;
 
     @Column(name = "severity_score", nullable = false)
     @Max(5)
@@ -71,6 +113,76 @@ public class InciIngredient extends BaseEntity {
     @OneToMany(mappedBy = "inciIngredient")
     private Set<InciAllergyMapping> inciAllergies;
 
+    // Bean Validation runs this before insert/update; a bad range fails the save instead of reaching the DB.
+    @AssertTrue(message = "typicalMinPct must not be greater than typicalMaxPct")
+    public boolean isTypicalRangeValid() {
+        return typicalMinPct == null || typicalMaxPct == null
+                || typicalMinPct.compareTo(typicalMaxPct) <= 0;
+    }
+
+    public String getNormalizedName() {
+        return normalizedName;
+    }
+
+    public void setNormalizedName(String normalizedName) {
+        this.normalizedName = normalizedName;
+    }
+
+    public InciStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(InciStatus status) {
+        this.status = status;
+    }
+
+    public String getCasNumber() {
+        return casNumber;
+    }
+
+    public void setCasNumber(String casNumber) {
+        this.casNumber = casNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Map<String, Object> getDerivation() {
+        return derivation;
+    }
+
+    public void setDerivation(Map<String, Object> derivation) {
+        this.derivation = derivation;
+    }
+
+    public BigDecimal getTypicalMaxPct() {
+        return typicalMaxPct;
+    }
+
+    public void setTypicalMaxPct(BigDecimal typicalMaxPct) {
+        this.typicalMaxPct = typicalMaxPct;
+    }
+
+    public BigDecimal getTypicalMinPct() {
+        return typicalMinPct;
+    }
+
+    public void setTypicalMinPct(BigDecimal typicalMinPct) {
+        this.typicalMinPct = typicalMinPct;
+    }
+
+    public PregnancyClass getPregnancyClass() {
+        return pregnancyClass;
+    }
+
+    public void setPregnancyClass(PregnancyClass pregnancyClass) {
+        this.pregnancyClass = pregnancyClass;
+    }
 
     public Set<InciTagMapping> getInciTags() {
         return inciTags;
@@ -95,7 +207,6 @@ public class InciIngredient extends BaseEntity {
     public void setProductIngredients(Set<ProductIngredient> productIngredients) {
         this.productIngredients = productIngredients;
     }
-
 
 
     public Long getInciId() {
