@@ -2,6 +2,7 @@ package org.Jtech.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.Jtech.Constant.InciStatus;
 import org.Jtech.Constant.PregnancyClass;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
