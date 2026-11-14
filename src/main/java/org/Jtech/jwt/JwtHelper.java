@@ -3,9 +3,13 @@ package org.Jtech.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +44,15 @@ public class JwtHelper {
 
 
     //    public static final long JWT_TOKEN_VALIDITY =  60;
-    private String secret = "afafasfafafasfasfasfafacasdasfasxASFACASDFACASDFASFASFDAFASFASDAADSCSDFADCVSGCFVADXCcadwavfsfarvf";
+    private final Key signingKey;
+
+    public JwtHelper(@Value("${jwt.secret}") String secret) {
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        if (keyBytes.length < 64) {
+            throw new IllegalStateException("JWT_SECRET must be at least 64 bytes (512 bits) for HS512");
+        }
+        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     /**
      * Extract the username (subject) from a JWT token.
@@ -70,7 +82,11 @@ public class JwtHelper {
      * Retrieve all claims from a JWT token using the signing key.
      */
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 
@@ -99,9 +115,12 @@ public class JwtHelper {
      * @return signed JWT token
      */
     private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date())
+                .signWith(signingKey, SignatureAlgorithm.HS512)
+                .compact();
     }
 
     /**
