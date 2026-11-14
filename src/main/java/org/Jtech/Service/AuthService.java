@@ -111,6 +111,9 @@ public class AuthService {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new UserAlreadyExistsException("User Already Exist with email ",user.getEmail());
         }
+        UserDetailsDTO dto = userAndDetails.getUserDetailsDTO();
+        userService.checkPregnancyMatchesGender(dto.getGender(), dto.getPregnant());
+
         String encryptPass = utilsService.hashPassword(userAndDetails.getUser().getPassword());
         user.setPassword(encryptPass);
         UserDetailsDTO userDetailsDto = userAndDetails.getUserDetailsDTO();
@@ -149,6 +152,7 @@ public class AuthService {
     }
 
     // Authenticate the User
+    // Authenticate the User
     public LoginResponse authenticate(LoginRequest loginRequest) {
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
@@ -157,40 +161,27 @@ public class AuthService {
         // Verify if user exist
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new InvalidCredentialsException("Invalid email or password",email));
+                        new InvalidCredentialsException("Invalid email or password", email));
 
         logger.debug("User found for email: {}", email);
         Long userId = user.getUserId();
 
-        // Get the Encrypted password from user entity
-        String encryptedPassword = user.getPassword();
-
-        // Verify is entered password match with user password
-        if (!utilsService.matchPassword(password, encryptedPassword)) {
-            throw new InvalidCredentialsException("Invalid email or password.",email);
+        // Verify entered password matches the stored hash
+        if (!utilsService.matchPassword(password, user.getPassword())) {
+            throw new InvalidCredentialsException("Invalid email or password.", email);
         }
 
         logger.debug("Password verified for user: {}", email);
-        // generate auth token
+        // Generate auth token
         org.springframework.security.core.userdetails.UserDetails userDetails = userService.loadUserByUsername(email);
         String token = this.helper.generateToken(userDetails);
-
         logger.debug("JWT generated for user: {}", email);
-        // Get the user details using the userId
-        UserDetailsView userDetailsView = userDetailsRepository.findByUserUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found",userId));
 
-        // Get the User Allergy using the user details id
-        List<UserAllergy> userAllergies = userAllergyRepository.findByUserDetailsDetailsId(userDetailsView.getDetailsId());
-        logger.info("User {} allergy fetched successfully", email);
-        // Create the list to store user allergy
-        List<String> storeUserAllergies = userAllergies.stream().
-                map(UserAllergy::getAllergy).
-                map(Allergies::getAllergyName).
-                toList();
+        // Same profile as GET /v1/users/me/profile: one query with allergies + concerns
+        UserProfileResponse profile = userService.getMyProfile(userId);
 
         logger.info("User {} logged in successfully", email);
-        // return final LoginResponse
-        return userMapper.createLoginResponse(user, userDetailsView, storeUserAllergies, token);
+        return userMapper.createLoginResponse(user, profile, token);
     }
 
 
