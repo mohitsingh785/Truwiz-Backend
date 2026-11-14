@@ -11,13 +11,13 @@ public class UserAllergy extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "details_id",nullable = false)
     private UserDetails userDetails;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "allergy_id",nullable = false)
     private Allergies allergy;
 
@@ -37,11 +37,11 @@ public class UserAllergy extends BaseEntity{
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Allergies getAllergy() {
@@ -49,6 +49,6 @@ public class UserAllergy extends BaseEntity{
     }
 
     public void setAllergy(Allergies allergy) {
-        allergy = allergy;
+        this.allergy = allergy;
     }
 }
