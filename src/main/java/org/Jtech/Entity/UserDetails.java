@@ -27,7 +27,7 @@ public class UserDetails extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SkinType skinType;
 
-    @Column(name = "hair_type", nullable = false)
+    @Column(name = "scalp_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private ScalpType scalpType;
 

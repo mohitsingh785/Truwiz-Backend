@@ -154,7 +154,8 @@ public class AuthController {
 
     @Operation(
             summary = "Add User and Details",
-            description = "Add a new user along with their details, including skin type, allergies, and other health-related information.",
+            description = "Add a new user along with their details: skin and scalp type, allergies with severity, "
+                    + "and skin/hair concerns. `concerns` is optional; `severity` defaults to moderate.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "User and UserDetails data to create a new user.",
                     required = true,
@@ -162,24 +163,31 @@ public class AuthController {
                             mediaType = "application/json",
                             examples = @ExampleObject(
                                     name = "Add User Example",
-                                    value = "{\n" +
-                                            "  \"user\": {\n" +
-                                            "    \"userName\": \"DummyUser\",\n" +
-                                            "    \"email\": \"dummysomething@example.com\",\n" +
-                                            "    \"password\": \"dummyPassword123\",\n" +
-                                            "    \"phoneNumber\": \"9876543210\"\n" +
-                                            "  },\n" +
-                                            "  \"userDetails\": {\n" +
-                                            "    \"hairType\": \"Oily\",\n" +
-                                            "    \"skinType\": \"Oily\",\n" +
-                                            "    \"age\": 25,\n" +
-                                            "    \"gender\": \"MALE\",\n" +
-                                            "    \"skinColour\": \"Fair\",\n" +
-                                            "    \"allergyIds\": [2,3,4],\n" +
-                                            "    \"heightCm\": 122.3,\n" +
-                                            "    \"weightKg\": 70.0\n" +
-                                            "  }\n" +
-                                            "}"
+                                    value = """
+                                        {
+                                          "user": {
+                                            "userName": "DummyUser",
+                                            "email": "dummysomething@example.com",
+                                            "password": "dummyPassword123",
+                                            "phoneNumber": "9876543210"
+                                          },
+                                          "userDetails": {
+                                            "skinType": "oily",
+                                            "scalpType": "dry",
+                                            "age": 25,
+                                            "gender": "male",
+                                            "skinColour": "fair",
+                                            "heightCm": 172.5,
+                                            "weightKg": 70.0,
+                                            "allergies": [
+                                              { "allergyId": 2, "severity": "mild" },
+                                              { "allergyId": 3, "severity": "severe" },
+                                              { "allergyId": 4 }
+                                            ],
+                                            "concerns": ["acne", "dandruff"]
+                                          }
+                                        }
+                                        """
                             )
                     )
             )
