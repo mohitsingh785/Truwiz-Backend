@@ -37,7 +37,14 @@ public class UserMapper {
             }
         }
 
-        // 3. Now return it
+        // 3. Optional scoring inputs. null booleans stay null ("didn't answer").
+        userDetails.setPregnant(userDetailsDTO.getPregnant());
+        userDetails.setAcneProne(userDetailsDTO.getAcneProne());
+        if (userDetailsDTO.getRegion() != null) {
+            userDetails.setRegion(userDetailsDTO.getRegion());
+        }   // else keep the entity default: Region.IN
+
+        // 4. Now return it
         return userDetails;
     }
 
