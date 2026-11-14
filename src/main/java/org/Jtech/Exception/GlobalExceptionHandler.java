@@ -217,4 +217,14 @@ public class GlobalExceptionHandler {
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
     }
+
+    // 400: profile fields that contradict each other
+    @ExceptionHandler(InvalidProfileException.class)
+    public ProblemDetail handleInvalidProfile(InvalidProfileException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle("Invalid profile");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
 }
