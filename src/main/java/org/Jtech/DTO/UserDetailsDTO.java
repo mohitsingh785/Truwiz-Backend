@@ -1,12 +1,11 @@
 package org.Jtech.DTO;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import org.Jtech.Constant.Gender;
-import org.Jtech.Constant.HairType;
-import org.Jtech.Constant.SkinColor;
-import org.Jtech.Constant.SkinType;
+import org.Jtech.Constant.*;
 
 import java.util.List;
+import java.util.Set;
 
 public class UserDetailsDTO {
 
@@ -14,7 +13,7 @@ public class UserDetailsDTO {
     @NotNull
     private SkinType skinType;
     @NotNull
-    private HairType hairType;
+    private ScalpType scalpType;
     @NotNull
     @Min(1)
     @Max(120)
@@ -24,7 +23,8 @@ public class UserDetailsDTO {
     @NotNull
     private SkinColor skinColour;
     @NotNull
-    private List<Long> allergyIds;
+    @Valid
+    private List<UserAllergyRequest> allergies;
     @NotNull
     @Positive
     @DecimalMax("250")
@@ -34,14 +34,17 @@ public class UserDetailsDTO {
     @DecimalMax("250")
     private Float weightKg;
 
-    public UserDetailsDTO(SkinType skinType, Float weightKg, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<Long> allergyIds, Float heightCm) {
+    // Optional. Empty or missing = no concerns chosen.
+    private Set<Concern> concerns;
+
+    public UserDetailsDTO(SkinType skinType, Float weightKg, ScalpType scalpType, Integer age, Gender gender, SkinColor skinColour, List<UserAllergyRequest> allergies, Float heightCm) {
         this.skinType = skinType;
         this.weightKg = weightKg;
-        this.hairType = hairType;
+        this.scalpType = scalpType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
-        this.allergyIds = allergyIds;
+        this.allergies = allergies;
         this.heightCm = heightCm;
     }
 
@@ -53,12 +56,20 @@ public class UserDetailsDTO {
         this.skinType = skinType;
     }
 
-    public HairType getHairType() {
-        return hairType;
+    public ScalpType getScalpType() {
+        return scalpType;
     }
 
-    public void setHairType(HairType hairType) {
-        this.hairType = hairType;
+    public Set<Concern> getConcerns() {
+        return concerns;
+    }
+
+    public void setConcerns(Set<Concern> concerns) {
+        this.concerns = concerns;
+    }
+
+    public void setScalpType(ScalpType scalpType) {
+        this.scalpType = scalpType;
     }
 
     public Integer getAge() {
@@ -77,12 +88,12 @@ public class UserDetailsDTO {
         this.gender = gender;
     }
 
-    public List<Long> getAllergyIds() {
-        return allergyIds;
+    public List<UserAllergyRequest> getAllergies() {
+        return allergies;
     }
 
-    public void setAllergyIds(List<Long> allergyIds) {
-        this.allergyIds = allergyIds;
+    public void setAllergies(List<UserAllergyRequest> allergies) {
+        this.allergies = allergies;
     }
 
     public SkinColor getSkinColour() {

@@ -2,32 +2,52 @@ package org.Jtech.Entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.Jtech.Constant.AllergySeverity;
 
 import java.util.Optional;
 
 @Entity
-@Table(name = "user_allergy")
+@Table(
+        name = "user_allergy",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_user_allergy",
+                columnNames = {"details_id", "allergy_id"}
+        )
+)
 public class UserAllergy extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "details_id",nullable = false)
     private UserDetails userDetails;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "allergy_id",nullable = false)
     private Allergies allergy;
+    // How bad the reaction is. SEVERE triggers a hard warning in scoring.
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "severity", nullable = false)
+    private AllergySeverity severity = AllergySeverity.MODERATE;
 
     public UserAllergy() {
     }
-    public UserAllergy(UserDetails userDetails, Allergies allergy) {
+    public UserAllergy(UserDetails userDetails, Allergies allergy,AllergySeverity severity) {
         this.userDetails = userDetails;
         this.allergy = allergy;
+        this.severity=severity;
+    }
+    public AllergySeverity getSeverity() {
+        return severity;
     }
 
+    public void setSeverity(AllergySeverity severity) {
+        this.severity = severity;
+    }
     public UserDetails getUserDetails() {
         return userDetails;
     }
@@ -37,11 +57,11 @@ public class UserAllergy extends BaseEntity{
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Allergies getAllergy() {
@@ -49,6 +69,6 @@ public class UserAllergy extends BaseEntity{
     }
 
     public void setAllergy(Allergies allergy) {
-        allergy = allergy;
+        this.allergy = allergy;
     }
 }

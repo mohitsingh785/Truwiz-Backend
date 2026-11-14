@@ -2,8 +2,15 @@ package org.Jtech.Entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.Jtech.Constant.ProductSource;
 import org.Jtech.Constant.ProductStatus;
+import org.Jtech.Constant.VerificationStatus;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,11 +23,28 @@ public class Product extends BaseEntity{
     @Column(name="product_name",nullable = false)
     private String productName;
 
-    @ManyToOne
-    @JoinColumn(name="brand_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="brand_id")
     private Brand brand;
 
-    @ManyToOne
+    @Size(max = 150)
+    @Column(name = "submitted_brand_name", length = 150)
+    private String submittedBrandName;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "verification_status", nullable = false)
+    private VerificationStatus verificationStatus = VerificationStatus.PENDING;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "source", nullable = false)
+    private ProductSource source;
+
+    @Column(name = "raw_ingredient_text", columnDefinition = "TEXT")
+    private String rawIngredientText;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id",nullable = false)
     private Category category;
 
@@ -37,9 +61,21 @@ public class Product extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
 
-    @OneToMany(mappedBy = "product")
-    private Set<ProductIngredient> productIngredients;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("ingredientOrder ASC")
+    private List<ProductIngredient> productIngredients = new ArrayList<>();
 
+
+
+    @AssertTrue(message = "Either brand or submittedBrandName must be provided")
+    private boolean isBrandProvided() {
+        return brand != null
+                || (submittedBrandName != null && !submittedBrandName.isBlank());
+    }
+    public void addIngredient(ProductIngredient ingredient) {
+        productIngredients.add(ingredient);
+        ingredient.setProduct(this);
+    }
     public String getBarcode() {
         return barcode;
     }
@@ -56,36 +92,44 @@ public class Product extends BaseEntity{
         this.productName = productName;
     }
 
-    public ProductStatus getProductStatus() {
-        return status;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setProductStatus(ProductStatus status) {
-        this.status = status;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
-    public String getImage_url() {
-        return imageUrl;
+    public VerificationStatus getVerificationStatus() {
+        return verificationStatus;
     }
 
-    public void setImage_url(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setVerificationStatus(VerificationStatus verificationStatus) {
+        this.verificationStatus = verificationStatus;
     }
 
-    public String getDescription() {
-        return description;
+    public String getSubmittedBrandName() {
+        return submittedBrandName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setSubmittedBrandName(String submittedBrandName) {
+        this.submittedBrandName = submittedBrandName;
     }
 
-    public String getVariant() {
-        return variant;
+    public ProductSource getSource() {
+        return source;
     }
 
-    public void setVariant(String variant) {
-        this.variant = variant;
+    public void setSource(ProductSource source) {
+        this.source = source;
+    }
+
+    public String getRawIngredientText() {
+        return rawIngredientText;
+    }
+
+    public void setRawIngredientText(String rawIngredientText) {
+        this.rawIngredientText = rawIngredientText;
     }
 
     public Category getCategory() {
@@ -96,11 +140,43 @@ public class Product extends BaseEntity{
         this.category = category;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public String getVariant() {
+        return variant;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setVariant(String variant) {
+        this.variant = variant;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public ProductStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductStatus status) {
+        this.status = status;
+    }
+
+    public List<ProductIngredient> getProductIngredients() {
+        return productIngredients;
+    }
+
+    public void setProductIngredients(List<ProductIngredient> productIngredients) {
+        this.productIngredients = productIngredients;
     }
 }

@@ -1,10 +1,7 @@
 package org.Jtech.DTO;
 
 
-import org.Jtech.Constant.Gender;
-import org.Jtech.Constant.HairType;
-import org.Jtech.Constant.SkinColor;
-import org.Jtech.Constant.SkinType;
+import org.Jtech.Constant.*;
 
 import java.util.List;
 
@@ -13,7 +10,7 @@ public class CombinedUserDetails {
     private String email;
     private String phoneNumber;
     private SkinType skinType;
-    private HairType hairType;
+    private ScalpType scalpType;
     private Integer age;
     private Gender gender;
     private SkinColor skinColour;
@@ -21,12 +18,12 @@ public class CombinedUserDetails {
     private Float heightKg;
     private Float weightKg;
 
-    public CombinedUserDetails(String userName, String email, String phoneNumber, SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightKg, Float weightKg) {
+    public CombinedUserDetails(String userName, String email, String phoneNumber, SkinType skinType, ScalpType scalpType, Integer age, Gender gender, SkinColor skinColour, List<String> allergies, Float heightKg, Float weightKg) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.skinType = skinType;
-        this.hairType = hairType;
+        this.scalpType = scalpType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
@@ -67,12 +64,12 @@ public class CombinedUserDetails {
         this.skinType = skinType;
     }
 
-    public HairType getHairType() {
-        return hairType;
+    public ScalpType getScalpType() {
+        return scalpType;
     }
 
-    public void setHairType(HairType hairType) {
-        this.hairType = hairType;
+    public void setScalpType(ScalpType scalpType) {
+        this.scalpType = scalpType;
     }
 
     public Integer getAge() {

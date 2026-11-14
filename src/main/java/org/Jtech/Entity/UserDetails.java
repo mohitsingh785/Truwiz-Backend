@@ -3,18 +3,17 @@ package org.Jtech.Entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
-import org.Jtech.Constant.Gender;
-import org.Jtech.Constant.HairType;
-import org.Jtech.Constant.SkinColor;
-import org.Jtech.Constant.SkinType;
+import jakarta.validation.constraints.NotNull;
+import org.Jtech.Constant.*;
 import org.Jtech.Util.StringListJsonConverter;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_details")
-public class UserDetails extends BaseEntity{
+public class UserDetails extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +29,7 @@ public class UserDetails extends BaseEntity{
 
     @Column(name = "hair_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private HairType hairType;
+    private ScalpType scalpType;
 
     @Column(name = "age", nullable = false)
     private Integer age;
@@ -54,16 +53,81 @@ public class UserDetails extends BaseEntity{
     @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserAllergy> userAllergies;
 
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UserConcern> userConcerns = new HashSet<>();
+
+    // Optional. null = user didn't answer → scoring treats it as "not pregnant".
+// Used only for scoring; never logged or shown unless it changed the score.
+    @Column(name = "pregnant")
+    private Boolean pregnant;
+
+    // Optional. null = didn't answer → scoring treats it as "not acne-prone".
+    @Column(name = "acne_prone")
+    private Boolean acneProne;
+
+    public Set<UserConcern> getUserConcerns() {
+        return userConcerns;
+    }
+
+    public void addConcern(Concern concern) {
+        userConcerns.add(new UserConcern(this, concern));
+    }
+
+    public void setUserConcerns(Set<UserConcern> userConcerns) {
+        this.userConcerns = userConcerns;
+    }
+
+    @NotNull
+    @Column(name = "region", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Region region = Region.IN;
+
+
+    public Boolean getPregnant() {
+        return pregnant;
+    }
+
+
+    public void setPregnant(Boolean pregnant) {
+        this.pregnant = pregnant;
+    }
+
+    public Boolean getAcneProne() {
+        return acneProne;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public void setAcneProne(Boolean acneProne) {
+        this.acneProne = acneProne;
+    }
+
     public UserDetails() {
     }
-    public UserDetails(SkinType skinType, HairType hairType, Integer age, Gender gender, SkinColor skinColour, Float heightCm, Float weightKg) {
+
+    public UserDetails(SkinType skinType, ScalpType scalpType, Integer age, Gender gender, SkinColor skinColour, Float heightCm, Float weightKg) {
         this.skinType = skinType;
-        this.hairType = hairType;
+        this.scalpType = scalpType;
         this.age = age;
         this.gender = gender;
         this.skinColour = skinColour;
         this.heightCm = heightCm;
         this.weightKg = weightKg;
+    }
+
+
+    public ScalpType getScalpType() {
+        return scalpType;
+    }
+
+    public void setScalpType(ScalpType scalpType) {
+        this.scalpType = scalpType;
     }
 
     public Set<UserAllergy> getUserAllergies() {
@@ -98,13 +162,6 @@ public class UserDetails extends BaseEntity{
         this.skinType = skinType;
     }
 
-    public HairType getHairType() {
-        return hairType;
-    }
-
-    public void setHairType(HairType hairType) {
-        this.hairType = hairType;
-    }
 
     public Integer getAge() {
         return age;
