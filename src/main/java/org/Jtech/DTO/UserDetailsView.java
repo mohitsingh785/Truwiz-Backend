@@ -1,15 +1,12 @@
 package org.Jtech.DTO;
 
-import org.Jtech.Constant.Gender;
-import org.Jtech.Constant.HairType;
-import org.Jtech.Constant.SkinColor;
-import org.Jtech.Constant.SkinType;
+import org.Jtech.Constant.*;
 
 public interface UserDetailsView {
 
     Long getDetailsId();
     SkinType getSkinType();
-    HairType getHairType();
+    ScalpType getScalpType();
     Integer getAge();
     Gender getGender();
     SkinColor getSkinColour();

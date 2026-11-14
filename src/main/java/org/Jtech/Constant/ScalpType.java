@@ -3,7 +3,7 @@ package org.Jtech.Constant;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum HairType {
+public enum ScalpType {
     @JsonProperty("normal")
     NORMAL,
     @JsonProperty("dry")
@@ -17,7 +17,7 @@ public enum HairType {
 
 
     @JsonCreator
-    public static HairType fromString(String value){
-        return HairType.valueOf(value.toUpperCase());
+    public static ScalpType fromString(String value){
+        return ScalpType.valueOf(value.toUpperCase());
     }
 }

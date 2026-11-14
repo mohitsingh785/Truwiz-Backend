@@ -2,6 +2,7 @@ package org.Jtech.Service;
 
 
 import jakarta.transaction.Transactional;
+import org.Jtech.Constant.AllergySeverity;
 import org.Jtech.Constant.OtpPurpose;
 import org.Jtech.DTO.*;
 import org.Jtech.Entity.*;
@@ -14,7 +15,9 @@ import org.Jtech.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,15 +121,21 @@ public class AuthService {
         user.setUserDetails(userDetails);
         userRepository.save(user);
         logger.info("User and user details saved successfully for user={}",user.getEmail());
-        List<Allergies> allergies =
-                allergiesRepository.findAllById(userDetailsDto.getAllergyIds());
+        Map<Long, AllergySeverity> severityById = new LinkedHashMap<>();
+        for (UserAllergyRequest req : userDetailsDto.getAllergies()) {
+            severityById.put(
+                    req.getAllergyId(),
+                    req.getSeverity() != null ? req.getSeverity() : AllergySeverity.MODERATE
+            );
+        }
+        List<Allergies> allergies = allergiesRepository.findAllById(severityById.keySet());
 
-        if (allergies.size() != userDetailsDto.getAllergyIds().size()) {
-            throw new AllergyNotFoundException("Invalid allergy IDs supplied.",user.getEmail());
+        if (allergies.size() != severityById.size()) {
+            throw new AllergyNotFoundException("Invalid allergy IDs supplied.", user.getEmail());
         }
         for (Allergies allergy : allergies) {
-            UserAllergy userAllergy = new UserAllergy(userDetails, allergy);
-            userAllergyRepository.save(userAllergy);
+            AllergySeverity severity = severityById.get(allergy.getAllergyId());
+            userAllergyRepository.save(new UserAllergy(userDetails, allergy, severity));
         }
         logger.info("User register successfully for user={}",user.getEmail());
 

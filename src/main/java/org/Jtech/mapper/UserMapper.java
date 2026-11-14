@@ -1,6 +1,7 @@
 package org.Jtech.mapper;
 
 
+import org.Jtech.Constant.Concern;
 import org.Jtech.DTO.CombinedUserDetails;
 import org.Jtech.DTO.LoginResponse;
 import org.Jtech.DTO.UserDetailsDTO;
@@ -18,15 +19,26 @@ public class UserMapper {
     // Save the UserDetailsDto into the UserDetails Entity
     public UserDetails createUserDetails(UserDetailsDTO userDetailsDTO) {
 
-        return new UserDetails(
+        // 1. Build the entity with the required fields (same as before)
+        UserDetails userDetails = new UserDetails(
                 userDetailsDTO.getSkinType(),
-                userDetailsDTO.getHairType(),
+                userDetailsDTO.getScalpType(),
                 userDetailsDTO.getAge(),
                 userDetailsDTO.getGender(),
                 userDetailsDTO.getSkinColour(),
                 userDetailsDTO.getHeightCm(),
                 userDetailsDTO.getWeightKg()
         );
+
+        // 2. Add concerns, if the user chose any
+        if (userDetailsDTO.getConcerns() != null) {
+            for (Concern concern : userDetailsDTO.getConcerns()) {
+                userDetails.addConcern(concern);
+            }
+        }
+
+        // 3. Now return it
+        return userDetails;
     }
 
 
@@ -38,7 +50,7 @@ public class UserMapper {
                 user.getEmail(),
                 user.getPhoneNumber(),
                 userDetailsView.getSkinType(),
-                userDetailsView.getHairType(),
+                userDetailsView.getScalpType(),
                 userDetailsView.getAge(),
                 user.getUserDetails().getGender(),
                 userDetailsView.getSkinColour(),
