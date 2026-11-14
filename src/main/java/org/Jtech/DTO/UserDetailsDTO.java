@@ -22,7 +22,6 @@ public class UserDetailsDTO {
     private Gender gender;
     @NotNull
     private SkinColor skinColour;
-    @NotNull
     @Valid
     private List<UserAllergyRequest> allergies;
     @NotNull
@@ -34,8 +33,20 @@ public class UserDetailsDTO {
     @DecimalMax("250")
     private Float weightKg;
 
+    // Optional. null = didn't answer → scoring treats it as "not pregnant".
+    private Boolean pregnant;
+
+    // Optional. null = didn't answer → scoring treats it as "not acne-prone".
+    private Boolean acneProne;
+
+    // Optional. Missing = IN. Decides which regulation limits apply.
+    private Region region;
+
     // Optional. Empty or missing = no concerns chosen.
     private Set<Concern> concerns;
+    // Needed by Jackson to build the object from JSON
+    public UserDetailsDTO() {
+    }
 
     public UserDetailsDTO(SkinType skinType, Float weightKg, ScalpType scalpType, Integer age, Gender gender, SkinColor skinColour, List<UserAllergyRequest> allergies, Float heightCm) {
         this.skinType = skinType;
@@ -71,7 +82,29 @@ public class UserDetailsDTO {
     public void setScalpType(ScalpType scalpType) {
         this.scalpType = scalpType;
     }
+    public Boolean getPregnant() {
+        return pregnant;
+    }
 
+    public void setPregnant(Boolean pregnant) {
+        this.pregnant = pregnant;
+    }
+
+    public Boolean getAcneProne() {
+        return acneProne;
+    }
+
+    public void setAcneProne(Boolean acneProne) {
+        this.acneProne = acneProne;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
     public Integer getAge() {
         return age;
     }

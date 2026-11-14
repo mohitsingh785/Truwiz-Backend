@@ -121,6 +121,13 @@ public class AuthService {
         user.setUserDetails(userDetails);
         userRepository.save(user);
         logger.info("User and user details saved successfully for user={}",user.getEmail());
+        // Allergies are optional: missing or empty list = no allergies.
+        List<UserAllergyRequest> allergyRequests = userDetailsDto.getAllergies();
+        if (allergyRequests == null || allergyRequests.isEmpty()) {
+            logger.info("User register successfully (no allergies) for user={}", user.getEmail());
+            return;
+        }
+
         Map<Long, AllergySeverity> severityById = new LinkedHashMap<>();
         for (UserAllergyRequest req : userDetailsDto.getAllergies()) {
             severityById.put(

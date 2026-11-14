@@ -155,7 +155,9 @@ public class AuthController {
     @Operation(
             summary = "Add User and Details",
             description = "Add a new user along with their details: skin and scalp type, allergies with severity, "
-                    + "and skin/hair concerns. `concerns` is optional; `severity` defaults to moderate.",
+                    + "skin/hair concerns, pregnancy, acne-prone and region. "
+                    + "`allergies`, `concerns`, `pregnant`, `acneProne` and `region` are optional; "
+                    + "`severity` defaults to moderate and `region` defaults to in.",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "User and UserDetails data to create a new user.",
                     required = true,
@@ -184,7 +186,10 @@ public class AuthController {
                                               { "allergyId": 3, "severity": "severe" },
                                               { "allergyId": 4 }
                                             ],
-                                            "concerns": ["acne", "dandruff"]
+                                            "concerns": ["acne", "dandruff"],
+                                            "pregnant": false,
+                                            "acneProne": true,
+                                            "region": "in"
                                           }
                                         }
                                         """
