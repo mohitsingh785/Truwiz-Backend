@@ -19,4 +19,13 @@ public interface InciIngredientRepository extends JpaRepository<InciIngredient,L
            where i.inciId in :ids
            """)
     List<InciIngredient> findWithSynonymsAndTagsByIds(@Param("ids") Set<Long> ids);
+
+
+    @Query("""
+       select distinct i from InciIngredient i
+       left join fetch i.inciTags tm
+       left join fetch tm.inciTag
+       where i.inciId in :ids
+       """)
+    List<InciIngredient> findWithTagsByIds(@Param("ids") Set<Long> ids);
 }

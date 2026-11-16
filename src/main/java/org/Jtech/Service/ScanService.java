@@ -2,10 +2,7 @@ package org.Jtech.Service;
 
 import org.Jtech.Constant.ProductStatus;
 import org.Jtech.Constant.VerificationStatus;
-import org.Jtech.DTO.InciSummaryDto;
-import org.Jtech.DTO.ProductDetailsDto;
-import org.Jtech.DTO.ProductIngredientLineDto;
-import org.Jtech.DTO.ScanResponse;
+import org.Jtech.DTO.*;
 import org.Jtech.Entity.InciIngredient;
 import org.Jtech.Entity.Product;
 import org.Jtech.Entity.ProductIngredient;
@@ -28,20 +25,22 @@ import java.util.stream.Collectors;
 public class ScanService {
 
 
-  private static final Logger logger = LoggerFactory.getLogger(ScanService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScanService.class);
 
     private final ProductService productService;
     private final InciService inciService;
     private final ScanMapper scanMapper;
+    private final ScoreService scoreService;
 
-    public ScanService(ProductService productService, InciService inciService, ScanMapper scanMapper) {
+    public ScanService(ProductService productService, InciService inciService, ScanMapper scanMapper, ScoreService scoreService) {
         this.productService = productService;
         this.inciService = inciService;
         this.scanMapper = scanMapper;
+        this.scoreService = scoreService;
     }
 
 
-    public ScanResponse scan(String barcode,Long userId) {
+    public ScanResponse scan(String barcode, Long userId) {
         long start = System.currentTimeMillis();
         logger.info("Scan requested: barcode={}, userId={}", barcode, userId);
 
@@ -66,9 +65,9 @@ public class ScanService {
                     barcode, inciIds, inciById.keySet());
         }
 
+        // 5. ScoreService.score(product.ingredients(), userId) → ScoreResult
 
-
-        // 5. ScoringService.score(product.ingredients(), userId) → ScoreResult
+        ScoreResult scoreResult = scoreService.getProductScore(product, inciIds, userId);
 
         // 6. ScanMapper.toResponse(product, summaries /*, scoreResult later */) → ScanResponse
 

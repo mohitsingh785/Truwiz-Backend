@@ -144,6 +144,13 @@ public class UserService implements UserDetailsService {
         return userMapper.toProfileResponse(details);
     }
 
+
+    @Transactional(readOnly = true)
+    public UserScoringProfile loadUserScoreProfile(Long userId) {
+        org.Jtech.Entity.UserDetails details = loadProfile(userId);
+        return userMapper.toUserScoringProfileResponse(details);
+    }
+
     // PATCH /v1/users/me/profile — null = unchanged; lists replace the whole set
     @Transactional
     public UserProfileResponse updateMyProfile(Long userId, String email, UserProfileUpdateRequest request) {
