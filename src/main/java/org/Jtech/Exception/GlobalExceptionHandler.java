@@ -247,4 +247,13 @@ public class GlobalExceptionHandler {
         problemDetail.setInstance(URI.create(request.getRequestURI()));
         return problemDetail;
     }
+
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ProblemDetail ProfileNotFoundException(ProfileNotFoundException ex, HttpServletRequest request) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+        problemDetail.setTitle("Profile Not found");
+        problemDetail.setProperty("timestamp", Instant.now());
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
+        return problemDetail;
+    }
 }

@@ -51,7 +51,9 @@ public class ProductService {
                 line.getIngredientOrder(),
                 inci != null ? inci.getInciId() : null,      // proxy: reads the id, no query
                 line.getRawLabelName(),
-                line.getDeclaredPct());
+                line.getDeclaredPct(),
+                line.getEstimatedPct(),
+                line.getEstimationMethod());
     }
 
 }

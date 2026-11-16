@@ -83,6 +83,38 @@ public class UserMapper {
         );
     }
 
+    public UserScoringProfile toUserScoringProfileResponse(UserDetails details) {
+
+        List<UserAllergyEntry> allergies = details.getUserAllergies() == null
+                ? List.of()
+                : details.getUserAllergies().stream()
+                  .map(ua -> new UserAllergyEntry(
+                          ua.getAllergy().getAllergyId(),
+                          ua.getAllergy().getAllergyName(),
+                          ua.getSeverity()))
+                  .sorted(Comparator.comparing(UserAllergyEntry::allergyId))
+                  .toList();
+
+        Set<Concern> concerns = details.getUserConcerns().stream()
+                .map(UserConcern::getConcern)
+                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Concern.class)));
+
+        return new UserScoringProfile(
+                details.getSkinType(),
+                details.getScalpType(),
+                details.getAge(),
+                details.getGender(),
+                details.getSkinColour(),
+                details.getHeightCm(),
+                details.getWeightKg(),
+                details.getPregnant(),
+                details.getAcneProne(),
+                details.getRegion(),
+                allergies,
+                concerns
+        );
+    }
+
 
     // User + profile + token → login response
     public LoginResponse createLoginResponse(User user, UserProfileResponse profile, String token) {
