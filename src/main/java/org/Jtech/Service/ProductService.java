@@ -39,6 +39,8 @@ public class ProductService {
                 brand != null ? brand.getBrandId() : null,
                 brand != null ? brand.getBrandName() : p.getSubmittedBrandName(),
                 p.getCategory() != null ? p.getCategory().getCategoryName() : null,
+                p.getCategory() != null ? p.getCategory().getArea() : null,
+                p.getCategory() != null ? p.getCategory().getContactType() : null,
                 p.getImageUrl(),
                 p.getStatus(),
                 p.getVerificationStatus(),

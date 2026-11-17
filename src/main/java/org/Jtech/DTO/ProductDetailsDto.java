@@ -1,5 +1,7 @@
 package org.Jtech.DTO;
 
+import org.Jtech.Constant.ConcernArea;
+import org.Jtech.Constant.ContactType;
 import org.Jtech.Constant.ProductStatus;
 import org.Jtech.Constant.VerificationStatus;
 
@@ -11,6 +13,8 @@ public record ProductDetailsDto(
         Long brandId,             // null when the brand isn't linked yet
         String brandName,
         String categoryName,
+        ConcernArea area,
+        ContactType contactType,
         String imageUrl,
         ProductStatus status,
         VerificationStatus verificationStatus,
