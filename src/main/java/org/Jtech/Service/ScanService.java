@@ -69,7 +69,9 @@ public class ScanService {
 
         ScoreResult scoreResult = scoreService.getProductScore(product, inciIds, userId);
 
-        // 6. ScanMapper.toResponse(product, summaries /*, scoreResult later */) → ScanResponse
+        // 6. Calling the LLM Application to Provide the summaries for final response
+
+        // 7. ScanMapper.toResponse(product, summaries /*, scoreResult later */) → ScanResponse
 
         // 7. Log barcode, userId, ingredient count, matched count, time taken → return
         return new ScanResponse();
