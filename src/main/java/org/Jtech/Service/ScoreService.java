@@ -35,8 +35,7 @@ public class ScoreService {
         // Creating the Scoring Input to prepare the data for ScoringEngine.score, it will be containing List<ProductIngredientLineDto>, Map<Long, IngredientScoreData>,UserScoringProfile and the productContext(ex. Hair or Skin)
         ScoringInput scoringInput= new ScoringInput(product.ingredients(),ingredientScoreDataMap,userScoringProfile,productContext);
         // Calling the ScoreEngine and calculate the actual score using the provided details and save it to ScoreResult DTO
-        ScoreResult scoreResult=scoringEngine.score(scoringInput);
         // Return the scoreResult back to ScanService
-        return new ScoreResult();
+        return scoringEngine.score(scoringInput);
     }
 }
